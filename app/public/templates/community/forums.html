@@ -1128,6 +1128,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="card border-0 bg-dark card-body">
+                    <h1 class="d-md-none pb-3">{{forum.details.name}}</h1>
                     <h3 class="h5">Temas destacados</h3>
                     <ul id="most-used-in-forum" class="nav flex-row fs-sm">
                       {% for tag in tags %}
@@ -1152,44 +1153,47 @@
                     </script>
                 </div>
             </div>
+            {% if wUser.not_login %}
             <div class="col-md-6 p-3">
-                <div class="card card-body border-0 bg-gradient-primary">
-                    <div class="row">
-                        <div class="parallax col-md-4" style="max-width: 100px;">
-                            <div class="parallax-layer" data-depth="0.1">
-                              <img src="{{url_for('static',filename='img/landing/online-courses/hero/layer01.png')}}" alt="Layer">
-                            </div>
-                            <div class="parallax-layer" data-depth="0.13">
-                              <img src="{{url_for('static',filename='img/landing/online-courses/hero/layer02.png')}}" alt="Layer">
-                            </div>
-                            <div class="parallax-layer zindex-5" data-depth="-0.12">
-                              <img src="{{url_for('static',filename='img/landing/online-courses/hero/layer03.png')}}" alt="Layer">
-                            </div>
-                            <div class="parallax-layer zindex-3" data-depth="0.27">
-                              <img src="{{url_for('static',filename='img/landing/online-courses/hero/layer04.png')}}" alt="Layer">
-                            </div>
-                            <div class="parallax-layer zindex-1" data-depth="-0.18">
-                              <img src="{{url_for('static',filename='img/landing/online-courses/hero/layer05.png')}}" alt="Layer">
-                            </div>
-                            <div class="parallax-layer zindex-1" data-depth="0.1">
-                              <img src="{{url_for('static',filename='img/landing/online-courses/hero/layer06.png')}}" alt="Layer">
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="ms-3">
-                                <h1 class="h5 mb-0">Regístrate y consigue ventajas por participar en discusiones</h1>
-                                <span class="">Te regalamos <a class="text-light" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="¿Qué son los     ?">50 Leafs</a> sólo por registrarte</span>
-                                <div class="d-flex mt-2">
-                                    <button class="btn btn-sm btn-outline-secondary">Ventajas</button>
-                                    <button class="ms-3 btn btn-sm btn-info" href="#register" data-bs-toggle="modal">Unirme a la comunidad</button>
-                                </div>
-                            </div>
+              <div class="card card-body border-0 bg-gradient-primary">
+                  <div class="row">
+                      <div class="parallax d-none d-md-block col-md-4" style="max-width: 100px;">
+                          <div class="parallax-layer" data-depth="0.1">
+                            <img src="{{url_for('static',filename='img/landing/online-courses/hero/layer01.png')}}" alt="Layer">
+                          </div>
+                          <div class="parallax-layer" data-depth="0.13">
+                            <img src="{{url_for('static',filename='img/landing/online-courses/hero/layer02.png')}}" alt="Layer">
+                          </div>
+                          <div class="parallax-layer zindex-5" data-depth="-0.12">
+                            <img src="{{url_for('static',filename='img/landing/online-courses/hero/layer03.png')}}" alt="Layer">
+                          </div>
+                          <div class="parallax-layer zindex-3" data-depth="0.27">
+                            <img src="{{url_for('static',filename='img/landing/online-courses/hero/layer04.png')}}" alt="Layer">
+                          </div>
+                          <div class="parallax-layer zindex-1" data-depth="-0.18">
+                            <img src="{{url_for('static',filename='img/landing/online-courses/hero/layer05.png')}}" alt="Layer">
+                          </div>
+                          <div class="parallax-layer zindex-1" data-depth="0.1">
+                            <img src="{{url_for('static',filename='img/landing/online-courses/hero/layer06.png')}}" alt="Layer">
+                          </div>
+                      </div>
+                      <div class="col-md-8">
+                          <div class="ms-3">
+                              <h2 class="h5 mb-0">Regístrate y consigue ventajas por participar en discusiones</h2>
+                              <span class="">Te regalamos <a class="text-light" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="¿Qué son los     ?">50 Leafs</a> sólo por registrarte</span>
+                              <div class="d-flex mt-2">
+                                  <button class="btn btn-sm btn-outline-secondary">Ventajas</button>
+                                  <button class="ms-3 btn btn-sm btn-info" href="#register" data-bs-toggle="modal">Unirme a la comunidad</button>
+                              </div>
+                          </div>
 
-                        </div>
-                    </div>
+                      </div>
+                  </div>
 
-                </div>
+              </div>
             </div>
+            {% else %}
+            {% endif %}
         </div>
     </div>
 
@@ -1356,7 +1360,7 @@
                     {% endif %}
                 </div>
             </div>
-            <nav aria-label="breadcrumb">
+            <nav aria-label="breadcrumb" class="d-none d-md-block">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Comunidad</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{forum.details.name}}</li>
@@ -1366,7 +1370,7 @@
 
         <div class="row">
           <div class="col-md-12">
-            <div class="pt-4 swiper overflow-hidden w-100 ms-n2 ms-md-0 pe-3 pe-sm-4" style="max-height: 34.5rem;" data-swiper-options='{
+            <div class="pt-md-4 swiper overflow-hidden w-100 ms-md-0 pe-md-3 pe-md-4" style="max-height: 34.5rem;" data-swiper-options='{
               "direction": "vertical",
               "slidesPerView": "auto",
               "freeMode": true,
@@ -1393,7 +1397,7 @@
                     {% endif %}
                     {% endwith %}
                     
-                    <div class="border-white border-bottom m-2">
+                    <div class="border-white border-bottom m-md-2">
                       {% for i in forum.threads or forum.posts|sort(attribute='created', reverse=True) %}
                       {% if i.pinned %}
                       <div id="pinned" class="pb-2">
@@ -1447,25 +1451,67 @@
                             </div>
                         </li>-->
 
-                        <li class="m-2 ms-0 me-0">
+                        <li class="m-md-2 ms-0 me-0">
                           <div class="card bg-secondary">
                             <div class="card-body row border-0 pb-0">
-                              <button class="btn btn-outline-secondary rounded-circle btn-icon me-3 border-0" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tema fijado">
-                                  <i class='bx bx-pin'></i>
-                              </button>
-                              <button class="rounded-circle btn btn-light btn-icon me-3" type="button">
+                              <button class="btn btn-outline-secondary rounded-circle btn-icon me-3 border-0 d-none d-md-block" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tema fijado"><i class='bx bx-pin'></i></button>
+                              <button class="rounded-circle btn btn-light btn-icon me-3 d-none d-md-block" type="button">
                                   <img src="{{url_for('static',filename='img/avatars/18.jpg')}}" class="d-block rounded-circle" width="40" alt="Usuario">
                               </button>
 
-
-                              <div class="ms-2 col">
+                              <div class="ms-md-2 col d-none d-md-block">
                                 <h2 class="m-0 p-0 h6" style="margin:0;padding:0"><a href="{{url_for('public.forums_post',slug=forum.slug,post_slug=i.slug)}}">{{i.title}}</a></h2>
                                 <div class="d-flex">
                                     <span class="fs-xs p-0" style="text-decoration: none;">
                                         <a href="" class="btn btn-sm p-0 ms-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Usuario que ha creado el hilo">{{i.author}}</a>
                                     </span>
-                                    <span class="ms-3 fs-xs p-0 text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Fecha de creación">{{i.created.strftime('%d/%m/%Y %H:%M')}}</span>
+                                    <span class="ms-3 fs-xs p-0 text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Fecha de creación">
+                                      {% set now = now %}
+                                      {% set date = i.created %}
+                                      {% set delta = now - date %}
+                                      {% set days = delta.days %}
+                                      {% if days == 0 %}
+                                        {% set day = 'Hoy' %}
+                                      {% elif days == 1 %}
+                                        {% set day = 'Ayer' %}
+                                      {% elif days == 2 %}
+                                        {% set day = 'Antes de ayer' %}
+                                      {% else %}
+                                        {% set day = date.strftime('%A') %}
+                                      {% endif %}
+                                      {% set time = date.strftime('%H:%M horas') %}
+                                      {{ day }}, a las {{ time }}
+                                    </span>
                                     <span class="ms-3 fs-xs p-0 text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Comentarios"><strong>{{i.comments|count}}</strong><i class="ms-1 bx bx-message-square-dots fs-base"></i></span>
+                                    <span class="ms-2 fs-xs p-0 text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Leafs"><strong>{{i.leafs|count}}</strong><i class="ms-1 bx bx-leaf fs-base"></i></span>
+                                </div>
+                              </div>
+
+                              <div class="ms-md-2 col-12 d-md-none">
+                                <h2 class="m-0 p-0 h6 fs-sm" style="margin:0;padding:0"><a href="{{url_for('public.forums_post',slug=forum.slug,post_slug=i.slug)}}"><span class="fw-light me-2">[Fijado]</span>{{i.title}}</a></h2>
+                                <div class="d-flex mt-2 mb-2">
+                                    <span class="fs-xs p-0" style="text-decoration: none;">
+                                        <a href="" class="btn btn-sm p-0 ms-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Usuario que ha creado el hilo">{{i.author}}</a>
+                                    </span>
+                                    <span class="ms-3 fs-xs text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Fecha de creación">
+                                      
+                                      {% set now = now %}
+                                      {% set date = i.created %}
+                                      {% set delta = now - date %}
+                                      {% set days = delta.days %}
+                                      {% if days == 0 %}
+                                        {% set day = 'Hoy' %}
+                                      {% elif days == 1 %}
+                                        {% set day = 'Ayer' %}
+                                      {% elif days == 2 %}
+                                        {% set day = 'Antes de ayer' %}
+                                      {% else %}
+                                        {% set day = date.strftime('%A') %}
+                                      {% endif %}
+                                      {% set time = date.strftime('%H:%M horas') %}
+                                      {{ day }}, {{ time }}
+                                    </span>
+                                    <span class="ms-auto fs-xs p-0 text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Comentarios"><strong>{{i.comments|count}}</strong><i class="ms-1 bx bx-message-square-dots fs-base"></i></span>
                                     <span class="ms-2 fs-xs p-0 text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Leafs"><strong>{{i.leafs|count}}</strong><i class="ms-1 bx bx-leaf fs-base"></i></span>
                                 </div>
                               </div>
@@ -1499,7 +1545,7 @@
                                     </div>
                                 </div>
                               {% else %}
-                              <div class="col-2">
+                              <div class="col-2 d-none d-md-block">
                                 <span class="fs-sm mb-0">Fecha:</span>
                                 <div class="d-flex">
                                     <span class="fs-xs text-light mt-0">
@@ -1536,27 +1582,15 @@
 
                     {% for i in forum.threads or forum.posts|sort(attribute='created', reverse=True) %}
                       {% if not i.pinned %}
-                      <li class="m-2">
-                        <div class="card bg-secondary border-0">
-                        <div class="card-body row pb-0 border-0">
-                            {% if wUser.not_login or wUser.access.type == 'user' %}
-                            <button class="rounded-circle btn btn-danger btn-icon" type="button">
-                              <img src="{{url_for('static',filename='img/avatars/anonymous.png')}}" class="d-block rounded-circle" width="40" alt="Usuario">
-                            </button>
-                            {% else %}
-                            <div class="d-flex col-2">
-                              <form action="{{url_for('auth.forum_posts_pin', forum=forum.slug, post=i.slug)}}" class="me-3" method="POST">
-                                <button class="btn btn-outline-success rounded-circle btn-icon border-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Fijar tema">
-                                  <i class='bx bx-pin'></i>
-                                </button>
-                              </form>
-                              <button class="rounded-circle btn btn-danger btn-icon" type="button">
-                                <img src="{{url_for('static',filename='img/avatars/anonymous.png')}}" class="d-block rounded-circle" width="40" alt="Usuario">
+                      <div id="not-pinned" class="pb-2">
+                        <li class="m-md-2 ms-0 me-0">
+                          <div class="card bg-secondary">
+                            <div class="card-body row border-0 pb-0">
+                              <button class="rounded-circle btn btn-light btn-icon me-3 d-none d-md-block" type="button">
+                                  <img src="{{url_for('static',filename='img/avatars/18.jpg')}}" class="d-block rounded-circle" width="40" alt="Usuario">
                               </button>
-                            </div>
-                            {% endif %}
-                            
-                            <div class="ms-2 col">
+  
+                              <div class="ms-md-2 col d-none d-md-block">
                                 <h2 class="m-0 p-0 h6" style="margin:0;padding:0"><a href="{{url_for('public.forums_post',slug=forum.slug,post_slug=i.slug)}}">{{i.title}}</a></h2>
                                 <div class="d-flex">
                                     <span class="fs-xs p-0" style="text-decoration: none;">
@@ -1577,28 +1611,85 @@
                                         {% set day = date.strftime('%A') %}
                                       {% endif %}
                                       {% set time = date.strftime('%H:%M horas') %}
-                                      {{ day }}, a las {{ time }}                                                                                                             
+                                      {{ day }}, a las {{ time }}
                                     </span>
                                     <span class="ms-3 fs-xs p-0 text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Comentarios"><strong>{{i.comments|count}}</strong><i class="ms-1 bx bx-message-square-dots fs-base"></i></span>
                                     <span class="ms-2 fs-xs p-0 text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Leafs"><strong>{{i.leafs|count}}</strong><i class="ms-1 bx bx-leaf fs-base"></i></span>
                                 </div>
-                            </div>
-
-                            {% if 'last_comment' in i %}
-                              <div class="col-2">
+                              </div>
+  
+                              <div class="ms-md-2 col-12 d-md-none">
+                                <h2 class="m-0 p-0 h6 fs-sm" style="margin:0;padding:0"><a href="{{url_for('public.forums_post',slug=forum.slug,post_slug=i.slug)}}">{{i.title}}</a></h2>
+                                <div class="d-flex mt-2 mb-2">
+                                    <span class="fs-xs p-0" style="text-decoration: none;">
+                                        <a href="" class="btn btn-sm p-0 ms-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Usuario que ha creado el hilo">{{i.author}}</a>
+                                    </span>
+                                    <span class="ms-3 fs-xs text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Fecha de creación">
+                                      
+                                      {% set now = now %}
+                                      {% set date = i.created %}
+                                      {% set delta = now - date %}
+                                      {% set days = delta.days %}
+                                      {% if days == 0 %}
+                                        {% set day = 'Hoy' %}
+                                      {% elif days == 1 %}
+                                        {% set day = 'Ayer' %}
+                                      {% elif days == 2 %}
+                                        {% set day = 'Antes de ayer' %}
+                                      {% else %}
+                                        {% set day = date.strftime('%A') %}
+                                      {% endif %}
+                                      {% set time = date.strftime('%H:%M horas') %}
+                                      {{ day }}, {{ time }}
+                                    </span>
+                                    <span class="ms-auto fs-xs p-0 text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Comentarios"><strong>{{i.comments|count}}</strong><i class="ms-1 bx bx-message-square-dots fs-base"></i></span>
+                                    <span class="ms-2 fs-xs p-0 text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Leafs"><strong>{{i.leafs|count}}</strong><i class="ms-1 bx bx-leaf fs-base"></i></span>
+                                </div>
+                              </div>
+  
+                              {% if 'last_comment' in i %}
+                                <div class="col-2">
+                                  <span class="fs-sm mb-0">Fecha:</span>
+                                  <div class="d-flex">
+                                      <span class="fs-xs text-light mt-0">
+                                        Hace
+  
+                                        {% set time = now-i.last_comment.created %}
+                      
+                                        {{ str(((now-i.last_comment.created).seconds/60)|round)[0:1]+' minutos' if time.days == 0 and 10 > (time.seconds)/60 > 0}}
+                                        {{ str(((now-i.last_comment.created).seconds/60)|round)[0:2]+' minutos' if time.days == 0 and 60 > (time.seconds)/60 >= 10}}
+                                        {{ '1 hora y '+str(((now-i.last_comment.created).seconds/60)-60|round)[0:1]+' minutos' if time.days == 0 and 70 > (time.seconds)/60 > 60}}
+                                        {{ '1 hora y '+str(((now-i.last_comment.created).seconds/60)-60|round)[0:2]+' minutos' if time.days == 0 and 120 > (time.seconds)/60 >= 70}}
+                                        {{ str(((now-i.last_comment.created).seconds/3600)|round)[0]+' horas' if time.days == 0 and 720 > (time.seconds)/60 > 120}}
+                                        {{ str(((now-i.last_comment.created).seconds/3600)|round)[0:2]+' horas' if time.days == 0 and (time.seconds)/60 > 720}}
+                                        
+                                        {{ '1 día' if 2 > time.days > 0 }}
+                                        {{ str(time.days)+' días' if time.days > 1 }}                  
+                                      </span>
+                                  </div>
+                                </div>
+                                <div class="col">
+                                    <span class="fs-sm">Último mensaje:</span><br>
+                                    <div class="d-flex pb-2">
+                                      <a href="{{url_for('public.forums_post',slug=forum.slug,post_slug=i.slug)}}#{{i.last_comment.comment}}" class="btn btn-sm pt-0 ps-0" data-scroll>{{i.last_comment.comment[:40]}} ..</a>
+                                      <a href="" class="text-light fs-xs pt-0 ms-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Último usuario que ha comentado">{{i.last_comment.author}}</a>
+                                    </div>
+                                </div>
+                              {% else %}
+                              <div class="col-2 d-none d-md-block">
                                 <span class="fs-sm mb-0">Fecha:</span>
                                 <div class="d-flex">
                                     <span class="fs-xs text-light mt-0">
                                       Hace
-
-                                      {% set time = now-i.last_comment.created %}
+  
+                                      {% set time = now-i.created %}
                     
-                                      {{ str(((now-i.last_comment.created).seconds/60)|round)[0:1]+' minutos' if time.days == 0 and 10 > (time.seconds)/60 > 0}}
-                                      {{ str(((now-i.last_comment.created).seconds/60)|round)[0:2]+' minutos' if time.days == 0 and 60 > (time.seconds)/60 >= 10}}
-                                      {{ '1 hora y '+str(((now-i.last_comment.created).seconds/60)-60|round)[0:1]+' minutos' if time.days == 0 and 70 > (time.seconds)/60 > 60}}
-                                      {{ '1 hora y '+str(((now-i.last_comment.created).seconds/60)-60|round)[0:2]+' minutos' if time.days == 0 and 120 > (time.seconds)/60 >= 70}}
-                                      {{ str(((now-i.last_comment.created).seconds/3600)|round)[0]+' horas' if time.days == 0 and 720 > (time.seconds)/60 > 120}}
-                                      {{ str(((now-i.last_comment.created).seconds/3600)|round)[0:2]+' horas' if time.days == 0 and (time.seconds)/60 > 720}}
+                                      {{ str(((now-i.created).seconds/60)|round)[0:1]+' minutos' if time.days == 0 and 10 > (time.seconds)/60 > 0}}
+                                      {{ str(((now-i.created).seconds/60)|round)[0:2]+' minutos' if time.days == 0 and 60 > (time.seconds)/60 >= 10}}
+                                      {{ '1 hora y '+str(((now-i.created).seconds/60)-60|round)[0:1]+' minutos' if time.days == 0 and 70 > (time.seconds)/60 > 60}}
+                                      {{ '1 hora y '+str(((now-i.created).seconds/60)-60|round)[0:2]+' minutos' if time.days == 0 and 120 > (time.seconds)/60 >= 70}}
+                                      {{ str(((now-i.created).seconds/3600)|round)[0]+' horas' if time.days == 0 and 720 > (time.seconds)/60 > 120}}
+                                      {{ str(((now-i.created).seconds/3600)|round)[0:2]+' horas' if time.days == 0 and (time.seconds)/60 > 720}}
                                       
                                       {{ '1 día' if 2 > time.days > 0 }}
                                       {{ str(time.days)+' días' if time.days > 1 }}                  
@@ -1606,42 +1697,16 @@
                                 </div>
                               </div>
                               <div class="col">
-                                  <span class="fs-sm">Último mensaje:</span><br>
-                                  <div class="d-flex pb-2">
-                                    <a href="{{url_for('public.forums_post',slug=forum.slug,post_slug=i.slug)}}#{{i.last_comment.comment}}" class="btn btn-sm pt-0 ps-0" data-scroll>{{i.last_comment.comment[:40]}} ..</a>
-                                    <a href="" class="text-light fs-xs pt-0 ms-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Último usuario que ha comentado">{{i.last_comment.author}}</a>
-                                  </div>
-                              </div>
-                            {% else %}
-                            <div class="col-2">
-                              <span class="fs-sm mb-0">Fecha:</span>
-                              <div class="d-flex">
-                                  <span class="fs-xs text-light mt-0">
-                                    Hace
-
-                                    {% set time = now-i.created %}
-                  
-                                    {{ str(((now-i.created).seconds/60)|round)[0:1]+' minutos' if time.days == 0 and 10 > (time.seconds)/60 > 0}}
-                                    {{ str(((now-i.created).seconds/60)|round)[0:2]+' minutos' if time.days == 0 and 60 > (time.seconds)/60 >= 10}}
-                                    {{ '1 hora y '+str(((now-i.created).seconds/60)-60|round)[0:1]+' minutos' if time.days == 0 and 70 > (time.seconds)/60 > 60}}
-                                    {{ '1 hora y '+str(((now-i.created).seconds/60)-60|round)[0:2]+' minutos' if time.days == 0 and 120 > (time.seconds)/60 >= 70}}
-                                    {{ str(((now-i.created).seconds/3600)|round)[0]+' horas' if time.days == 0 and 720 > (time.seconds)/60 > 120}}
-                                    {{ str(((now-i.created).seconds/3600)|round)[0:2]+' horas' if time.days == 0 and (time.seconds)/60 > 720}}
-                                    
-                                    {{ '1 día' if 2 > time.days > 0 }}
-                                    {{ str(time.days)+' días' if time.days > 1 }}                  
-                                  </span>
-                              </div>
-                            </div>
-                            <div class="col">
-                              <span class="fs-sm">Último mensaje:</span><br>
-                              <div class="d-flex">
-                                <p class="fs-xs text-light">Aún no tiene ningún comentario</p>
-                              </div>
-                            {% endif %}
-                        </div>                      
-                        </div>
-                      </li>
+                                <span class="fs-sm">Último mensaje:</span><br>
+                                <div class="d-flex">
+                                  <p class="fs-xs text-light">Aún no tiene ningún comentario</p>
+                                </div>
+                              {% endif %}
+                              </div>       
+                            </div>               
+                          </div>
+                        </li>
+                      </div>
                       {% endif %}
                     {% else %}
                     <li class="m-2">

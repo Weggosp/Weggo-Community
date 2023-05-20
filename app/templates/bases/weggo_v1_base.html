@@ -242,7 +242,7 @@
           <button class="btn-close position-absolute top-0 end-0 mt-3 me-3" type="button" data-bs-dismiss="modal"></button>
           <div class="row mx-0 align-items-center">
             <div class="col-md-6 border-end-md p-4 p-sm-5">
-              <h2 class="h3 mb-4 mb-sm-5">Conéctate a la<br>comunidad de cámpers.</h2><img class="d-block mx-auto" src="{{url_for('static',filename='svg/signin-modal/signin.svg')}}" width="344" alt="Illustration">
+              <h2 class="h3 mb-4 mb-sm-5">Conéctate a la<br>comunidad de cámpers.</h2><img class="d-none d-md-block mx-auto" src="{{url_for('static',filename='svg/signin-modal/signin.svg')}}" width="344" alt="Illustration">
               <div class="mt-4 mt-sm-5">¿No tienes cuenta? <a href="#register" data-bs-toggle="modal" data-bs-dismiss="modal">Regístrate aquí</a></div>
             </div>
             <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5"><a class="btn btn-outline-danger rounded-pill w-100 mb-3 disabled" href="{{url_for('api.login_google')}}"><i class="fi-google fs-lg me-1"></i>Conectarme con Google <span class="ms-2 badge bg-warning fs-xs">¡Próximamente!</span></a>
@@ -284,7 +284,7 @@
           <div class="row mx-0 align-items-center">
             <div class="col-md-6 border-end-md p-4 p-sm-5">
               <h2 class="h3 mb-4 mb-sm-5">Únete a Weggo España.<br>Consigue increíbles ventajas:</h2>
-              <img class="d-block mx-auto" src="{{url_for('static',filename='svg/signin-modal/signup.svg')}}" width="344" alt="Illustration">
+              <img class="d-none d-md-block mx-auto" src="{{url_for('static',filename='svg/signin-modal/signup.svg')}}" width="344" alt="Illustration">
               <div class="mt-sm-4 pt-md-3">¿Ya tienes una cuenta? <a href="#connect" data-bs-toggle="modal" data-bs-dismiss="modal">conéctate</a></div>
             </div>
             <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5"><a class="btn btn-outline-danger rounded-pill w-100 mb-3 disabled" href="{{url_for('api.login_google')}}"><i class="fi-google fs-lg me-1"></i>Registrarme con Google <span class="ms-2 badge bg-warning fs-xs">¡Próximamente!</span></a>
@@ -386,7 +386,7 @@
   </header>
   {% else %}
   <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page -->
-  <header class="header navbar navbar-expand-lg bg-light navbar-sticky">
+  <header class="header navbar navbar-expand-lg bg-light navbar-sticky p-0">
     <div class="container px-3">
       <div class="tilt-3d position-relative bg-dark ratio ratio-4x3 pe-3 me-5" data-tilt data-tilt-glare data-tilt-max-glare="0.4" style="max-width: 120px;">
         <a href="/" class="navbar-brand">
@@ -502,7 +502,7 @@
   {% endblock %}
 
   {% block main %}
-  <main id="content" role="main" class="page-wrapper {{ '' if header_landing else 'py-md-3' }}">
+  <main>
     {% if messages %}
     <!-- Messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -617,7 +617,7 @@
 
   <footer class="">
     <div class="py-2">
-      <div class="text-center fs-sm">&copy; Comunidad de <strong>Campers</strong>. Creado por <a href='https://linkedin.com/in/ruben-ayuso' class='d-inline-block nav-link p-0' target='_blank' rel='noopener'>Rubén Ayuso</a></div>
+      <div class="text-center fs-sm d-none d-md-block">&copy; Comunidad de <strong>Campers</strong>. Creado por <a href='https://linkedin.com/in/ruben-ayuso' class='d-inline-block nav-link p-0' target='_blank' rel='noopener'>Rubén Ayuso</a></div>
     </div>
   </footer>
   {% endblock %}

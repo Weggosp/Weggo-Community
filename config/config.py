@@ -9,7 +9,7 @@
 from dotenv import load_dotenv
 from pathlib import Path
 
-application_env = 'development' # 'development', 'testing' or 'deployment'
+application_env = 'deployment' # 'development', 'testing' or 'deployment'
 
 from .settings import Config
 Config(application_env)

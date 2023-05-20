@@ -20,7 +20,7 @@
 {% endwith %}
 
 {% if news %}
-<section id="weggo-news">
+<section id="weggo-news" class="py-md-3">
   <div class="container mb-0">
     <div class="col-12 mb-3">
       <div class="d-sm-flex justify-content-between">
@@ -105,26 +105,18 @@
 </section>
 {% endif %}
 
-<style>
-  .poem {
-  overflow: scroll;
-  scrollbar-color: red orange;
-  scrollbar-width: thin;
-}
-</style>
-
-<section id="weggo-forums">
-  <div class="container py-3">
+<section id="weggo-forums" class="pt-0">
+  <div class="container py-md-3">
     <!--<div class="d-flex">
       <a class="ms-auto m-2 fs-lg nav-link" href="">Ver todos los foros</a>
     </div>-->
-    <div class="card h-100">
+    <div class="card border-0 bg-dark h-100">
       <div class="row">
         
         <div class="col-md-9">
           {% if 'access' in wUser %}
           {% if wUser.access.type == 'moderator' and wUser.access.range > 2 or wUser.access.type == 'administrator' %}
-          <div class="container d-flex m-3">
+          <div class="container d-flex m-md-3">
             <button class="btn btn-sm btn-danger me-md-3 fs-6" href="#createForum" data-bs-toggle="modal"><i class="bx fs-5 bx-folder-plus me-2"></i>Crear foro</button>
             <div class="modal fade" id="createForum" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog modal-lg modal-dialog-centered p-2 my-0 mx-auto" style="max-width: 950px;">
@@ -283,8 +275,8 @@
           {% endif %}
           {% endif %}
 
-          <div class="card border-0 bg-dark card-body m-3">
-            <h3 class="h5">Categorías</h3>
+          <div class="card border-0 bg-dark card-body p-0 ps-2 p-md-3 m-md-3">
+            <h3 class="h5 mb-1 mb-md-3">Categorías</h3>
             <ul class="nav flex-row fs-sm">
               <li class="nav-item mb-1 me-2">
                 <a href="#" class="nav-link py-1 px-0">Todas <span class="fw-normal opacity-60 ms-1">({{categories|count}})</span></a>
@@ -297,7 +289,7 @@
             </ul>
           </div>
 
-          <div class="pt-4 swiper overflow-hidden w-100 ms-n2 ms-md-0 pe-3 pe-sm-4" style="max-height: 44rem;" data-swiper-options='{
+          <div class="pt-4 swiper overflow-hidden w-100 ms-md-4 pe-3 pe-sm-4" style="max-height: 44rem;" data-swiper-options='{
             "direction": "vertical",
             "slidesPerView": "auto",
             "freeMode": true,
@@ -307,14 +299,14 @@
             "mousewheel": true
           }'>
             <div class="swiper-wrapper pe-md-2">
-              <div class="swiper-slide h-auto px-2">
+              <div class="swiper-slide h-auto">
   
                 <div class="row row-cols-md-1 row-cols-sm-2 row-cols-1 g-md-4 g-3">
   
                   <!-- Item -->
                   {% for i in forums %}
                   <li class="m-2">
-                  <div class="card bg-secondary border-0">
+                  <div class="card bg-secondary">
                     <div class="card-header row mb-0">
                       {% if 'access' in wUser %}
                       {% if wUser.access.type == 'moderator' and wUser.access.range > 1 or wUser.access.type == 'administrator'  %}
@@ -337,19 +329,27 @@
                       {% endif %}
                       {% endif %}
 
-                      <button class="btn btn-{{i.details.color}} btn-icon" type="button">
+                      <button class="btn btn-sm btn-md-lg btn-{{i.details.color}} btn-icon" type="button">
                         <i class="{{i.details.icon}}"></i>
                       </button>
                       <div class="col">
-                          <h2 class="m-0 p-0 h6" style="margin:0;padding:0"><a href="{{url_for('public.forums', slug=i.slug)}}">{{i.details.name}}</a></h2>
-                          <span class="fs-xs p-0" style="text-decoration: none;">{{i.details.description}}</span>
+                          <h2 class="m-0 p-0 fs-sm h6" style="margin:0;padding:0"><a href="{{url_for('public.forums', slug=i.slug)}}">{{i.details.name}}</a></h2>
+                          <span class="d-none fs-xs p-0" style="text-decoration: none;">{{i.details.description}}</span>
                       </div>
-                      <div class="col-2 text-light">
+                      <div class="col-2 text-light d-none d-md-block">
                         <i class="bx bx-chat fs-base me-1"></i>+<i class="bx bx-comment fs-base ms-1"></i><br>
                         <span class="fs-sm h5">{{(i.threads|count) + (i.posts|count)}}</span>
                       </div>
-                      <div class="col-2 text-light">
+                      <div class="col-2 text-light d-md-none d-flex">
+                        <i class="bx bx-comment fs-base me-2"></i>
+                        <span class="fs-sm h5">{{(i.threads|count) + (i.posts|count)}}</span>
+                      </div>
+                      <div class="col-2 text-light d-none d-md-block">
                         <i class="bx bx-leaf fs-base me-2"></i>Leafs<br>
+                        <span class="fs-sm h5">{{i.statistics.leafs}}</span>
+                      </div>
+                      <div class="col-2 text-light d-md-none d-flex">
+                        <i class="bx bx-leaf fs-base me-2"></i>
                         <span class="fs-sm h5">{{i.statistics.leafs}}</span>
                       </div>
                     </div>
@@ -362,7 +362,7 @@
                       {% for n in range(1) %}
                         {% for b in (i.posts|sort(attribute='created', reverse=True))[0:2] %}
                         <div class="col-md-6">
-                          <a href="{{url_for('public.forums_post', slug=i.slug, post_slug=b.slug)}}" class="btn pb-0"><i class="bx bx-comment me-1"></i>{{b.title[0:30]}}..
+                          <a href="{{url_for('public.forums_post', slug=i.slug, post_slug=b.slug)}}" class="btn pb-0 fs-xs"><i class="bx bx-comment me-1"></i>{{b.title[0:30]}}..
                             <small class="ms-2 text-muted">
                               {% set now = now %}
                               {% set date = b.created %}
@@ -378,7 +378,8 @@
                                 {% set day = date.strftime('%A') %}
                               {% endif %}
                               {% set time = date.strftime('%H:%M horas') %}
-                              {{ day }}, a las {{ time }}     
+                              <span class="d-none d-md-block">{{ day }}, a las {{ time }}</span>
+                              <span class="d-md-none">{{ day }}, {{ time }}</span>
                             </small>
                         </a>
                         </div>     

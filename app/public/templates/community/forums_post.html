@@ -24,22 +24,18 @@
 
 <section id="weggo-forums-header">
     <div class="container">
-        <nav aria-label="breadcrumb">
+        <nav aria-label="breadcrumb" class="d-none d-md-block">
             <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Comunidad</a></li>
             <li class="breadcrumb-item"><a href="{{url_for('public.forums', slug=forum.slug)}}">{{forum.details.name}}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{i.title}}</li>
             </ol>
         </nav>
-        <div class="d-flex mb-1">
+        <div class="mb-1">
             <h1 class="h6 mb-0">{{i.title}}</h1>
-            <div class="ms-auto">
-                <strong class="me-md-3 text-light">{{i.comments|count}} <i class="bx bx-message-square-dots ms-1"></i></strong>
-                <strong class=""><button class="btn p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dar un leaf">4 <i class="fas fa-leaf ms-1"></i></button</strong>
-            </div>
         </div>
 
-        <div class="d-flex">
+        <div class="d-none d-md-block">
             <span class="fs-xs">
                 Comparte esta publicación en redes:
             </span>
@@ -52,14 +48,21 @@
                 <a href="#" class="text-light fs-lg" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Compartir en Pinterest"><i class="bx bxl-pinterest"></i></a>
             </span>
         </div>
+        <div class="d-flex d-md-none">
+            <span class="fs-xs">
+                Comparte con tus redes:
+            </span>
+            <span class="ms-auto">
+                <a href="#" class="text-light fs-lg me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Compartir en Instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="text-light fs-lg me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Compartir en Facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="text-light fs-lg me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Compartir en LinkedIn"><i class="bx bxl-linkedin"></i></a>
+                <a href="#" class="text-light fs-lg me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Compartir en Twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="text-light fs-lg me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Compartir en Reddit"><i class="bx bxl-reddit"></i></a>
+                <a href="#" class="text-light fs-lg" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Compartir en Pinterest"><i class="bx bxl-pinterest"></i></a>
+            </span>
+        </div>
     </div>
 </section>
-
-<style>
-    .nav-link:hover {
-        color: #fd7e14 !important;
-    }
-</style>
 
 <section id="weggo-forum-article" class="container p-2">
     <article class="card shadow-md rounded-bottom-0 border-bottom overflow-hidden bg-white">
@@ -112,17 +115,18 @@
               </div>
               <hr class="my-4">
             <div class="d-flex align-items-center text-muted">
+
+                <div class="d-flex align-items-center me-3">
+                    <i class="bx bx-message-square-dots fs-lg me-1"></i>
+                    <span class="fs-sm">{{i.comments|count}}</span>
+                </div>
                 <div class="d-flex align-items-center me-3">
                     <i class="bx bx-like fs-lg me-1"></i>
-                    <span class="fs-sm">8</span>
-                </div>
-                <div class="d-flex align-items-center me-3">
-                    <i class="bx bx-comment fs-lg me-1"></i>
-                    <span class="fs-sm">7</span>
+                    <span class="fs-sm">0</span>
                 </div>
                 <div class="d-flex align-items-center">
-                    <i class="bx bx-share-alt fs-lg me-1"></i>
-                    <span class="fs-sm">4</span>
+                    <i class="bx bx-leaf fs-lg me-1"></i>
+                    <span class="fs-sm">0</span>
                 </div>
                 <div class="ms-auto">
                     {% if wUser.not_login %}
@@ -135,7 +139,7 @@
                         </a>
                         {% endif %}
                     {% endif %}
-                    </div>
+                </div>
             </div>
             </div>
           </div>
