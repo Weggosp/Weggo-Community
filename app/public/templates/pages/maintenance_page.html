@@ -1,0 +1,17 @@
+{% extends 'bases/weggo_v1_community_base.html' %}
+
+{% block body %}
+<body class="footer-offset scrollbar fixed-bottom-btn bg-light">
+{% endblock %}
+
+{% block content %}
+<div class="container d-flex align-items-center vh-100">
+  <div class="row justify-content-md-center flex-md-grow-1 text-center">
+    <div class="col-md-9 col-lg-6">
+      <img class="img-fluid" src="{{ url_for('static', filename='svg/illustrations/coming-soon-img.svg') }}" style="max-width: 25rem" alt="SVG Illustration">
+      <h1 class="h2">Página en mantenimiento</h1>
+      <p>Ahora mismo estamos mejorando esta funcionalidad. <br> Disculpe las molestias.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

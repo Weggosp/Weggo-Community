@@ -1,0 +1,239 @@
+{% extends 'bases/weggo_v1_base.html' %}
+
+{% block css %}
+{% endblock %}
+
+{% block content %}
+<section id="weggo-forums-header">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Comunidad</a></li>
+            <li class="breadcrumb-item"><a href="{{url_for('public.forums', slug=forum.slug)}}">{{forum.details.name}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Consejos sur de Francia en agosto</li>
+            </ol>
+        </nav>
+        <div class="d-flex mb-1">
+            <h1 class="h6 mb-0">Consejos sur de Francia en agosto</h1>
+            <div class="ms-auto">
+                <strong class="me-md-3"><button class="btn p-0">5 <i class="fas fa-users ms-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Participantes"></i></button></strong>
+                <strong class="me-md-3">103 <i class="bx bx-chat ms-1"></i></strong>
+                <strong class=""><button class="btn p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dar un leaf">9 <i class="fas fa-leaf ms-1"></i></button</strong>
+            </div>
+        </div>
+
+        <div class="d-flex">
+            <span class="fs-xs">Hoy a las 10:23 horas</span>
+            <span class="ms-4">
+                <a href="#" class="text-light fs-lg me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Compartir en Instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="text-light fs-lg me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Compartir en Facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="text-light fs-lg me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Compartir en LinkedIn"><i class="bx bxl-linkedin"></i></a>
+                <a href="#" class="text-light fs-lg me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Compartir en Twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="text-light fs-lg me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Compartir en Reddit"><i class="bx bxl-reddit"></i></a>
+                <a href="#" class="text-light fs-lg" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Compartir en Pinterest"><i class="bx bxl-pinterest"></i></a>
+            </span>
+        </div>
+    </div>
+</section>
+
+<style>
+    .nav-link:hover {
+        color: #fd7e14 !important;
+    }
+</style>
+
+<section id="weggo-forum-article" class="container ">
+    <article class="card shadow-md overflow-hidden">
+        <div class="row g-0">
+          <div class="col-sm-2">
+            <div class="card-header border-0 bg-gradient-primary my-md-3 rounded text-center align-items-center">
+                <img src="{{url_for('static',filename='img/avatar/18.jpg')}}" class="rounded-circle mb-2" width="60" alt="Usuario" style="min-width: 3rem">
+                <span class="badge bg-danger position-relative">Administrador</span><br>
+                <a href="/u/ruben-ayuso" class="btn btn-lg p-0 m-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ver perfil del usuario" style="padding-bottom:-2rem;"> Rubén Ayuso</a>
+                <div class="">
+                    <strong class="me-1"><button class="btn p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dar un leaf">425 <i class="fas fa-leaf ms-1"></i></button></strong>
+                    <strong><button class="btn p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dar un leaf">1.257 <i class="bx bx-comment-dots ms-1"></i></button></strong>
+                </div>
+                <span class="fs-xs text-light p-0 m-0">Se unió en 2023</span>
+            </div>
+          </div>
+          <div class="col-sm-10">
+            <div class="card-body">
+              <div class="d-flex align-items-center mb-3">
+                <a href="#" class="badge fs-sm text-nav text-decoration-none">Autocaravanas</a>
+                <span class="fs-xs border-start ps-3 ms-3">Hace 26 minutos</span>
+              </div>
+              <p class="text">Hay ocasiones en las que, <u>por distintas razones</u>, necesitas reportale al webmaster un post concreto. <br><br>El programa de foros tiene para esa necesidad un procedimiento muy sencillo. Debajo de cada post (intervención de un usuario en un hilo) podrás ver la palabra "<a href="#" class="text-info">informar</a>"; al pulsar sobre ella te aparecerá un cuadro de dialogo en el que podrás poner la razón por la que quieres informar al webmaster sobre dicho post; escribe tu razón y despues pulsa sobre el botón "informar", al webmaster le llegará tanto tu raón como el enlace al post para que pueda actuar según convenga..</p>
+              <hr class="my-4">
+              <div class="d-flex align-items-center justify-content-between">
+
+                <div class="d-flex align-items-center text-muted">
+                  <div class="d-flex align-items-center me-3">
+                    <i class="bx bx-like fs-lg me-1"></i>
+                    <span class="fs-sm">8</span>
+                  </div>
+                  <div class="d-flex align-items-center me-3">
+                    <i class="bx bx-comment fs-lg me-1"></i>
+                    <span class="fs-sm">7</span>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <i class="bx bx-share-alt fs-lg me-1"></i>
+                    <span class="fs-sm">4</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </article>
+
+    <div id="weggo-forum-answers" class="card border-0 shadow-md overflow-hidden mt-3">
+        <article class="border-bottom bg-white shadow-md overflow-hidden">
+            <div class="row g-0">
+              <div class="col-sm-3">
+                <div class="card-header border-0 ">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{url_for('static',filename='img/avatar/10.jpg')}}" class="rounded-circle mb-2" width="60" alt="Usuario" style="min-width: 3rem">
+                        </div>
+                        <div class="col-md-8">
+                            <span class="badge bg-warning position-relative">Usuario TOP</span><br>
+                            <a href="/u/ruben-ayuso" class="text-dark btn btn-lg p-0 m-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ver perfil del usuario" style="padding-bottom:-2rem;"> XTerminator</a>
+                            <div class="d-flex ">
+                                <strong class="me-2"><button class="text-dark btn p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dar un leaf">21 <i class="fas fa-leaf ms-1"></i></button></strong>
+                                <strong><button class="text-dark btn p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dar un leaf">156 <i class="bx bx-comment-dots ms-1"></i></button></strong>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+              </div>
+              <div class="col-sm-9">
+                <div class="card-body">
+                    <p>No entiendo por qué denunciar a alguien cuando se le puede exterminar</p>
+                    <div class="d-flex m-0">
+                        <a href="#" class="ms-auto nav-link fs-sm me-3">
+                            <i class="bx bx-share fs-lg me-2"></i>
+                            Responder
+                        </a>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </article>
+        <article class="border-bottom bg-white shadow-md overflow-hidden">
+            <div class="row g-0">
+              <div class="col-sm-3">
+                <div class="card-header border-0 ">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{url_for('static',filename='img/avatar/11.jpg')}}" class="rounded-circle mb-2" width="60" alt="Usuario" style="min-width: 3rem">
+                        </div>
+                        <div class="col-md-8">
+                            <a href="/u/ruben-ayuso" class="text-dark btn btn-lg p-0 m-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ver perfil del usuario" style="padding-bottom:-2rem;"> Pichiboy</a>
+                            <div class="d-flex">
+                                <strong class="me-2"><button class="text-dark btn p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dar un leaf">50 <i class="fas fa-leaf ms-1"></i></button></strong>
+                                <strong><button class="text-dark btn p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dar un leaf">4 <i class="bx bx-comment-dots ms-1"></i></button></strong>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+              </div>
+              <div class="col-sm-9">
+                <div class="card-body">
+                    <p>Creo que si informas sobre algo un administrador lo revisará. Tengo mis razones para pensarlo, pero no lo diré jeje.</p>
+                    <div class="d-flex m-0">
+                        <a href="#" class="ms-auto nav-link fs-sm me-3">
+                            <i class="bx bx-share fs-lg me-2"></i>
+                            Responder
+                        </a>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </article>
+        <article class="border-bottom bg-white shadow-md overflow-hidden">
+            <div class="row g-0">
+              <div class="col-sm-3">
+                <div class="card-header border-0 ">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{url_for('static',filename='img/avatar/10.jpg')}}" class="rounded-circle mb-2" width="60" alt="Usuario" style="min-width: 3rem">
+                        </div>
+                        <div class="col-md-8">
+                            <span class="badge bg-warning position-relative">Usuario TOP</span><br>
+                            <a href="/u/ruben-ayuso" class="text-dark btn btn-lg p-0 m-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ver perfil del usuario" style="padding-bottom:-2rem;"> XTerminator</a>
+                            <div class="d-flex ">
+                                <strong class="me-2"><button class="text-dark btn p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dar un leaf">21 <i class="fas fa-leaf ms-1"></i></button></strong>
+                                <strong><button class="text-dark btn p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dar un leaf">156 <i class="bx bx-comment-dots ms-1"></i></button></strong>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+              </div>
+              <div class="col-sm-9">
+                <div class="card-body">
+                    <p>No entiendo por qué denunciar a alguien cuando se le puede exterminar</p>
+                    <div class="d-flex m-0">
+                        <a href="#" class="ms-auto nav-link fs-sm me-3">
+                            <i class="bx bx-share fs-lg me-2"></i>
+                            Responder
+                        </a>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </article>
+        <article class="border-bottom bg-white shadow-md overflow-hidden">
+            <div class="row g-0">
+              <div class="col-sm-3">
+                <div class="card-header border-0 ">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{url_for('static',filename='img/avatar/11.jpg')}}" class="rounded-circle mb-2" width="60" alt="Usuario" style="min-width: 3rem">
+                        </div>
+                        <div class="col-md-8">
+                            <a href="/u/ruben-ayuso" class="text-dark btn btn-lg p-0 m-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ver perfil del usuario" style="padding-bottom:-2rem;"> Pichiboy</a>
+                            <div class="d-flex">
+                                <strong class="me-2"><button class="text-dark btn p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dar un leaf">50 <i class="fas fa-leaf ms-1"></i></button></strong>
+                                <strong><button class="text-dark btn p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dar un leaf">4 <i class="bx bx-comment-dots ms-1"></i></button></strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="col-sm-9">
+                <div class="card-body">
+                    <p>Creo que si informas sobre algo un administrador lo revisará. Tengo mis razones para pensarlo, pero no lo diré jeje.</p>
+                    <div class="d-flex m-0">
+                        <a href="#" class="ms-auto nav-link fs-sm me-3">
+                            <i class="bx bx-share fs-lg me-2"></i>
+                            Responder
+                        </a>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </article>
+        <article class="border-bottom bg-gradient-primary shadow-md overflow-hidden">
+            <div class="row g-0" style="background-image: url(../../../static/img/landing/digital-agency/contact-bg.png);">
+              <div class="col-sm-3">
+              </div>
+              <div class="col-sm-9">
+                <div class="card-body">
+                    <a href="" class="nav-link"><h3 class="h6"></h3>¡Únete a la comunidad para participar en la conversación!</h3></a>
+                </div>
+              </div>
+            </div>
+        </article>
+    </div>
+
+</section>
+
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

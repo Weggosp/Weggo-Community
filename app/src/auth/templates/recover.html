@@ -1,0 +1,90 @@
+{% extends 'bases/weggo_v1_base.html' %}
+
+{% block header %}
+{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+  <main id="content" role="main" class="">
+    <div class="position-fixed top-0 right-0 left-0 bg-img-hero" style="height: 32rem; background-color: #111212">
+      <!-- SVG Bottom Shape -->
+      <figure class="position-absolute right-0 bottom-0 left-0" style="border:none">
+        <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1921 273">
+          <polygon fill="#fff" points="0,273 1921,273 1921,0 "/>
+        </svg>
+      </figure>
+      <!-- End SVG Bottom Shape -->
+    </div>
+
+    <!-- Content -->
+    <div class="container py-5">
+      <a class="d-flex justify-content-center mb-5" href="{{url_for('public.index')}}">
+        <img class="z-index-2" src="{{url_for('static', filename='svg/logos/logo-white.svg')}}" alt="Image Description" style="width: 10rem;">
+      </a>
+
+      <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+          <!-- Card -->
+          <div class="card card-lg mb-5">
+            <div class="card-body">
+              <div class="">
+                <div class="row no-gutters">
+                  <div class="">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                      {% if messages %}
+                      {% for category, message in messages %}
+                        <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+                          {{message}} {{email}}
+                          <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                      {% endfor %}
+                      {% endif %}
+                    {% endwith %}
+                    <!-- Form -->
+                    <div class="">
+                      <div class="mb-4">
+                        <a href="{{ url_for('public.index') }}"><img src="{{ url_for('static', filename='images/logotipos/isotipo.png') }}" width="60px" class="mb-4" alt="" /></a>
+                        <h1 class="mb-1 font-weight-bold">Olvidé mi contraseña</h1>
+                        <p>Te enviaremos un enlace a tu correo electrónico para restaurar tu contraseña. Recuerda que pasado 24 horas el enlace caducará</p>
+                      </div>
+          
+                      <!-- Form -->
+                      <form method="post" action="{{ url_for('auth.recover') }}">
+          
+                          <!-- Email -->
+                          <label for="email" class="form-label">Correo electrónico</label>
+
+                        <div class="form-group">
+                          <input type="email" id="email" class="form-control" name="email" placeholder="Introduce tu corre electrónico" required />
+                          {% if error %}
+                          <span style="color: red;">{{ error }}</span>
+                          {% endif %}
+                        </div>
+                          <!-- Button -->
+                        <div class="mt-3 mb-3">
+                          <button type="submit" class="btn btn-sm rounded-pill btn-primary btn-block">
+                            Solicitar contraseña
+                          </button>
+                        </div>
+                        <span>Volver a la <a href="{{ url_for('auth.login') }}">página de conexión</a></span>
+                      </form>
+                    </div>
+                    <!-- End Form -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End Card -->
+
+        </div>
+      </div>
+    </div>
+    <!-- End Content -->
+  </main>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

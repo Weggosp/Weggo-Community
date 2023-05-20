@@ -1,0 +1,5 @@
+<div class="news-item">
+    <h2>{{ news.title }}</h2>
+    <p>{{ news.summary }}</p>
+    <a href="{{ url_for('news_single', id=news.id) }}">Leer más</a>
+</div>

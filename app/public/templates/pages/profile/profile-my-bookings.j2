@@ -1,0 +1,181 @@
+{% extends 'bases/weggo_v1_base.html' %}
+
+{% block content %}
+<main id="content" role="main">
+    <div class="slice slice-sm bg-section-secondary">
+        <div class=container>
+            <div class="row justify-content-center">
+                <div class=col-lg-12>
+                    <div class="row mt-4">
+                        <div class=col-lg-12>
+                            <div class=mb-5>
+                                <div class="d-flex align-items-center mb-4">
+                                    <div class=d-flex>
+                                        <div class=pr-3><span class="h5 mb-0"><i data-feather=users></i></span></div>
+                                        <div class="">
+                                            <h3 class=" mb-0">Lista de ofertas reservadas</h3>
+                                            <p class="text-muted mb-0">Reservas realizadas por orden de creación</p>
+                                        </div>
+                                    </div>
+                                    <p class="ml-auto">Tienes un total de: <strong class="ml-4">{{slugs|length }} reservas</strong></p>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-cards align-items-center">
+                                        <thead>
+                                            <tr>
+                                                <th scope=col style=min-width:240px>Nombre de la oferta</th>
+                                                <th scope=col>Tipo de vehículo</th>
+                                                <th scope=col>Fechas reservadas</th>
+                                                <th scope=col>Estado</th>
+                                                <th scope=col>Importe</th>
+                                                <th scope=col>Localización</th>
+                                                <th scope=col>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for i in info %}
+                                                {% if i['offer'] != None %}
+                                                <tr>
+                                                    <th scope=row>
+                                                        <div class="media align-items-center">
+                                                            <div>
+                                                                <div class=avatar-parent-child><img alt="Image placeholder"
+                                                                        src=https://europe-weggo-bucket.s3.eu-west-3.amazonaws.com/weggo.es/images/{{i.booking.companyid}}/offers/{{i.offer.offerid}}/{{i.offer.thumbnail}}
+                                                                        class="avatar rounded-circle"> <span
+                                                                        class="avatar-child avatar-badge bg-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="media-body ml-4"><a href="{{url_for('public.see_offer', slug=i.offer.information.slug)}}"
+                                                                    class="name h6 mb-0 text-sm" data-toggle="tooltip" data-placement="top" title="Ir a la oferta"><u>{{i.offer.information.name[0:35]}}..</u></a> <small
+                                                                    class="d-block font-weight-bold"><a href="#" class="text-dark">Ver política de cancelación de la empresa</a></small>
+                                                            </div>
+                                                        </div>
+                                                    </th>
+                                                    <td>
+                                                            <div class="media-body"><a href=#
+                                                                    class="name h6 mb-0 text-sm" data-toggle="tooltip" data-placement="top" title="Buscar autocaravana {{i.offer.information.type}} en alquiler">Autocarana {{i.offer.information.type}}</a>
+                                                            </div>
+                                                    </td>
+                                                    <td>
+                                                            <div class="media-body"><p
+                                                                    class=" mb-0 text-sm">{{i.booking.dates.from}} <br>- {{i.booking.dates.to}}</p>
+                                                            </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="media-body">
+                                                            {% if i.booking.status == 'pending' %}
+                                                            <p class="badge badge-sm badge-pill badge-soft-warning" data-toggle="tooltip" data-placement="top" title="La reserva aún tienen que ser confirmada por la empresa de alquiler">
+                                                            Pendiente
+                                                            </p>
+                                                            {% elif i.booking.status == 'confirmed' %}
+                                                                <p class="badge badge-sm badge-pill badge-soft-success" data-toggle="tooltip" data-placement="top" title="La reserva ha sido confirmada por la empresa de alquiler">
+                                                                ¡Confirmada!
+                                                                </p>
+                                                            {% else %}
+                                                            <p class="h6 mb-0 text-sm">
+                                                            {{i.booking.status}}
+                                                            </p>
+                                                            {% endif %}
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                    {{i.booking.amount}} €
+                                                    </td>
+                                                    <td>
+                                                        <div class="media-body"><a href=# class="name h6 mb-0 text-sm">{{i['offer']['location']['city']}}, {{i['offer']['location']['province']}}</a> 
+                                                        <small class="d-block font-weight-bold">{{i['offer']['location']['zip']}} - {{i['offer']['location']['address']}}</small>
+                                                        </div>
+                                                    </td>
+                                                    <td class=text-right>
+                                                        <div class="actions ml-3">
+                                                            <div class=dropdown>
+                                                                <button class="btn btn-xs btn-outline-dark rounded-pill dropdown-toggle" type=button
+                                                                    data-toggle=dropdown aria-haspopup=true aria-expanded=false>
+                                                                    Selecciona
+                                                                </button>
+                                                                <div class=dropdown-menu>
+                                                                    <a class=dropdown-item href=# data-toggle=tooltip title="Genera un documento PDF con la información de la reserva"><i class="fas fa-download mr-1"></i> Descargar confirmación</a> 
+                                                                    <a class=dropdown-item href=#>Acerca de la empresa</a> 
+                                                                    <a class=dropdown-item href=#>Puntuar la oferta</a> 
+                                                                    <a class=dropdown-item href=#>Solicitar reclamación</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                {% else %}
+                                                <tr>
+                                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                    <strong><u>¡Ups!</u></strong> Parece que los datos de la oferta que reservastes del <strong>{{i['booking']['dates']['from']}} al {{i['booking']['dates']['to']}}</strong> ya no está disponible .. 
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <svg aria-hidden="true" class="mb-0" width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill="currentColor" d="M11.5,9.5l5-5c0.2-0.2,0.2-0.6-0.1-0.9l-1-1c-0.3-0.3-0.7-0.3-0.9-0.1l-5,5l-5-5C4.3,2.3,3.9,2.4,3.6,2.6l-1,1 C2.4,3.9,2.3,4.3,2.5,4.5l5,5l-5,5c-0.2,0.2-0.2,0.6,0.1,0.9l1,1c0.3,0.3,0.7,0.3,0.9,0.1l5-5l5,5c0.2,0.2,0.6,0.2,0.9-0.1l1-1 c0.3-0.3,0.3-0.7,0.1-0.9L11.5,9.5z"/>
+                                                        </svg>
+                                                    </button>
+                                                    </div>
+                                                </tr>
+                                                {% endif %}
+                                            {% else %}
+                                            <tr>
+                                                <td>
+                                                    No tienes ninguna reserva
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade fixed-right" id=modal-products tabindex=-1 role=dialog aria-hidden=true>
+        <div class="modal-dialog modal-vertical" role=document>
+            <div class=modal-content>
+                <div class="modal-header py-3 align-items-center">
+                    <div class=modal-title>
+                        <h6 class=mb-0>You might like these</h6>
+                    </div><button type=button class=close data-dismiss=modal aria-label=Close><span
+                            aria-hidden=true>&times;</span></button>
+                </div>
+                <div class=modal-body>
+                    <p class="text-sm mb-4">Looking for other designs? Check out the other themes we created. Easy to
+                        switch, play and develop new websites.</p>
+                    <div class="card card-overlay hover-shadow-lg">
+                        <div class=h-100><img
+                                src=../../../../webpixels.s3.eu-central-1.amazonaws.com/public/themes/purpose-website-ui-kit.png
+                                class=card-img-top alt="Purpose Website UI Kit"></div>
+                        <div class="card-img-overlay d-flex flex-column align-items-center p-0">
+                            <div class="overlay-actions w-100 card-footer mt-auto"><a
+                                    href=https://themes.getbootstrap.com/product/purpose-website-ui-kit/
+                                    class="h6 mb-0 stretched-link" target=_blank>Purpose Website UI Kit</a></div>
+                        </div>
+                    </div>
+                    <div class="card card-overlay hover-shadow-lg">
+                        <div class=h-100><img
+                                src=../../../../webpixels.s3.eu-central-1.amazonaws.com/public/themes/purpose-application-ui-kit.png
+                                class=card-img-top alt="Purpose Application UI Kit"></div>
+                        <div class="card-img-overlay d-flex flex-column align-items-center p-0">
+                            <div class="overlay-actions w-100 card-footer mt-auto"><a
+                                    href=https://themes.getbootstrap.com/product/purpose-application-ui-kit/
+                                    class="h6 mb-0 stretched-link" target=_blank>Purpose Application UI Kit</a></div>
+                        </div>
+                    </div>
+                    <div class="card card-placeholder align-items-center flex-column justify-content-center border-dashed"
+                        style=height:250px>
+                        <div class="col text-center">
+                            <div class=pt-5><i data-feather=smile class=text-primary style=width:50px;height:50px></i>
+                                <span class="h5 d-block mt-3">What's next?</span></div>
+                            <p class="text-sm px-4 mt-2 mb-0">We are already working on a new product, so stay tuned.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,639 @@
+<!-- -| 
+  
+  * WEGGO is a registered trademark in Spain as Plataforma Weggo Espana, S.L
+  * Any disclosure of this code violates intellectual property laws.
+  * By Ruben Ayuso. 
+  
+|- -->
+
+<!doctype html>
+<html lang="es">
+<head>
+
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="generator" content="Comunidad de Weggo">
+    <meta name="description" content="Únete a nuestra comunidad y descubre los mejores lugares para acampar, comparte tus experiencias y conoce a otros amantes de la vida al aire libre. ¡Viaja con nosotros!🚐🏕️">
+    <meta name="keywords" content="camping, glamping, autocaravanas, caravanas, campers, comunidad camper, viajes en familia, rutas, travel, viajes, aire libre, naturaleza, aventura, acampada, descanso, confort, libertad, paisajes">    
+    <meta name="author" content="Ruben Ayuso">
+
+    <!-- APP configurations -->
+    <meta name="theme-color" content="black" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="white" media="(prefers-color-scheme: light)" />
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.weggo.es/">
+    <meta property="og:title" content="Comunidad de campers">
+    <meta property="og:description" content="Únete a nuestra comunidad y descubre los mejores lugares para acampar, comparte tus experiencias y conoce a otros amantes de la vida al aire libre. ¡Viaja con nosotros!🚐🏕️">
+    <meta property="og:image" content="https://weggo.es/static/svg/logos/logo-black.svg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.weggo.es/">
+    <meta property="twitter:title" content="Comunidad de campers">
+    <meta property="twitter:description" content="Únete a nuestra comunidad y descubre los mejores lugares para acampar, comparte tus experiencias y conoce a otros amantes de la vida al aire libre. ¡Viaja con nosotros!🚐🏕️">
+    <meta property="twitter:image" content="https://weggo.es/static/svg/logos/logo-black.svg">
+
+    <!-- Etiqueta link para favicon -->
+    <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="{{ url_for('static', filename='favicons/favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" sizes="64x64" href="{{ url_for('static', filename='favicons/favicon-64.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicons/icon-32') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicons/icon-16') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', filename='favicons/apple-touch-icon-144') }}">
+    <link rel="apple-touch-icon" sizes="192x192" href="{{ url_for('static', filename='favicons/apple-touch-icon-192') }}">
+
+    <title>{% block title %} {{title}} {% endblock %}</title>
+
+    <link rel="stylesheet" media="screen" href="{{url_for('static', filename='css/weggo-base.css')}}">
+
+    <!-- Vendor Styles-->
+    <link rel="stylesheet" media="screen" href="{{url_for('static', filename='vendor/boxicons/css/boxicons.min.css')}}"/>
+    <link rel="stylesheet" media="screen" href="{{url_for('static', filename='vendor/swiper/swiper-bundle.min.css')}}"/>
+    
+    <!-- jQuery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Page loading styles -->
+    <style>
+      @media all and (display-mode: fullscreen) {
+        body {
+          background-color: #000;
+        }
+      }
+
+      .page-loading {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        -webkit-transition: all .4s .2s ease-in-out;
+        transition: all .4s .2s ease-in-out;
+        background-color: #fff;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 9999;
+      }
+      .dark-mode .page-loading {
+        background-color: #0b0f19;
+      }
+      .page-loading.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .page-loading-inner {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-transition: opacity .2s ease-in-out;
+        transition: opacity .2s ease-in-out;
+        opacity: 0;
+      }
+      .page-loading.active > .page-loading-inner {
+        opacity: 1;
+      }
+      .page-loading-inner > span {
+        display: block;
+        font-size: 1rem;
+        font-weight: normal;
+        color: #9397ad;
+      }
+      .dark-mode .page-loading-inner > span {
+        color: #fff;
+        opacity: .6;
+      }
+      .page-spinner {
+        display: inline-block;
+        width: 2.75rem;
+        height: 2.75rem;
+        margin-bottom: .75rem;
+        vertical-align: text-bottom;
+        border: .15em solid #b4b7c9;
+        border-right-color: transparent;
+        border-radius: 50%;
+        -webkit-animation: spinner .75s linear infinite;
+        animation: spinner .75s linear infinite;
+      }
+      .dark-mode .page-spinner {
+        border-color: rgba(255,255,255,.4);
+        border-right-color: transparent;
+      }
+      @-webkit-keyframes spinner {
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes spinner {
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+
+    <!-- Theme mode -->
+    <script>
+      let mode = window.localStorage.getItem('mode'),
+          root = document.getElementsByTagName('html')[0];
+      if (mode !== null && mode === 'light') {
+        root.classList.add('light-mode');
+      } else {
+        root.classList.remove('light-mode');
+      }
+    </script>
+
+    <!-- Page loading scripts -->
+    <script>
+      (function () {
+        window.onload = function () {
+          const preloader = document.querySelector('.page-loading');
+          preloader.classList.remove('active');
+          setTimeout(function () {
+            preloader.remove();
+          }, 1000);
+        };
+      })();
+
+      // INSTALACIÓN DE LA PWA 
+      // Inicializa deferredPrompt para su uso más tarde.
+      let deferredPrompt;
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+        // Previene a la mini barra de información que aparezca en smartphones
+        e.preventDefault();
+        // Guarda el evento para que se dispare más tarde
+        deferredPrompt = e;
+        // Actualizar la IU para notificarle al usuario que se puede instalar tu PWA
+        showInstallPromotion();
+        // De manera opcional, envía el evento de analíticos para saber si se mostró la promoción a a instalación del PWA
+        console.log(`'beforeinstallprompt' event was fired.`);
+      });
+
+      window.addEventListener('appinstalled', () => {
+        // Esconder la promoción de instalación de la PWA
+        hideInstallPromotion();
+        // Limpiar el defferedPrompt para que pueda ser eliminado por el recolector de basura
+        deferredPrompt = null;
+        // De manera opcional, enviar el evento de analíticos para indicar una instalación exitosa
+        console.log('PWA was installed');
+      });
+
+      function getPWADisplayMode() {
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+        if (document.referrer.startsWith('android-app://')) {
+          return 'twa';
+        } else if (navigator.standalone || isStandalone) {
+          return 'standalone';
+        }
+        return 'browser';
+      }
+
+      window.matchMedia('(display-mode: standalone)').addEventListener('change', (evt) => {
+        let displayMode = 'browser';
+        if (evt.matches) {
+          displayMode = 'standalone';
+        }
+        // Log display mode change to analytics
+        console.log('DISPLAY_MODE_CHANGED', displayMode);
+      });
+    </script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-945WMGCSK8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-945WMGCSK8');
+  </script>
+	<!-- Icon fonts -->
+  <script async src="https://kit.fontawesome.com/f8eb6664fa.js" crossorigin="anonymous"></script>
+
+</head>
+
+{% block body %}
+<body class="dark-mode">
+{% endblock %}
+
+  <!-- Page loading spinner -->
+  <div id="loading" class="page-loading">
+    <div class="page-loading-inner">
+      <div class="page-spinner"></div><span>Cargando...</span>
+    </div>
+  </div>
+
+  {% block header %}
+  <!-- Sign In Modal-->
+  <div class="modal fade" id="connect" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered p-2 my-0 mx-auto" style="max-width: 950px;">
+      <div class="modal-content">
+        <div class="modal-body px-0 py-2 py-sm-0">
+          <button class="btn-close position-absolute top-0 end-0 mt-3 me-3" type="button" data-bs-dismiss="modal"></button>
+          <div class="row mx-0 align-items-center">
+            <div class="col-md-6 border-end-md p-4 p-sm-5">
+              <h2 class="h3 mb-4 mb-sm-5">Conéctate a la<br>comunidad de cámpers.</h2><img class="d-block mx-auto" src="{{url_for('static',filename='svg/signin-modal/signin.svg')}}" width="344" alt="Illustration">
+              <div class="mt-4 mt-sm-5">¿No tienes cuenta? <a href="#register" data-bs-toggle="modal" data-bs-dismiss="modal">Regístrate aquí</a></div>
+            </div>
+            <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5"><a class="btn btn-outline-danger rounded-pill w-100 mb-3 disabled" href="{{url_for('api.login_google')}}"><i class="fi-google fs-lg me-1"></i>Conectarme con Google <span class="ms-2 badge bg-warning fs-xs">¡Próximamente!</span></a>
+              <div class="d-flex align-items-center py-3 mb-3">
+                <hr class="w-100">
+                <div class="px-3"></div>
+                <hr class="w-100">
+              </div>
+              <form action="{{url_for('api.login')}}" class="needs-validation" method="POST">
+                <div class="mb-4">
+                  <label class="form-label mb-2" for="signin-email">Correo electrónico o usuario</label>
+                  <input class="form-control" type="text" name="email_or_username" id="signin-email" placeholder="john.doe@example.com / johndoe_0" required>
+                </div>
+                <div class="mb-4">
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <label class="form-label mb-0" for="signin-password">Contraseña</label><a class="fs-sm" href="{{url_for('auth.recover')}}">Recuperar contraseña</a>
+                  </div>
+                  <div class="password-toggle">
+                    <input class="form-control" type="password" id="signin-password" name="password" placeholder="************" required>
+                    <label class="password-toggle-btn" aria-label="Show/hide password">
+                      <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                    </label>
+                  </div>
+                </div>
+                <button class="btn btn-primary rounded-pill" type="submit">Conectarme</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Sign Up Modal-->
+  <div class="modal fade" id="register" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered p-2 my-0 mx-auto" style="max-width: 950px;">
+      <div class="modal-content">
+        <div class="modal-body px-0 py-2 py-sm-0">
+          <button class="btn-close position-absolute top-0 end-0 mt-3 me-3" type="button" data-bs-dismiss="modal"></button>
+          <div class="row mx-0 align-items-center">
+            <div class="col-md-6 border-end-md p-4 p-sm-5">
+              <h2 class="h3 mb-4 mb-sm-5">Únete a Weggo España.<br>Consigue increíbles ventajas:</h2>
+              <img class="d-block mx-auto" src="{{url_for('static',filename='svg/signin-modal/signup.svg')}}" width="344" alt="Illustration">
+              <div class="mt-sm-4 pt-md-3">¿Ya tienes una cuenta? <a href="#connect" data-bs-toggle="modal" data-bs-dismiss="modal">conéctate</a></div>
+            </div>
+            <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5"><a class="btn btn-outline-danger rounded-pill w-100 mb-3 disabled" href="{{url_for('api.login_google')}}"><i class="fi-google fs-lg me-1"></i>Registrarme con Google <span class="ms-2 badge bg-warning fs-xs">¡Próximamente!</span></a>
+              <div class="d-flex align-items-center py-3 mb-3">
+                <hr class="w-100">
+                <div class="px-3">o</div>
+                <hr class="w-100">
+              </div>
+              <form class="needs-validation" action="{{url_for('api.register')}}" method="POST" novalidate>
+                <div class="mb-4">
+                  <label class="form-label" for="signup-name">Nombre de usuario</label>
+                  <input class="form-control" type="text" name="username" id="signup-name" placeholder="johndoe_0" required>
+                </div>
+                <div class="mb-4">
+                  <label class="form-label" for="signup-email">Correo electrónico</label>
+                  <input class="form-control" type="email" name="email" id="signup-email" placeholder="john.doe@example.com" required>
+                </div>
+                <div class="mb-4">
+                  <label class="form-label" for="signup-password">Contraseña <span class='fs-sm text-muted'>min. 8 carácteres</span></label>
+                  <div class="password-toggle">
+                    <input class="form-control" type="password" name="password" id="signup-password" minlength="8" placeholder="*********" required>
+                    <label class="password-toggle-btn" aria-label="Show/hide password">
+                      <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                    </label>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <label class="form-label" for="signup-password-confirm">Confirmar contraseña</label>
+                  <div class="password-toggle">
+                    <input class="form-control" type="password" id="signup-password-confirm" minlength="8" placeholder="*********" required>
+                    <label class="password-toggle-btn" aria-label="Show/hide password">
+                      <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                    </label>
+                  </div>
+                </div>
+                <div class="form-check mb-4">
+                  <input class="form-check-input me-2" type="checkbox" id="agree-to-terms" required>
+                  <label class="form-check-label" for="agree-to-terms">Si confirmas, aceptas y estás de acuerdo con las <a href='{{url_for("public.terms")}}' target="_blank">Condiciones de uso</a> y <a href='{{url_for("public.privacy")}}' target="_blank">Política de privacidad</a> de la plataforma</label>
+                </div>
+                <button class="btn btn-primary rounded-pill btn-lg w-100" type="submit">Confirmar registro</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar-->
+  {% if header_landing %}
+  <header class="navbar navbar-expand-lg navbar-dark fixed-top" data-scroll-header>
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <img class="d-block" src="{{url_for('static',filename='svg/logos/logo-white.svg')}}" width="130" alt="Weggo"></a>
+      <select class="btn navbar-brand d-block text-light" style="font-size:12px;margin-left:-1.5rem;margin-top:20px"><option value="ES" selected>ES</option></select>
+      <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      {% if wUser['not_login'] %}
+      <a class="btn btn-xs btn-link text-light rounded-pill d-none d-lg-block order-lg-3" href="#connect" title="Conéctate para disfrutar de las ventajas" data-bs-toggle="modal" style="border: none;font-size:14px;"><i class="fas fa-user-circle me-2"></i>Conectarme</a>
+      {% else %}
+      <div class="dropdown d-none d-lg-block order-lg-3 my-n2 me-3">
+        <a class="d-block py-2" href="{{url_for('public.profile')}}">
+          <img class="rounded-circle" src="{{url_for('static', filename='img/avatars/anonymous.png')}}" width="40" alt="{{wUser.username}}">
+        </a>
+        <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+          <div class="d-flex align-items-start border-bottom border-light px-3 py-1 mb-2" style="width: 16rem;"><img class="rounded-circle" src="{{url_for('static', filename='img/avatars/anonymous.png')}}" width="48" alt="Perfil de {{wUser.username}}">
+            <div class="ps-2">
+              {% if wUser.access.type == 'moderator' %}
+              <span class="badge bg-faded-danger text-danger">Moderador {% for n in range(wUser.access.range) %}<i class="bx bxs-star"></i> {% endfor %}</span>
+              {% endif %}
+              <h6 class="fs-base text-light mb-0">{{wUser.username}}</h6>
+              <div class="fs-xs">{{wUser.email}}</div>
+            </div>
+          </div><!--<a class="dropdown-item" href="{{url_for('public.profile')}}"><i class="fi-settings me-2"></i>Ajustes de perfil</a>--><a class="dropdown-item" href="job-board-account-my-resumes.html"><i class="fi-file me-2"></i>Mis reservas</a><a class="dropdown-item" href="job-board-account-saved-jobs.html"><i class="fi-heart me-2"></i>Ofertas guardadas</a><a class="dropdown-item" href="job-board-account-notifications.html"><i class="fi-bell me-2"></i>Notificaciones</a>
+          <div class="dropdown-divider"></div><a class="dropdown-item" href="{{url_for('auth.logout')}}"><i class="fi-logout me-2"></i>Desconectar</a>
+        </div>
+      </div>   
+      {% endif %}
+
+      <div class="collapse navbar-collapse order-lg-2" id="navbarNav">
+        {% if not header_pages or header_pages == True %}
+        <ul class="navbar-nav" style="max-height: 35rem;">
+
+          {% if wUser['not_login'] %}
+          <li class="nav-item d-lg-none"><a class="nav-link" href="#connect" data-bs-toggle="modal"><i class="fi-user me-2"></i>Conectarme / Registrarme</a></li>
+          {% else %}
+          <div class="mt-4">
+            <li class="nav-item d-lg-none"><a class="nav-link" href="{{url_for('public.profile_bookings')}}">Ir a mi perfil</a></li>
+            <li class="nav-item d-lg-none"><a class="nav-link" href="{{url_for('auth.logout')}}">Desconectarme</a></li>
+          </div>
+          {% if wUser['access']['type'] == 'supplier' %}
+          <hr class="border-top border-light">
+          <li class="nav-item d-lg-none py-2 row align-items-center"><a class="btn btn-light" href="{{url_for('wpanel.index')}}">Panel de empresa</a></li>
+          {% endif %}
+          {% endif %}
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+  {% else %}
+  <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page -->
+  <header class="header navbar navbar-expand-lg bg-light navbar-sticky">
+    <div class="container px-3">
+      <div class="tilt-3d position-relative bg-dark ratio ratio-4x3 pe-3 me-5" data-tilt data-tilt-glare data-tilt-max-glare="0.4" style="max-width: 120px;">
+        <a href="/" class="navbar-brand">
+          <img src="../../static/svg/logos/logo-white.svg" width="120" alt="Weggo">
+        </a>
+        <!-- <span class="navbar-brand d-none d-md-block text-light" style="font-size:12px;margin-top:45px">Comunidad para campistas</span> -->
+      </div>
+
+      <div id="navbarNav" class="offcanvas offcanvas-end" style="margin-left: -3rem;">
+        <div class="offcanvas-header border-bottom">
+          <h5 class="offcanvas-title">Menu</h5>
+          <select class="btn navbar-brand fs-sm d-lg-none text-light" style="margin-left: -8rem"><option value="ES" selected>ES</option></select>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item d-none d-lg-block">
+              <select class="btn navbar-brand fs-sm d-block text-light"><option value="ES" selected>ES</option></select>
+            </li>
+            <li class="nav-item">
+              <a href="{{url_for('public.news')}}" class="nav-link">Noticias</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Foros</a>
+              <div class="dropdown-menu p-0">
+                <div class="d-lg-flex">
+                  <!--<div class="mega-dropdown-column d-flex justify-content-center align-items-center rounded-3 rounded-end-0 px-0" style="margin: -1px; background-color: #f3f6ff;">
+                    <img src="assets/img/landings.jpg" alt="Landings">
+                  </div>-->
+                  {% if wForums[0:9] %}
+                  <div class="mega-dropdown-column pt-lg-3 pb-lg-4">
+                    <ul class="list-unstyled mb-0">
+                      {% for i in wForums %}
+                      <li><a href="{{url_for('public.forums', slug=i.slug)}}" class="dropdown-item">{{i.forum[0:24]}}..</a></li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                  {% elif wForums[9:18] %}
+                  <div class="mega-dropdown-column pt-lg-3 pb-lg-4" style="--si-mega-dropdown-column-width: 16rem;">
+                    <ul class="list-unstyled mb-0">
+                      <li><a href="landing-financial.html" class="dropdown-item">Financial Consulting</a></li>
+                    </ul>
+                  </div>
+                  {% elif wForums[18:27] %}
+                  <div class="mega-dropdown-column pt-lg-3 pb-lg-4" style="--si-mega-dropdown-column-width: 16rem;">
+                    <ul class="list-unstyled mb-0">
+                      <li><a href="landing-financial.html" class="dropdown-item">Financial Consulting</a></li>
+                    </ul>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </li>
+            <!--
+            <li class="nav-item">
+              <a href="components/typography.html" class="nav-link">Grupos</a>
+            </li>
+            <li class="nav-item">
+              <a href="docs/getting-started.html" class="nav-link">Club de socios <span class="ms-1 badge bg-success shadow-success">¡Únete!</span>
+              </a>
+            </li>-->
+            {% if 'access' in wUser %}
+              {% if wUser.access.type == 'moderator' or wUser.access.type == 'administrator' %}
+              <li class="nav-item">
+                <a href="{{url_for('panel.index')}}" class="nav-link">Zona de moderadores<span class="ms-1 badge bg-danger shadow-danger"><i class="fas fa-heart"></i></span>
+                </a>
+              </li>
+              {% endif %}
+            {% endif %}
+          </ul>
+        </div>
+        <div class="offcanvas-header border-top">
+          <a href="#connect" title="Conéctate para disfrutar de las ventajas" data-bs-toggle="modal" class="btn btn-primary w-100" target="_blank" rel="noopener">
+            <i class="fas fa-user-circle me-2"></i>Conectarme
+          </a>
+        </div>      
+      </div>
+
+      <button type="button" class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      {% if wUser['not_login'] %}
+      <a class="btn btn-xs btn-link text-light rounded-pill d-none d-lg-block order-lg-3" href="#connect" title="Conéctate para disfrutar de las ventajas" data-bs-toggle="modal" style="border: none;font-size:14px;"><i class="fas fa-user-circle me-2"></i>Conectarme</a>
+      {% else %}
+      <div class="dropdown d-none d-lg-block order-lg-3 my-n2 me-3">
+        <span class="d-flex align-items-center text-center">Bienvenido,<a class="ms-2" href="{{url_for('public.profile')}}"><h2 class="h5 mb-0">{{wUser.username}}</h2></a></span>
+        <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+          <div class="d-flex align-items-start border-bottom border-light px-3 py-1 mb-2" style="width: 16rem;"><img class="rounded-circle" src="{{url_for('static', filename='img/avatars/anonymous.png')}}" width="48" alt="Perfil de {{wUser.username}}">
+            <div class="ps-2">
+              <h6 class="fs-base text-light mb-0">{{wUser.username}} 
+                {% if 'access' in wUser %}  
+                {% if wUser.access.type == 'moderator' %}
+                <span class="ms-1 badge bg-faded-danger text-danger" style="font-size: 10px;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Moderador nivel {{wUser.access.range}}">Moderador {% for n in range(wUser.access.range) %}<i class="bx bxs-star"></i> {% endfor %}</span>
+                {% elif wUser.access.type == 'administrator' %}
+                <span class="ms-1 badge bg-faded-primary text-primary" style="font-size: 10px;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Administrador nivel {{wUser.access.range}}">Administrador {% for n in range(wUser.access.range) %}<i class="bx bxs-star"></i> {% endfor %}</span>
+                {% endif %}
+                {% endif %}
+              </h6>
+              <div class="fs-xs">{{wUser.email}}</div>
+            </div>
+          </div>
+          <a class="dropdown-item disabled" href="{{url_for('public.profile')}}"><i class="fi-settings me-2"></i>Ajustes de perfil</a>
+          <div class="dropdown-divider"></div><a class="dropdown-item" href="{{url_for('auth.logout')}}"><i class="fi-logout me-2"></i>Desconectar</a>
+          {% if 'access' in wUser %}{% if wUser.access.type == 'admin' %}<div class="dropdown-divider"></div><a class="dropdown-item bg-white text-primary" href="{{url_for('panel.index')}}"><i class="fi-logout me-2"></i>Panel de administración</a>{% endif %}{% endif %}
+        </div>
+      </div>   
+      {% endif %}
+
+    </div>
+  </header>
+  {% endif %}
+  {% endblock %}
+
+  {% block main %}
+  <main id="content" role="main" class="page-wrapper {{ '' if header_landing else 'py-md-3' }}">
+    {% if messages %}
+    <!-- Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    <div class="main content container mt-2">
+      {% for category, message in messages %}
+      <div class="alert alert-{{category}} alert-dismissible fade show small" role="alert" style="font-size:14px;">
+        {{message}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <svg aria-hidden="true" class="mb-0" width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M11.5,9.5l5-5c0.2-0.2,0.2-0.6-0.1-0.9l-1-1c-0.3-0.3-0.7-0.3-0.9-0.1l-5,5l-5-5C4.3,2.3,3.9,2.4,3.6,2.6l-1,1 C2.4,3.9,2.3,4.3,2.5,4.5l5,5l-5,5c-0.2,0.2-0.2,0.6,0.1,0.9l1,1c0.3,0.3,0.7,0.3,0.9,0.1l5-5l5,5c0.2,0.2,0.6,0.2,0.9-0.1l1-1 c0.3-0.3,0.3-0.7,0.1-0.9L11.5,9.5z"/>
+          </svg>
+        </button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endwith %}
+    <!-- End Messages -->
+    {% endif %}
+    
+    {% block content %}
+    {% endblock %}
+
+    <!-- Back to top button-->
+    <a class="btn-scroll-top" href="#top" data-scroll><span class="btn-scroll-top-tooltip text-light fs-sm me-2">Subir</span><i class="bx bx-chevron-up"></i></a>
+  </main>
+  {% endblock %}
+
+  {% block footer %}
+
+  {% block newsletter %}
+    {% if wNewsletter and 'options' in wNewsletter %}
+    {% else %}
+    <!-- Subscription CTA -->
+    <section class="py-5 bg-secondary">
+      <form action="{{url_for('auth.newsletter_register')}}" class="needs-validation" method="POST" novalidate>
+        <div class="container py-md-3 py-lg-5">
+          <div class="row justify-content-center pt-2">
+            <div class="col-xl-8 col-lg-9 col-md-11">
+              <h2 class="h1 d-md-inline-block position-relative mb-md-5 mb-sm-4 text-sm-start text-center">
+                ¿Quieres estar al corriente de todo?
+
+                <!-- Arrow shape -->
+                <svg class="d-md-block d-none position-absolute top-0 ms-4 ps-1" style="left: 100%;" xmlns="http://www.w3.org/2000/svg" width="65" height="68" fill="#6366f1"><path d="M53.9527 51.0012c8.396-10.5668 2.0302-26.0134-11.7481-26.7511-.6899-.0646-1.4612.0015-2.1258.0431.1243 9.0462-4.1714 18.8896-11.5618 21.3814-6.6695 2.2133-10.3337-4.2224-7.5813-9.676 3.2966-6.4755 9.103-11.8504 16.1678-13.8189-.5654-5.6953-3.3436-10.7672-9.485-12.48517C17.2678 6.8204 6.49364 16.3681 4.98841 26.127c-.09276 1.0297-1.68569.9497-1.59293-.0801C3.98732 12.9139 19.7395 2.55212 31.9628 8.5787c4.7253 2.3813 7.2649 7.3963 7.9368 13.067 7.4237-.9311 14.5154 3.3683 18.3422 9.5422 4.3988 7.1623 2.3584 15.1401-2.6322 21.1108-.7826.9653-2.3331-.3572-1.6569-1.2975zM26.7754 32.1845c-1.9411 2.2411-4.076 5.0872-4.3542 8.1764-.3036 2.9829 3.7601 3.0525 5.4905 2.7645 2.1568-.3863 3.7221-2.3164 4.8863-4.0419 2.6228-3.6308 4.3657-9.0752 4.4844-14.2563-4.0808 1.279-7.6514 4.2327-10.507 7.3573zm24.6311 25.592c-.7061-2.9738-1.2243-6.1031-1.1591-9.143.0423-1.242 1.767-1.0805 1.8313.1372.1284 2.435.815 4.8532 1.4764 7.1651l4.1619-1.4098c1.0153-.4586 2.4373-1.5714 3.6544-1.1804.6087.1954.7347.7264.6475 1.3068-.2302 1.3976-2.4683 1.9147-3.5901 2.398-1.8429.7619-3.6293 1.2865-5.5477 1.7298-.6391.1476-1.3233-.3665-1.4746-1.0037z"/></svg>
+              </h2>
+
+              <!-- Title + checkboxes -->
+              <div class="row gy-4 align-items-center mb-lg-5 mb-4 pb-3">
+                <div class="col-md-3">
+                  <h3 class="h5 mb-0 text-sm-start text-center">Subscríbete a nuestro boletín</h3>
+                </div>
+                <div class="col-md-9">
+                  <div class="row row-cols-sm-3 row-cols-2 gy-2">
+                    <div class="col">
+                      <div class="form-check mb-0">
+                        <input type="checkbox" id="s-diaryNews" name="newsletterDiary" class="form-check-input">
+                        <label for="s-diaryNews" class="form-check-label">Noticias diarias</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-check mb-0">
+                        <input type="checkbox" id="s-updates" name="newsletterUpdates" class="form-check-input" checked>
+                        <label for="s-updates" class="form-check-label">Actualizaciones</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-check mb-0">
+                        <input type="checkbox" id="s-weeklySummary" name="newsletterSummary" class="form-check-input">
+                        <label for="s-weeklySummary" class="form-check-label">Resumen de la semana</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-check mb-0">
+                        <input type="checkbox" id="s-events" name="newsletterEvents" class="form-check-input">
+                        <label for="s-events" class="form-check-label">Eventos & chollos</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-check mb-0">
+                        <input type="checkbox" id="s-partners" name="newsletterPartners" class="form-check-input">
+                        <label for="s-partners" class="form-check-label">Nuevos Partners</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-check mb-0">
+                        <input id="s-usersContent" type="checkbox" name="newsletterUsersContent" class="form-check-input">
+                        <label for="s-usersContent" class="form-check-label">Contenido de usuarios</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Email field -->
+              <div class="d-flex flex-sm-row flex-column mb-3">
+                <div class="input-group me-sm-3 mb-sm-0 mb-3">
+                  <i class="bx bx-envelope position-absolute start-0 top-50 translate-middle-y ms-3 zindex-5 fs-5 text-muted"></i>
+                  <input type="email" class="form-control form-control-lg rounded-3 ps-5" name="newsletterEmail" placeholder="Dirección de correo electrónico" required>
+                  <div class="invalid-tooltip position-absolute start-0 top-0 mt-n4">Por favor, introduce una dirección válida</div>
+                </div>
+                <button type="submit" class="btn btn-lg btn-primary">Subscribirme</button>
+              </div>
+              <div class="form-text fs-sm text-sm-start text-center">
+                * Al continuar, acepto los <a href="#">términos y condiciones</a> y la <a href="#">política de privacidad</a>.
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+    {% endif %}
+  {% endblock %}
+
+  <footer class="">
+    <div class="py-2">
+      <div class="text-center fs-sm">&copy; Comunidad de <strong>Campers</strong>. Creado por <a href='https://linkedin.com/in/ruben-ayuso' class='d-inline-block nav-link p-0' target='_blank' rel='noopener'>Rubén Ayuso</a></div>
+    </div>
+  </footer>
+  {% endblock %}
+
+  <script src="{{url_for('static',filename='vendor/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{url_for('static',filename='vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js')}}"></script>
+  <script src="{{url_for('static',filename='vendor/jarallax/dist/jarallax.min.js')}}"></script>
+  <script src="{{url_for('static',filename='vendor/rellax/rellax.min.js')}}"></script>
+  <script src="{{url_for('static',filename='vendor/parallax-js/dist/parallax.min.js')}}"></script>
+  <script src="{{url_for('static',filename='vendor/vanilla-tilt/dist/vanilla-tilt.min.js')}}"></script>
+  <script src="{{url_for('static',filename='vendor/swiper/swiper-bundle.min.js')}}"></script>
+
+  {% block scripts %}
+  {% endblock %}
+
+  <!-- Main theme script-->
+  <script src="{{url_for('static',filename='js/theme.min.js')}}"></script>
+</body>
+</html>

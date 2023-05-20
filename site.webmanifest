@@ -1,0 +1,39 @@
+{
+    "name": "Weggo",
+    "short_name": "Weggo",
+    "description": "La comunidad camper de Europa",
+    "icons": [
+        {
+            "src": "app-icons/weggo-app-192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "app-icons/weggo-app-384.png",
+            "type": "image/png",
+            "sizes": "384x384"
+        },
+        {
+           "src": "app-icons/weggo-app-512.png",
+           "type": "image/png",
+           "sizes": "512x512"
+        },
+        {
+            "src": "app-icons/weggo-app-maskable-512.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "maskable"
+        },
+        {
+           "src": "app-icons/weggo-app-1024.png",
+           "type": "image/png",
+           "sizes": "1024x1024"
+        }
+    ],
+    "start_url": "./",
+    "id": "Weggo Beta",
+    "scope": "./",
+    "display": "fullscreen",
+    "theme_color": "#000",
+    "background_color": "#000"
+ }

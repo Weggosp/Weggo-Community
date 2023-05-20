@@ -1,0 +1,7 @@
+user-agent: *
+disallow: /node_modules/
+
+user-agent: magicsearchbot
+disallow: /ts/
+
+sitemap: https://weggo.es/sitemap.xml

@@ -1,0 +1,207 @@
+{% extends 'bases/weggo_v1_base.html' %}
+
+
+{% block metadatos %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Weggo App utiliza tecnología avanzada para ofrecer información actualizada y contrastada. ★ Compara cientos de ofertas ✓ Bajos precios ✓ Rápido y fácil ✓ Pagos seguros.">
+<meta name="keywords" content="Camper, viajes, campings, autocaravanas, caravanas, camperizado, tutoriales, informacion, alquiler, furgoneta, vacaciones, España">
+<meta name="author" content="Ruben Ayuso">
+<meta name="generator" content="Weggo Application 1.0.21">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+{% endblock %}
+
+{% block css %}
+<link href="{{ url_for('static', filename='vendor/select2/dist/css/select2.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<body class="footer-offset scrollbar fixed-bottom-btn bg-light">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-md-4 py-5">
+
+<!-- Sponsored posts carousel-->
+<div class="tns-carousel-wrapper">
+    <div class="tns-carousel-inner" data-carousel-options="{&quot;mode&quot;: &quot;gallery&quot;, &quot;nav&quot;: false, &quot;controlsContainer&quot;: &quot;#sponsored-news-controls&quot;}">
+        <!-- Item-->
+        <div>
+        <article class="row">
+            <div class="col-md-7 col-lg-8 mb-lg-0 mb-3 mb-md-0"><a class="d-block position-relative" href="real-estate-blog-single.html"><span class="badge bg-success position-absolute top-0 end-0 m-3 fs-sm">Sponsored</span><img class="rounded-3" src="img/real-estate/blog/01.jpg" alt="Post image"></a></div>
+            <div class="col-md-5 col-lg-4"><a class="fs-sm text-uppercase text-decoration-none" href="#">Tips &amp; Advice</a>
+            <h2 class="h5 pt-1"><a class="nav-link" href="real-estate-blog-single.html">Looking for a New Place? Use This Time to Create Your Wishlist</a></h2>
+            <p class="d-md-none d-xl-block mb-4">Nulla felis neque ultrices ut aliquam. Pellentesque id semper iaculis scelerisque etiam egestas interdum proin sit. Ornare venenatis, ullamcorper amet arcu ipsum ut morbi enim. Senectus quam egestas facilisi enim diam posuere ultricies interdum sed. Amet, risus eros cursus vitae, sit?</p><a class="d-flex align-items-center text-decoration-none" href="#"><img class="rounded-circle" src="img/avatars/06.jpg" width="48" alt="Kristin Watson">
+                <div class="ps-2">
+                <h6 class="fs-base text-nav lh-base mb-1">Kristin Watson</h6>
+                <div class="d-flex text-body fs-sm"><span class="me-2 pe-1"><i class="fi-calendar-alt opacity-60 mt-n1 me-1"></i>Mar 13</span><span><i class="fi-chat-circle opacity-60 mt-n1 me-1"></i>No comments</span></div>
+                </div></a>
+            </div>
+        </article>
+        </div>
+        <!-- Item-->
+        <div>
+        <article class="row">
+            <div class="col-md-7 col-lg-8 mb-lg-0 mb-3 mb-md-0"><a class="d-block position-relative" href="real-estate-blog-single.html"><span class="badge bg-success position-absolute top-0 end-0 m-3 fs-sm">Sponsored</span><img class="rounded-3" src="img/real-estate/blog/02.jpg" alt="Post image"></a></div>
+            <div class="col-md-5 col-lg-4"><a class="fs-sm text-uppercase text-decoration-none" href="#">Industry News</a>
+            <h2 class="h5 pt-1"><a class="nav-link" href="real-estate-blog-single.html">Traditional Real Estate Marketing Holds Firm Despite Pandemic</a></h2>
+            <p class="d-md-none d-xl-block mb-4">Phasellus cursus orci pulvinar proin nulla vitae. Arcu faucibus vestibulum fames eget nunc. Ut in sed platea egestas amet purus nibh suspendisse semper. Senectus quam egestas facilisi enim diam posuere ultricies interdum sed. Amet, risus eros cursus vitae, sit. Nulla felis neque ultrices ut aliquam.</p><a class="d-flex align-items-center text-decoration-none" href="#"><img class="rounded-circle" src="img/avatars/04.jpg" width="48" alt="Darrell Steward">
+                <div class="ps-2">
+                <h6 class="fs-base text-nav lh-base mb-1">Darrell Steward</h6>
+                <div class="d-flex text-body fs-sm"><span class="me-2 pe-1"><i class="fi-calendar-alt opacity-60 mt-n1 me-1"></i>Feb 27</span><span><i class="fi-chat-circle opacity-60 mt-n1 me-1"></i>3 comments</span></div>
+                </div></a>
+            </div>
+        </article>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var currentPage = 1;
+        var newsPerPage = 5;
+        var newsData = [];
+        var filteredData = [];
+
+        $.ajax({
+            url: '/api/v1/news',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                newsData = data;
+                filteredData = data;
+                displayNews();
+            },
+            error: function(xhr, status, error) {
+                console.log('No se ha podido obtener las noticias. Vuelve a intentarlo');
+            }
+        });
+
+        function displayNews() {
+            var startIndex = (currentPage - 1) * newsPerPage;
+            var endIndex = startIndex + newsPerPage;
+            var newsHtml = '';
+            
+            for (var i = startIndex; i < endIndex && i < filteredData.length; i++) {
+                newsHtml += '<article class="col pb-2 pb-md-1">';
+                newsHtml += '<a class="d-block position-relative mb-3" href="' + filteredData[i].url + '">';
+                if (filteredData[i].badge && filteredData[i].badge !== 'none' && filteredData[i].badge !== 'false') {
+                newsHtml += '<span class="badge bg-info position-absolute top-0 end-0 m-3 fs-sm">' + filteredData[i].badge + '</span>';
+                }
+                newsHtml += '<img class="d-block rounded-3" src="' + filteredData[i].image + '" alt="' + filteredData[i].alt + '">';
+                newsHtml += '</a>';
+                newsHtml += '<a class="fs-sm text-uppercase text-decoration-none" href="' + filteredData[i].categoryUrl + '">' + filteredData[i].category + '</a>';
+                newsHtml += '<h3 class="h5 mb-2 pt-1"><a class="nav-link" href="' + filteredData[i].titleUrl + '">' + filteredData[i].title + '</a></h3>';
+                newsHtml += '<p class="mb-0 pb-0">' + filteredData[i].shortDescription + '</p>';
+                newsHtml += '<div class="d-flex align-items-center text-muted pt-0"';
+                newsHtml += '<p class="fs-sm border-end pt-0 pe-3 me-3">' + filteredData[i].created + '</p>';
+                newsHtml += '<div class="d-flex align-items-center me-3"';
+                newsHtml += '<i class="bx bx-like fs-lg me-1"></i>';
+                newsHtml += '<span class="fs-sm">' +  filteredData[i].commentsCount + '</span>';
+
+                newsHtml += '<a class="d-flex align-items-center text-decoration-none" href="' + filteredData[i].authorUrl + '">';
+                newsHtml += '<img class="rounded-circle" src="' + filteredData[i].authorImage + '" width="' + filteredData[i].authorImageWidth + '" alt="' + filteredData[i].authorAlt +'">';
+                newsHtml += '<div class="ps-2">';
+                newsHtml += '<h6 class="fs-base text-nav lh-base mb-1">' + filteredData[i].authorName + '</h6>';
+                newsHtml += '<div class="d-flex text-body fs-sm">';
+                newsHtml += '<span class="me-2 pe-1"><i class="' + filteredData[i].calendarIconClass +' opacity-70 mt-n1 me-1 align-middle"></i>' + filteredData[i].dateText+ '</span>';
+                newsHtml += '<span><i class="' + filteredData[i].chatIconClass +' opacity-70 mt-n1 me-1 align-middle"></i>' + filteredData[i].commentsText+ '</span>';
+                newsHtml += '</div></div></a></article>';
+            }
+            
+            $('#news-container').html(newsHtml);
+            $('#pagination').html(generatePagination());
+            }
+
+        function generatePagination() {
+            var totalPages = Math.ceil(filteredData.length / newsPerPage);
+            var paginationHtml = '';
+
+            for (var i = 1; i <= totalPages; i++) {
+                paginationHtml += '<li class="page-item' + (i === currentPage ? ' active' : '') + '"><a class="page-link" href="#">' + i + '</a></li>';
+            }
+
+            return paginationHtml;
+        }
+
+        $('#search-form').submit(function(event) {
+            event.preventDefault();
+
+            var searchText = $('#search-text').val().toLowerCase();
+            var categoryFilter = $('#category-filter').val();
+            var dateFilter = $('#date-filter').val();
+
+            filteredData = newsData.filter(function(newsItem) {
+                return (
+                    (newsItem.title.toLowerCase().indexOf(searchText) !== -1 || newsItem.content.toLowerCase().indexOf(searchText) !== -1) &&
+                    (categoryFilter === '' || newsItem.category === categoryFilter) &&
+                    (dateFilter === '' || newsItem.date === dateFilter)
+                );
+            });
+
+            currentPage = 1;
+            displayNews();
+        });
+
+        $('#pagination').on('click', '.page-link', function(event) {
+            event.preventDefault();
+
+            currentPage = parseInt($(this).text());
+            displayNews();
+        });
+    });
+</script>
+<style>
+    .news-item {
+        margin-bottom: 20px;
+    }
+</style>
+
+    <form id="search-form" class="py-3 mt-3">
+        <div class="row gy-3 mb-4 pb-2">
+            <div class="col-md-3 order-md-1 order-2">
+                <div class="position-relative">
+                <input id="search-text" class="form-control pe-5" type="text" placeholder="Buscar artículos.."><i class="fi-search position-absolute top-50 end-0 translate-middle-y me-3"></i>
+                <i class="bx bx-search position-absolute top-50 end-0 translate-middle-y me-3 zindex-5 fs-lg"></i>
+                </div>
+            </div>
+            <div class="col-md-6 order-md-2 order-1">
+                <div class="row gy-3">
+                <div class="col-6 d-flex flex-sm-row flex-column align-items-sm-center">
+                    <label class="d-inline-block me-sm-2 mb-sm-0 mb-2 text-nowrap" for="categories-filter"><i class="fi-align-left mt-n1 me-2 align-middle opacity-70"></i>Category:</label>
+                    <select id="category-filter" class="form-select">
+                        <option value="">Todas las categorías</option>
+                        <option value="Autocaravanas">Autocaravanas</option>
+                        <option value="Categoría 2">Categoría 2</option>
+                    </select>
+                </div>
+                <div class="col-6 d-flex flex-sm-row flex-column align-items-sm-center">
+                    <label class="d-inline-block me-sm-2 mb-sm-0 mb-2 text-nowrap" for="sortby"><i class="fi-arrows-sort mt-n1 me-2 align-middle opacity-70"></i>Sort by:</label>
+                    <select class="form-select" id="sortby">
+                    <option>Newest</option>
+                    <option>Oldest</option>
+                    <option>Popular</option>
+                    <option>Sponsored</option>
+                    </select>
+                </div>
+                </div>
+            </div>
+            <div class="col order-md-2 order-1">
+                <input type="date" class="form-control" id="date-filter">
+            </div>
+
+            <div class="col order-md-3">
+                <button type="submit" class="btn btn-primary bg-gradient-primary fs-xl p-2 border-0"><i class="bx bx-search"></i></button>
+            </div>
+        </div>
+    </form>
+
+    <div id="news-container" class="row row-cols-md-2 row-cols-1 gy-md-5 gy-4 mb-lg-5 mb-4">
+        Cargando noticias...
+    </div>
+
+    <ul id="pagination" class="pagination"></ul>
+</div>
+</body>
+{% endblock %}

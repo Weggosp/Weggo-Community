@@ -1,0 +1,369 @@
+{% extends 'bases/weggo_v1_base.html' %}
+<!-- Meta tags -->
+<meta name="description" content=""> <!-- * -->
+<meta name="keywords" content=""> <!-- * -->
+
+{% block title %} Preguntas frecuentes | Weggo España {% endblock %}
+
+  {% block depends_header %}
+    <header id="header" class="header header-box-shadow-on-scroll header-abs-top header-bg-transparent ">
+  {% endblock %}
+
+{% block content %}
+<main id="content" role="main">
+  <!-- Hero Section -->
+  <div class="bg-img-hero" style="background-image: url(static/svg/components/abstract-shapes-12.svg);">
+    <div class="container space-top-3 space-bottom-2 position-relative z-index-2">
+      <div class="w-md-80 w-lg-60 text-center mx-md-auto">
+        <h1>FAQ</h1>
+        <p>Respuestas a las preguntas más comunes de los usuarios</p>
+      </div>
+    </div>
+  </div>
+  <!-- End Hero Section -->
+
+  <!-- FAQ Topics Section -->
+  <div class="container space-2 space-bottom-lg-3">
+    <div class="row justify-content-lg-center">
+      <div class="col-lg-8">
+        <div id="basics" class="space-bottom-1">
+          <h2>Básicas</h2>
+
+          <!-- Basics Accordion -->
+          <div id="basicsAccordion">
+            <!-- Basic -->
+            <div class="card shadow-none mb-3">
+              <div class="card-header card-collapse" id="basicsHeadingOne">
+                <a class="btn btn-link btn-block d-flex justify-content-between card-btn collapsed bg-white px-0" href="javascript:;" role="button" data-toggle="collapse" data-target="#basic" aria-expanded="false" aria-controls="basic">
+                  ¿Qué es Weggo?
+
+                  <span class="card-btn-toggle">
+                    <span class="card-btn-toggle-default">&plus;</span>
+                    <span class="card-btn-toggle-active">&minus;</span>
+                  </span>
+                </a>
+              </div>
+              <div id="basic" class="collapse" aria-labelledby="basicsHeadingOne" data-parent="#basicsAccordion">
+                <div class="card-body px-0">
+                  <p>Es la primera comunidad digital moderna española enfocada en el sector camper. Estamos mejorando algunas funcionalidades que ya aplican otras plataformas y desarrollando otras innovadoras que sólo encontrarás con nosotros.</p>
+                  <p>En esta plataforma podrás solicitar los servicios de alquiler de las modalidades disponible, organizar tus propias rutas de viaje, ofertar tus servicios campers o generar pequeños ingresos compartiendo con la comunidad los itinerarios de viaje que has diseñado.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Basic 2 -->
+            <div class="card shadow-none mb-3">
+              <div class="card-header card-collapse" id="basicsHeadingOne">
+                <a class="btn btn-link btn-block d-flex justify-content-between card-btn collapsed bg-white px-0" href="javascript:;" role="button" data-toggle="collapse" data-target="#basic2" aria-expanded="false" aria-controls="basic2">
+                  ¿Tiene algún coste utilizar los servicios?
+
+                  <span class="card-btn-toggle">
+                    <span class="card-btn-toggle-default">&plus;</span>
+                    <span class="card-btn-toggle-active">&minus;</span>
+                  </span>
+                </a>
+              </div>
+              <div id="basic2" class="collapse" aria-labelledby="basicsHeadingOne" data-parent="#basicsAccordion">
+                <div class="card-body px-0">
+                  <p>No, la plataforma no tiene ningún coste por su utilización, a excepción de querer ofertar tus servicios.</p>
+                  <p>Si quieres utilizar la plataforma para ofertar tus servicios te recomendamos dirigirte a la parte inferior de la página. Haz click en "Acceder cómo proveedor".</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Basic 3 -->
+            <div class="card shadow-none mb-3">
+              <div class="card-header card-collapse" id="basicsHeadingOne">
+                <a class="btn btn-link btn-block d-flex justify-content-between card-btn collapsed bg-white px-0" href="javascript:;" role="button" data-toggle="collapse" data-target="#basic3" aria-expanded="false" aria-controls="basic3">
+                  ¿Se utilizan sesiones o cookies?
+
+                  <span class="card-btn-toggle">
+                    <span class="card-btn-toggle-default">&plus;</span>
+                    <span class="card-btn-toggle-active">&minus;</span>
+                  </span>
+                </a>
+              </div>
+              <div id="basic3" class="collapse" aria-labelledby="basicsHeadingOne" data-parent="#basicsAccordion">
+                <div class="card-body px-0">
+                  <p>Utilizamos sesiones y cookies para la transformación de datos y la mejora de los servicios ofrecidos.</p>
+                  <p>Algunos datos, cómo la edad o el código postal, son guardados para analizar el impacto de la plataforma en las diferentes comunidades del país.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Basic 4 -->
+            <div class="card shadow-none mb-3">
+              <div class="card-header card-collapse" id="basicsHeadingTwo">
+                <a class="btn btn-link btn-block d-flex justify-content-between card-btn collapsed bg-white px-0" href="javascript:;" role="button" data-toggle="collapse" data-target="#basic4" aria-expanded="false" aria-controls="basic4">
+                  ¿Qué ventaja tiene registrarme?
+
+                  <span class="card-btn-toggle">
+                    <span class="card-btn-toggle-default">&plus;</span>
+                    <span class="card-btn-toggle-active">&minus;</span>
+                  </span>
+                </a>
+              </div>
+              <div id="basic4" class="collapse" aria-labelledby="basicsHeadingTwo" data-parent="#basicsAccordion">
+                <div class="card-body px-0">
+                  <p>Registrarte como usuario te permitirá, actualmente, mantener guardadas las ofertas, noticias y otra información de interés de la comunidad. Así mismo, te permitirá llevar un seguimiento de las reservas que realices.</p>
+                  <p>En las próximas implementaciones te permitirá crear, modificar, compartir o solicitar planificaciones de viajes: gestionar rutas, aparcamientos, reservas.. y otras opciones que se vayan implementando.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Basic 5 -->
+            <div class="card shadow-none mb-3">
+              <div class="card-header card-collapse" id="basicsHeadingThree">
+                <a class="btn btn-link btn-block d-flex justify-content-between card-btn collapsed bg-white px-0" href="javascript:;" role="button" data-toggle="collapse" data-target="#basic5" aria-expanded="false" aria-controls="basic5">
+                  ¿Es necesario registrarme para poder alquilar?
+
+                  <span class="card-btn-toggle">
+                    <span class="card-btn-toggle-default">&plus;</span>
+                    <span class="card-btn-toggle-active">&minus;</span>
+                  </span>
+                </a>
+              </div>
+              <div id="basic5" class="collapse" aria-labelledby="basicsHeadingThree" data-parent="#basicsAccordion">
+                <div class="card-body px-0">
+                  <p><strong>No</strong>. Hacemos uso de cookies y sesiones para permitir que puedas realizar contrataciones sin tener que registrarte. </p>
+                  <p>No obstante, si quieres beneficiarte en mayor medida de las opciones que ofrecemos te recomendamos registrarte ya que es necesario estarlo para ello.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Basic 6 -->
+            <div class="card shadow-none mb-3">
+              <div class="card-header card-collapse" id="basicsHeadingThree">
+                <a class="btn btn-link btn-block d-flex justify-content-between card-btn collapsed bg-white px-0" href="javascript:;" role="button" data-toggle="collapse" data-target="#basic6" aria-expanded="false" aria-controls="basic6">
+                  No puedo acceder a mi cuenta, ¿qué hago?
+
+                  <span class="card-btn-toggle">
+                    <span class="card-btn-toggle-default">&plus;</span>
+                    <span class="card-btn-toggle-active">&minus;</span>
+                  </span>
+                </a>
+              </div>
+              <div id="basic6" class="collapse" aria-labelledby="basicsHeadingThree" data-parent="#basicsAccordion">
+                <div class="card-body px-0">
+                  <p>Si no puedes acceder a tu cuenta es posible que se deba a un error de autenticación.</p>
+                  <p>Para recuperar el acceso, en la sección inferior <strong><< Cuenta & preferencias / ¿Cómo puedo cambiar mi contraseña? >></strong> te explicamos cómo acceder a tu cuenta.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End Basics Accordion -->
+        </div>
+
+        <div id="account" class="space-1">
+          <h2>Cuenta &amp; preferencias</h2>
+
+          <!-- Account Accordion -->
+          <div id="accountAccordion">
+            <!-- Card -->
+            <div class="card shadow-none mb-3">
+              <div class="card-header card-collapse" id="accountHeadingOne">
+                <a class="btn btn-link btn-block d-flex justify-content-between card-btn collapsed bg-white px-0" href="javascript:;" role="button" data-toggle="collapse" data-target="#accountCollapseOne" aria-expanded="false" aria-controls="accountCollapseOne">
+                  ¿Cómo puedo cambiar mi contraseña?
+
+                  <span class="card-btn-toggle">
+                    <span class="card-btn-toggle-default">&plus;</span>
+                    <span class="card-btn-toggle-active">&minus;</span>
+                  </span>
+                </a>
+              </div>
+              <div id="accountCollapseOne" class="collapse" aria-labelledby="accountHeadingOne" data-parent="#accountAccordion">
+                <div class="card-body px-0">
+                  <p>Para cambiar tu contraseña, <a href="{{ url_for('auth.recover') }}" target="_blank">haz click aquí</a> y sigue los pasos.</p>
+                  <p>Si a pesar de haber cambiado tu contraseña sigues sin poder acceder es posible que ésta se encuentre bloqueada por algún motivo. Contacta con el equipo para revisar qué es lo que le ocurre a tu cuenta.</p>
+                </div>
+              </div>
+            </div>
+            <!-- End Card -->
+
+            <!-- Card -->
+            <div class="card shadow-none mb-3">
+              <div class="card-header card-collapse" id="accountHeadingTwo">
+                <a class="btn btn-link btn-block d-flex justify-content-between card-btn collapsed bg-white px-0" href="javascript:;" role="button" data-toggle="collapse" data-target="#accountCollapseTwo" aria-expanded="false" aria-controls="accountCollapseTwo">
+                  ¿Cómo puedo borrar mi cuenta?
+
+                  <span class="card-btn-toggle">
+                    <span class="card-btn-toggle-default">&plus;</span>
+                    <span class="card-btn-toggle-active">&minus;</span>
+                  </span>
+                </a>
+              </div>
+              <div id="accountCollapseTwo" class="collapse" aria-labelledby="accountHeadingTwo" data-parent="#accountAccordion">
+                <div class="card-body px-0">
+                  <p><strong>No puedes</strong>. Actualmente no hay ninguna opción para que elimines tu cuenta. Si deseas que así sea deberás notificarnos por escrito a la dirección postal de la compañía. </p>
+                </div>
+              </div>
+            </div>
+            <!-- End Card -->
+
+            <!-- Card -->
+            <div class="card shadow-none mb-3">
+              <div class="card-header card-collapse" id="accountHeadingThree">
+                <a class="btn btn-link btn-block d-flex justify-content-between card-btn collapsed bg-white px-0" href="javascript:;" role="button" data-toggle="collapse" data-target="#accountCollapseThree" aria-expanded="false" aria-controls="accountCollapseThree">
+                  ¿Cuánto tiempo se guarda las ofertas en mis favoritos?
+
+                  <span class="card-btn-toggle">
+                    <span class="card-btn-toggle-default">&plus;</span>
+                    <span class="card-btn-toggle-active">&minus;</span>
+                  </span>
+                </a>
+              </div>
+              <div id="accountCollapseThree" class="collapse" aria-labelledby="accountHeadingThree" data-parent="#accountAccordion">
+                <div class="card-body px-0">
+                  <p><strong>Indeterminado</strong>. Las ofertas permanecerán guardadas hasta que tú las elimines, o bien en su defecto, y si no eres usuario registrado, hasta que elimines las cookies del navegador.</p>
+                </div>
+              </div>
+            </div>
+            <!-- End Card -->
+
+
+          </div>
+          <!-- End Account Accordion -->
+        </div>
+
+        <div id="account" class="space-1">
+          <h2>Colaboraciones &amp; servicios</h2>
+
+          <!-- Collaborators Accordion -->
+          <div id="collaborationAccordion">
+            <!-- Coll 1 -->
+            <div class="card shadow-none mb-3">
+              <div class="card-header card-collapse" id="collHeading">
+                <a class="btn btn-link btn-block d-flex justify-content-between card-btn collapsed bg-white px-0" href="javascript:;" role="button" data-toggle="collapse" data-target="#coll1" aria-expanded="false" aria-controls="coll1">
+                  ¿Puedo ofrecer mis servicios en la plataforma?
+
+                  <span class="card-btn-toggle">
+                    <span class="card-btn-toggle-default">&plus;</span>
+                    <span class="card-btn-toggle-active">&minus;</span>
+                  </span>
+                </a>
+              </div>
+              <div id="coll1" class="collapse" aria-labelledby="collHeading" data-parent="#collaborationAccordion">
+                <div class="card-body px-0">
+                  <p>¡Claro que sí!</p>
+                  <p>Siempre y cuando te dediques al sector camper y vendas o alquiles tus vehículos, o quieras ofrecer los servicios de tu actividad laboral si entra dentro de las siguientes categorías:</p>
+                  <p class="ml-3">- Actividades de ocio (no urbanas)</p>
+                  <p class="ml-3">- Tiendas de deporte (Surf, Vela, Piragüismo, Rafting, Escalada, Rappeling, ...)</p>
+                  <p class="ml-3">- Campings</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Coll 2 -->
+            <div class="card shadow-none mb-3">
+              <div class="card-header card-collapse" id="collHeading">
+                <a class="btn btn-link btn-block d-flex justify-content-between card-btn collapsed bg-white px-0" href="javascript:;" role="button" data-toggle="collapse" data-target="#coll2" aria-expanded="false" aria-controls="coll2">
+                  ¿Qué costes se aplican a la utilización de los servicios?
+
+                  <span class="card-btn-toggle">
+                    <span class="card-btn-toggle-default">&plus;</span>
+                    <span class="card-btn-toggle-active">&minus;</span>
+                  </span>
+                </a>
+              </div>
+              <div id="coll2" class="collapse" aria-labelledby="collHeading" data-parent="#collaborationAccordion">
+                <div class="card-body px-0">
+                  <p>Aquellos que deseen publicar su oferta de alquiler en la plataforma deben saber que aplicamos, de forma genérica, un <strong>10,5% de comisión</strong> sobre venta realizada.</p>
+                  <p>La comisión puede oscilar en función de la forma de pago. Para conocer más, <a href="{{ url_for('public.coll_advantages') }}" class="text-dark">haz click aquí</a> </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Coll 3 -->
+            <div class="card shadow-none mb-3">
+              <div class="card-header card-collapse" id="collHeading">
+                <a class="btn btn-link btn-block d-flex justify-content-between card-btn collapsed bg-white px-0" href="javascript:;" role="button" data-toggle="collapse" data-target="#coll3" aria-expanded="false" aria-controls="coll3">
+                  ¿Puedo llevar un seguimiento de mis ventas?
+
+                  <span class="card-btn-toggle">
+                    <span class="card-btn-toggle-default">&plus;</span>
+                    <span class="card-btn-toggle-active">&minus;</span>
+                  </span>
+                </a>
+              </div>
+              <div id="coll3" class="collapse" aria-labelledby="collHeading" data-parent="#collaborationAccordion">
+                <div class="card-body px-0">
+                  <p>En la plataforma dispones de un panel de análisis para observar el crecimiento de tu negocio, ya sea en valores monetarios o por venta realizada.</p>
+                  <p>También podrás analizar las opiniones de tus ofertas, guardar el historial de transacciones o gestionar tu cartera de clientes dentro de la plataforma.</p>
+                  <p>No se carga ningún coste extra por estas funcionalidades, se te incluye en la comisión cobrada por la utilización de nuestros servicios.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Coll 4 -->
+            <div class="card shadow-none mb-3">
+              <div class="card-header card-collapse" id="collHeading">
+                <a class="btn btn-link btn-block d-flex justify-content-between card-btn collapsed bg-white px-0" href="javascript:;" role="button" data-toggle="collapse" data-target="#coll4" aria-expanded="false" aria-controls="coll4">
+                  Quiero empezar a ofrecer mis servicios, ¿qué hago?
+
+                  <span class="card-btn-toggle">
+                    <span class="card-btn-toggle-default">&plus;</span>
+                    <span class="card-btn-toggle-active">&minus;</span>
+                  </span>
+                </a>
+              </div>
+              <div id="coll4" class="collapse" aria-labelledby="collHeading" data-parent="#collaborationAccordion">
+                <div class="card-body px-0">
+                  <p>Lo primero que tienes que hacer es <b>registrarte</b> como colaborador. Para ello, dirígite a la página principal > Oferta tus servicios</p>
+                  <p>Selecciona si eres empresa o particular, rellena el formulario y léete los términos y condiciones de utilizar nuestra plataforma. Si estás de acuerdo, continúa con el proceso</p>
+                  <p>Rellena todos los datos obligatorios en Perfil > Editar perfil</p>
+                  <p>¡Ahora ya estás listo para publicar ofertas! Dirígete a la pantalal principal del panel de colaborador > Crear nueva oferta. Sigue los pasos y automáticamente, una vez finalizado el formulario, se publicará en la web.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row mx-n2 space-top-lg-2">
+          <div class="col-md-6 px-2 mb-3 mb-lg-0">
+            <!-- Icon Block -->
+            <a class="card card-frame h-100" href="mailto:info@weggo.es">
+              <div class="card-body">
+                <div class="media">
+                  <figure class="w-100 max-w-6rem mr-3">
+                    <img class="img-fluid" src="{{ url_for('static', filename='svg/icons/icon-4.svg') }}" alt="SVG">
+                  </figure>
+                  <div class="media-body">
+                    <h3>Háznos una pregunta</h3>
+                    <p class="text-body">El equipo de Weggo te dará una respuesta a la mayor brevedad posible.</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <!-- End Icon Block -->
+          </div>
+
+          <div class="col-md-6 px-2 mb-3 mb-lg-0">
+
+              <a class="btn btn-outline-secondary disabled card card-frame h-100">
+                <div class="card-body">
+                  <div class="media">
+                    <figure class="w-100 max-w-6rem mr-3">
+                      <img class="img-fluid" src="{{ url_for('static', filename='svg/icons/icon-2.svg') }}" alt="SVG">
+                    </figure>
+                    <div class="media-body">
+                      <h3>Leer la documentación</h3>
+                      <p class="text-body">Respuestas más técnicas sobre cómo utilizar la plataforma, API y otras cuestiones</p>
+                      <span class="badge badge-warning">
+                        Próximamente
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End FAQ Topics Section -->
+</main>
+
+{% endblock %}
+

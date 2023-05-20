@@ -1,0 +1,145 @@
+{% extends 'bases/weggo_v1_base.html' %}
+
+{% block content %}
+<main id="content" role="main">
+    <div class="slice slice-sm bg-section-secondary">
+        <div class=container>
+            <div class="row justify-content-center">
+                <div class=col-lg-12>
+                    <div class="row mt-4">
+                        <div class=col-lg-12>
+                            <div class=mb-5>
+                                <div class="d-flex align-items-center mb-4">
+                                    <div class=d-flex>
+                                        <div class=pr-3><span class="h5 mb-0"><i data-feather=users></i></span></div>
+                                        <div class="">
+                                            <h3 class=" mb-0">Lista de ofertas guardadas</h3>
+                                            <p class="text-muted mb-0">Todas las ofertas guardadas en tu perfil</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-cards align-items-center">
+                                        <thead>
+                                            <tr>
+                                                <th scope=col style=min-width:240px>Nombre de la oferta</th>
+                                                <th scope=col>Tipo de vehículo</th>
+                                                <th scope=col>Localización</th>
+                                                <th scope=col>Capacidad</th>
+                                                <th scope=col>Otros datos</th>
+                                                <th scope=col></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for offer in my_offers_saved %}
+                                            <tr>
+                                                <th scope=row>
+                                                    <div class="media align-items-center">
+                                                        <div>
+                                                            <div class=avatar-parent-child><img alt="Image placeholder"
+                                                                    src=https://europe-weggo-bucket.s3.eu-west-3.amazonaws.com/weggo.es/images/{{offer.companyid}}/offers/{{offer.offerid}}/{{offer.thumbnail}}
+                                                                    class="avatar rounded-circle"> <span
+                                                                    class="avatar-child avatar-badge bg-danger"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="media-body ml-4"><a href="{{url_for('public.see_offer',slug=offer.slug)}}"
+                                                                class="name h6 mb-0 text-sm" data-toggle="tooltip" data-placement="top" title="{{offer.name}}">{{offer.name[0:45]}}</a> <small
+                                                        </div>
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="text-center">
+                                                    Autocaravana
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                    {{offer.location}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                    {{offer.capacity}} personas
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        <span class="row">
+                                                        {%if offer.international%}<p class="badge badge-sm badge-pill badge-soft-info mr-2" data-toggle="tooltip" data-placement="top" title="Permite viajes internacionales">Viaje por UE</p>{%endif%}
+                                                        {%if offer.pets%}<p class="badge badge-sm badge-pill badge-soft-success" data-toggle="tooltip" data-placement="top" title="Permite viajar con mascotas a bordo">Mascotas</p>{%endif%}
+                                                        <span>
+                                                    </div>
+                                                </td>
+                                                <td class=text-right>
+                                                    <a class="btn btn-icon btn-block btn-xs btn-ghost-dark ml-2" href="{{ url_for('community.delete_publication', slug=offer.slug, back='my_saves') }}" data-toggle="tooltip"
+                                                    data-placement="top" title="Eliminar oferta de mis favoritos">
+                                                        <svg aria-hidden="true" width="10" height="10" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill="currentColor" d="M11.5,9.5l5-5c0.2-0.2,0.2-0.6-0.1-0.9l-1-1c-0.3-0.3-0.7-0.3-0.9-0.1l-5,5l-5-5C4.3,2.3,3.9,2.4,3.6,2.6l-1,1 C2.4,3.9,2.3,4.3,2.5,4.5l5,5l-5,5c-0.2,0.2-0.2,0.6,0.1,0.9l1,1c0.3,0.3,0.7,0.3,0.9,0.1l5-5l5,5c0.2,0.2,0.6,0.2,0.9-0.1l1-1 c0.3-0.3,0.3-0.7,0.1-0.9L11.5,9.5z"/>
+                                                        </svg>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            {% else %}
+                                            <tr>
+                                                <td>
+                                                    No tienes ninguna oferta guardada
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade fixed-right" id=modal-products tabindex=-1 role=dialog aria-hidden=true>
+        <div class="modal-dialog modal-vertical" role=document>
+            <div class=modal-content>
+                <div class="modal-header py-3 align-items-center">
+                    <div class=modal-title>
+                        <h6 class=mb-0>You might like these</h6>
+                    </div><button type=button class=close data-dismiss=modal aria-label=Close><span
+                            aria-hidden=true>&times;</span></button>
+                </div>
+                <div class=modal-body>
+                    <p class="text-sm mb-4">Looking for other designs? Check out the other themes we created. Easy to
+                        switch, play and develop new websites.</p>
+                    <div class="card card-overlay hover-shadow-lg">
+                        <div class=h-100><img
+                                src=../../../../webpixels.s3.eu-central-1.amazonaws.com/public/themes/purpose-website-ui-kit.png
+                                class=card-img-top alt="Purpose Website UI Kit"></div>
+                        <div class="card-img-overlay d-flex flex-column align-items-center p-0">
+                            <div class="overlay-actions w-100 card-footer mt-auto"><a
+                                    href=https://themes.getbootstrap.com/product/purpose-website-ui-kit/
+                                    class="h6 mb-0 stretched-link" target=_blank>Purpose Website UI Kit</a></div>
+                        </div>
+                    </div>
+                    <div class="card card-overlay hover-shadow-lg">
+                        <div class=h-100><img
+                                src=../../../../webpixels.s3.eu-central-1.amazonaws.com/public/themes/purpose-application-ui-kit.png
+                                class=card-img-top alt="Purpose Application UI Kit"></div>
+                        <div class="card-img-overlay d-flex flex-column align-items-center p-0">
+                            <div class="overlay-actions w-100 card-footer mt-auto"><a
+                                    href=https://themes.getbootstrap.com/product/purpose-application-ui-kit/
+                                    class="h6 mb-0 stretched-link" target=_blank>Purpose Application UI Kit</a></div>
+                        </div>
+                    </div>
+                    <div class="card card-placeholder align-items-center flex-column justify-content-center border-dashed"
+                        style=height:250px>
+                        <div class="col text-center">
+                            <div class=pt-5><i data-feather=smile class=text-primary style=width:50px;height:50px></i>
+                                <span class="h5 d-block mt-3">What's next?</span></div>
+                            <p class="text-sm px-4 mt-2 mb-0">We are already working on a new product, so stay tuned.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

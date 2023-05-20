@@ -1,0 +1,1685 @@
+{% extends 'bases/weggo_v1_base.html' %}
+
+<!-- LOADNG JQUERY SCRIPTS -->
+<link href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
+{% block css %}
+{% endblock %}
+
+{% block content %}
+<style>
+  /*!
+ * Quill Editor v1.3.6
+ * https://quilljs.com/
+ * Copyright (c) 2014, Jason Chen
+ * Copyright (c) 2013, salesforce.com
+ */
+.ql-container {
+  box-sizing: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  height: 100%;
+  margin: 0px;
+  position: relative;
+}
+.ql-container.ql-disabled .ql-tooltip {
+  visibility: hidden;
+}
+.ql-container.ql-disabled .ql-editor ul[data-checked] > li::before {
+  pointer-events: none;
+}
+.ql-clipboard {
+  left: -100000px;
+  height: 1px;
+  overflow-y: hidden;
+  position: absolute;
+  top: 50%;
+}
+.ql-clipboard p {
+  margin: 0;
+  padding: 0;
+}
+.ql-editor {
+  box-sizing: none;
+  line-height: 1.42;
+  height: 100%;
+  outline: none;
+  overflow-y: auto;
+  padding: 12px 15px;
+  tab-size: 4;
+  -moz-tab-size: 4;
+  text-align: left;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.ql-editor > * {
+  cursor: text;
+}
+.ql-editor p,
+.ql-editor ol,
+.ql-editor ul,
+.ql-editor pre,
+.ql-editor blockquote,
+.ql-editor h1,
+.ql-editor h2,
+.ql-editor h3,
+.ql-editor h4,
+.ql-editor h5,
+.ql-editor h6 {
+  margin: 0;
+  padding: 0;
+  counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+}
+.ql-editor ol,
+.ql-editor ul {
+  padding-left: 1.5em;
+}
+.ql-editor ol > li,
+.ql-editor ul > li {
+  list-style-type: none;
+}
+.ql-editor ul > li::before {
+  content: '\2022';
+}
+.ql-editor ul[data-checked=true],
+.ql-editor ul[data-checked=false] {
+  pointer-events: none;
+}
+.ql-editor ul[data-checked=true] > li *,
+.ql-editor ul[data-checked=false] > li * {
+  pointer-events: all;
+}
+.ql-editor ul[data-checked=true] > li::before,
+.ql-editor ul[data-checked=false] > li::before {
+  color: #777;
+  cursor: pointer;
+  pointer-events: all;
+}
+.ql-editor ul[data-checked=true] > li::before {
+  content: '\2611';
+}
+.ql-editor ul[data-checked=false] > li::before {
+  content: '\2610';
+}
+.ql-editor li::before {
+  display: inline-block;
+  white-space: nowrap;
+  width: 1.2em;
+}
+.ql-editor li:not(.ql-direction-rtl)::before {
+  margin-left: -1.5em;
+  margin-right: 0.3em;
+  text-align: right;
+}
+.ql-editor li.ql-direction-rtl::before {
+  margin-left: 0.3em;
+  margin-right: -1.5em;
+}
+.ql-editor ol li:not(.ql-direction-rtl),
+.ql-editor ul li:not(.ql-direction-rtl) {
+  padding-left: 1.5em;
+}
+.ql-editor ol li.ql-direction-rtl,
+.ql-editor ul li.ql-direction-rtl {
+  padding-right: 1.5em;
+}
+.ql-editor ol li {
+  counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+  counter-increment: list-0;
+}
+.ql-editor ol li:before {
+  content: counter(list-0, decimal) '. ';
+}
+.ql-editor ol li.ql-indent-1 {
+  counter-increment: list-1;
+}
+.ql-editor ol li.ql-indent-1:before {
+  content: counter(list-1, lower-alpha) '. ';
+}
+.ql-editor ol li.ql-indent-1 {
+  counter-reset: list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+}
+.ql-editor ol li.ql-indent-2 {
+  counter-increment: list-2;
+}
+.ql-editor ol li.ql-indent-2:before {
+  content: counter(list-2, lower-roman) '. ';
+}
+.ql-editor ol li.ql-indent-2 {
+  counter-reset: list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+}
+.ql-editor ol li.ql-indent-3 {
+  counter-increment: list-3;
+}
+.ql-editor ol li.ql-indent-3:before {
+  content: counter(list-3, decimal) '. ';
+}
+.ql-editor ol li.ql-indent-3 {
+  counter-reset: list-4 list-5 list-6 list-7 list-8 list-9;
+}
+.ql-editor ol li.ql-indent-4 {
+  counter-increment: list-4;
+}
+.ql-editor ol li.ql-indent-4:before {
+  content: counter(list-4, lower-alpha) '. ';
+}
+.ql-editor ol li.ql-indent-4 {
+  counter-reset: list-5 list-6 list-7 list-8 list-9;
+}
+.ql-editor ol li.ql-indent-5 {
+  counter-increment: list-5;
+}
+.ql-editor ol li.ql-indent-5:before {
+  content: counter(list-5, lower-roman) '. ';
+}
+.ql-editor ol li.ql-indent-5 {
+  counter-reset: list-6 list-7 list-8 list-9;
+}
+.ql-editor ol li.ql-indent-6 {
+  counter-increment: list-6;
+}
+.ql-editor ol li.ql-indent-6:before {
+  content: counter(list-6, decimal) '. ';
+}
+.ql-editor ol li.ql-indent-6 {
+  counter-reset: list-7 list-8 list-9;
+}
+.ql-editor ol li.ql-indent-7 {
+  counter-increment: list-7;
+}
+.ql-editor ol li.ql-indent-7:before {
+  content: counter(list-7, lower-alpha) '. ';
+}
+.ql-editor ol li.ql-indent-7 {
+  counter-reset: list-8 list-9;
+}
+.ql-editor ol li.ql-indent-8 {
+  counter-increment: list-8;
+}
+.ql-editor ol li.ql-indent-8:before {
+  content: counter(list-8, lower-roman) '. ';
+}
+.ql-editor ol li.ql-indent-8 {
+  counter-reset: list-9;
+}
+.ql-editor ol li.ql-indent-9 {
+  counter-increment: list-9;
+}
+.ql-editor ol li.ql-indent-9:before {
+  content: counter(list-9, decimal) '. ';
+}
+.ql-editor .ql-indent-1:not(.ql-direction-rtl) {
+  padding-left: 3em;
+}
+.ql-editor li.ql-indent-1:not(.ql-direction-rtl) {
+  padding-left: 4.5em;
+}
+.ql-editor .ql-indent-1.ql-direction-rtl.ql-align-right {
+  padding-right: 3em;
+}
+.ql-editor li.ql-indent-1.ql-direction-rtl.ql-align-right {
+  padding-right: 4.5em;
+}
+.ql-editor .ql-indent-2:not(.ql-direction-rtl) {
+  padding-left: 6em;
+}
+.ql-editor li.ql-indent-2:not(.ql-direction-rtl) {
+  padding-left: 7.5em;
+}
+.ql-editor .ql-indent-2.ql-direction-rtl.ql-align-right {
+  padding-right: 6em;
+}
+.ql-editor li.ql-indent-2.ql-direction-rtl.ql-align-right {
+  padding-right: 7.5em;
+}
+.ql-editor .ql-indent-3:not(.ql-direction-rtl) {
+  padding-left: 9em;
+}
+.ql-editor li.ql-indent-3:not(.ql-direction-rtl) {
+  padding-left: 10.5em;
+}
+.ql-editor .ql-indent-3.ql-direction-rtl.ql-align-right {
+  padding-right: 9em;
+}
+.ql-editor li.ql-indent-3.ql-direction-rtl.ql-align-right {
+  padding-right: 10.5em;
+}
+.ql-editor .ql-indent-4:not(.ql-direction-rtl) {
+  padding-left: 12em;
+}
+.ql-editor li.ql-indent-4:not(.ql-direction-rtl) {
+  padding-left: 13.5em;
+}
+.ql-editor .ql-indent-4.ql-direction-rtl.ql-align-right {
+  padding-right: 12em;
+}
+.ql-editor li.ql-indent-4.ql-direction-rtl.ql-align-right {
+  padding-right: 13.5em;
+}
+.ql-editor .ql-indent-5:not(.ql-direction-rtl) {
+  padding-left: 15em;
+}
+.ql-editor li.ql-indent-5:not(.ql-direction-rtl) {
+  padding-left: 16.5em;
+}
+.ql-editor .ql-indent-5.ql-direction-rtl.ql-align-right {
+  padding-right: 15em;
+}
+.ql-editor li.ql-indent-5.ql-direction-rtl.ql-align-right {
+  padding-right: 16.5em;
+}
+.ql-editor .ql-indent-6:not(.ql-direction-rtl) {
+  padding-left: 18em;
+}
+.ql-editor li.ql-indent-6:not(.ql-direction-rtl) {
+  padding-left: 19.5em;
+}
+.ql-editor .ql-indent-6.ql-direction-rtl.ql-align-right {
+  padding-right: 18em;
+}
+.ql-editor li.ql-indent-6.ql-direction-rtl.ql-align-right {
+  padding-right: 19.5em;
+}
+.ql-editor .ql-indent-7:not(.ql-direction-rtl) {
+  padding-left: 21em;
+}
+.ql-editor li.ql-indent-7:not(.ql-direction-rtl) {
+  padding-left: 22.5em;
+}
+.ql-editor .ql-indent-7.ql-direction-rtl.ql-align-right {
+  padding-right: 21em;
+}
+.ql-editor li.ql-indent-7.ql-direction-rtl.ql-align-right {
+  padding-right: 22.5em;
+}
+.ql-editor .ql-indent-8:not(.ql-direction-rtl) {
+  padding-left: 24em;
+}
+.ql-editor li.ql-indent-8:not(.ql-direction-rtl) {
+  padding-left: 25.5em;
+}
+.ql-editor .ql-indent-8.ql-direction-rtl.ql-align-right {
+  padding-right: 24em;
+}
+.ql-editor li.ql-indent-8.ql-direction-rtl.ql-align-right {
+  padding-right: 25.5em;
+}
+.ql-editor .ql-indent-9:not(.ql-direction-rtl) {
+  padding-left: 27em;
+}
+.ql-editor li.ql-indent-9:not(.ql-direction-rtl) {
+  padding-left: 28.5em;
+}
+.ql-editor .ql-indent-9.ql-direction-rtl.ql-align-right {
+  padding-right: 27em;
+}
+.ql-editor li.ql-indent-9.ql-direction-rtl.ql-align-right {
+  padding-right: 28.5em;
+}
+.ql-editor .ql-video {
+  display: block;
+  max-width: 100%;
+}
+.ql-editor .ql-video.ql-align-center {
+  margin: 0 auto;
+}
+.ql-editor .ql-video.ql-align-right {
+  margin: 0 0 0 auto;
+}
+.ql-editor .ql-bg-black {
+  background-color: #000;
+}
+.ql-editor .ql-bg-red {
+  background-color: #e60000;
+}
+.ql-editor .ql-bg-orange {
+  background-color: #f90;
+}
+.ql-editor .ql-bg-yellow {
+  background-color: #ff0;
+}
+.ql-editor .ql-bg-green {
+  background-color: #008a00;
+}
+.ql-editor .ql-bg-blue {
+  background-color: #06c;
+}
+.ql-editor .ql-bg-purple {
+  background-color: #93f;
+}
+.ql-editor .ql-color-white {
+  color: #fff;
+}
+.ql-editor .ql-color-red {
+  color: #e60000;
+}
+.ql-editor .ql-color-orange {
+  color: #f90;
+}
+.ql-editor .ql-color-yellow {
+  color: #ff0;
+}
+.ql-editor .ql-color-green {
+  color: #008a00;
+}
+.ql-editor .ql-color-blue {
+  color: #06c;
+}
+.ql-editor .ql-color-purple {
+  color: #93f;
+}
+.ql-editor .ql-font-serif {
+  font-family: Georgia, Times New Roman, serif;
+}
+.ql-editor .ql-font-monospace {
+  font-family: Monaco, Courier New, monospace;
+}
+.ql-editor .ql-size-small {
+  font-size: 0.75em;
+}
+.ql-editor .ql-size-large {
+  font-size: 1.5em;
+}
+.ql-editor .ql-size-huge {
+  font-size: 2.5em;
+}
+.ql-editor .ql-direction-rtl {
+  direction: rtl;
+  text-align: inherit;
+}
+.ql-editor .ql-align-center {
+  text-align: center;
+}
+.ql-editor .ql-align-justify {
+  text-align: justify;
+}
+.ql-editor .ql-align-right {
+  text-align: right;
+}
+.ql-editor.ql-blank::before {
+  color: rgba(0,0,0,0.6);
+  content: attr(data-placeholder);
+  font-style: italic;
+  left: 15px;
+  pointer-events: none;
+  position: absolute;
+  right: 15px;
+}
+.ql-snow.ql-toolbar:after,
+.ql-snow .ql-toolbar:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+.ql-snow.ql-toolbar button,
+.ql-snow .ql-toolbar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  float: left;
+  height: 24px;
+  padding: 3px 5px;
+  width: 28px;
+}
+.ql-snow.ql-toolbar button svg,
+.ql-snow .ql-toolbar button svg {
+  float: left;
+  height: 100%;
+}
+.ql-snow.ql-toolbar button:active:hover,
+.ql-snow .ql-toolbar button:active:hover {
+  outline: none;
+}
+.ql-snow.ql-toolbar input.ql-image[type=file],
+.ql-snow .ql-toolbar input.ql-image[type=file] {
+  display: none;
+}
+.ql-snow.ql-toolbar button:hover,
+.ql-snow .ql-toolbar button:hover,
+.ql-snow.ql-toolbar button:focus,
+.ql-snow .ql-toolbar button:focus,
+.ql-snow.ql-toolbar button.ql-active,
+.ql-snow .ql-toolbar button.ql-active,
+.ql-snow.ql-toolbar .ql-picker-label:hover,
+.ql-snow .ql-toolbar .ql-picker-label:hover,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active,
+.ql-snow .ql-toolbar .ql-picker-label.ql-active,
+.ql-snow.ql-toolbar .ql-picker-item:hover,
+.ql-snow .ql-toolbar .ql-picker-item:hover,
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected,
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected {
+  color: #06c;
+}
+.ql-snow.ql-toolbar button:hover .ql-fill,
+.ql-snow .ql-toolbar button:hover .ql-fill,
+.ql-snow.ql-toolbar button:focus .ql-fill,
+.ql-snow .ql-toolbar button:focus .ql-fill,
+.ql-snow.ql-toolbar button.ql-active .ql-fill,
+.ql-snow .ql-toolbar button.ql-active .ql-fill,
+.ql-snow.ql-toolbar .ql-picker-label:hover .ql-fill,
+.ql-snow .ql-toolbar .ql-picker-label:hover .ql-fill,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-fill,
+.ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-fill,
+.ql-snow.ql-toolbar .ql-picker-item:hover .ql-fill,
+.ql-snow .ql-toolbar .ql-picker-item:hover .ql-fill,
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-fill,
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-fill,
+.ql-snow.ql-toolbar button:hover .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar button:hover .ql-stroke.ql-fill,
+.ql-snow.ql-toolbar button:focus .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar button:focus .ql-stroke.ql-fill,
+.ql-snow.ql-toolbar button.ql-active .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar button.ql-active .ql-stroke.ql-fill,
+.ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill,
+.ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill,
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill,
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill {
+  fill: #06c;
+}
+.ql-snow.ql-toolbar button:hover .ql-stroke,
+.ql-snow .ql-toolbar button:hover .ql-stroke,
+.ql-snow.ql-toolbar button:focus .ql-stroke,
+.ql-snow .ql-toolbar button:focus .ql-stroke,
+.ql-snow.ql-toolbar button.ql-active .ql-stroke,
+.ql-snow .ql-toolbar button.ql-active .ql-stroke,
+.ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke,
+.ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke,
+.ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke,
+.ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke,
+.ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke,
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke,
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke,
+.ql-snow.ql-toolbar button:hover .ql-stroke-miter,
+.ql-snow .ql-toolbar button:hover .ql-stroke-miter,
+.ql-snow.ql-toolbar button:focus .ql-stroke-miter,
+.ql-snow .ql-toolbar button:focus .ql-stroke-miter,
+.ql-snow.ql-toolbar button.ql-active .ql-stroke-miter,
+.ql-snow .ql-toolbar button.ql-active .ql-stroke-miter,
+.ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke-miter,
+.ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke-miter,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter,
+.ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter,
+.ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke-miter,
+.ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke-miter,
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter,
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter {
+  stroke: #06c;
+}
+@media (pointer: coarse) {
+  .ql-snow.ql-toolbar button:hover:not(.ql-active),
+  .ql-snow .ql-toolbar button:hover:not(.ql-active) {
+    color: #444;
+  }
+  .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-fill,
+  .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-fill,
+  .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-stroke.ql-fill,
+  .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-stroke.ql-fill {
+    fill: #444;
+  }
+  .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-stroke,
+  .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-stroke,
+  .ql-snow.ql-toolbar button:hover:not(.ql-active) .ql-stroke-miter,
+  .ql-snow .ql-toolbar button:hover:not(.ql-active) .ql-stroke-miter {
+    stroke: #444;
+  }
+}
+.ql-snow {
+  box-sizing: none;
+}
+.ql-snow * {
+  box-sizing: none;
+}
+.ql-snow .ql-hidden {
+  display: none;
+}
+.ql-snow .ql-out-bottom,
+.ql-snow .ql-out-top {
+  visibility: hidden;
+}
+.ql-snow .ql-tooltip {
+  position: absolute;
+  transform: translateY(10px);
+}
+.ql-snow .ql-tooltip a {
+  cursor: pointer;
+  text-decoration: none;
+}
+.ql-snow .ql-tooltip.ql-flip {
+  transform: translateY(-10px);
+}
+.ql-snow .ql-formats {
+  display: inline-block;
+  vertical-align: middle;
+}
+.ql-snow .ql-formats:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+.ql-snow .ql-stroke {
+  fill: none;
+  stroke: #444;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+.ql-snow .ql-stroke-miter {
+  fill: none;
+  stroke: #444;
+  stroke-miterlimit: 10;
+  stroke-width: 2;
+}
+.ql-snow .ql-fill,
+.ql-snow .ql-stroke.ql-fill {
+  fill: #444;
+}
+.ql-snow .ql-empty {
+  fill: none;
+}
+.ql-snow .ql-even {
+  fill-rule: evenodd;
+}
+.ql-snow .ql-thin,
+.ql-snow .ql-stroke.ql-thin {
+  stroke-width: 1;
+}
+.ql-snow .ql-transparent {
+  opacity: 0.4;
+}
+.ql-snow .ql-direction svg:last-child {
+  display: none;
+}
+.ql-snow .ql-direction.ql-active svg:last-child {
+  display: inline;
+}
+.ql-snow .ql-direction.ql-active svg:first-child {
+  display: none;
+}
+.ql-snow .ql-editor h1 {
+  font-size: 2em;
+}
+.ql-snow .ql-editor h2 {
+  font-size: 1.5em;
+}
+.ql-snow .ql-editor h3 {
+  font-size: 1.17em;
+}
+.ql-snow .ql-editor h4 {
+  font-size: 1em;
+}
+.ql-snow .ql-editor h5 {
+  font-size: 0.83em;
+}
+.ql-snow .ql-editor h6 {
+  font-size: 0.67em;
+}
+.ql-snow .ql-editor a {
+  text-decoration: underline;
+}
+.ql-snow .ql-editor blockquote {
+  border-left: 4px solid #ccc;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding-left: 16px;
+}
+.ql-snow .ql-editor code,
+.ql-snow .ql-editor pre {
+  background-color: #f0f0f0;
+  border-radius: 3px;
+}
+.ql-snow .ql-editor pre {
+  white-space: pre-wrap;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding: 5px 10px;
+}
+.ql-snow .ql-editor code {
+  font-size: 85%;
+  padding: 2px 4px;
+}
+.ql-snow .ql-editor pre.ql-syntax {
+  background-color: #23241f;
+  color: #f8f8f2;
+  overflow: visible;
+}
+.ql-snow .ql-editor img {
+  max-width: 100%;
+}
+.ql-snow .ql-picker {
+  color: #444;
+  display: inline-block;
+  float: left;
+  font-size: 14px;
+  font-weight: 500;
+  height: 24px;
+  position: relative;
+  vertical-align: middle;
+}
+.ql-snow .ql-picker-label {
+  cursor: pointer;
+  display: inline-block;
+  height: 100%;
+  padding-left: 8px;
+  padding-right: 2px;
+  position: relative;
+  width: 100%;
+}
+.ql-snow .ql-picker-label::before {
+  display: inline-block;
+  line-height: 22px;
+}
+.ql-snow .ql-picker-options {
+  background-color: #fff;
+  display: none;
+  min-width: 100%;
+  padding: 4px 8px;
+  position: absolute;
+  white-space: nowrap;
+}
+.ql-snow .ql-picker-options .ql-picker-item {
+  cursor: pointer;
+  display: block;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+.ql-snow .ql-picker.ql-expanded .ql-picker-label {
+  color: #ccc;
+  z-index: 2;
+}
+.ql-snow .ql-picker.ql-expanded .ql-picker-label .ql-fill {
+  fill: #ccc;
+}
+.ql-snow .ql-picker.ql-expanded .ql-picker-label .ql-stroke {
+  stroke: #ccc;
+}
+.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+  display: block;
+  margin-top: -1px;
+  top: 100%;
+  z-index: 1;
+}
+.ql-snow .ql-color-picker,
+.ql-snow .ql-icon-picker {
+  width: 28px;
+}
+.ql-snow .ql-color-picker .ql-picker-label,
+.ql-snow .ql-icon-picker .ql-picker-label {
+  padding: 2px 4px;
+}
+.ql-snow .ql-color-picker .ql-picker-label svg,
+.ql-snow .ql-icon-picker .ql-picker-label svg {
+  right: 4px;
+}
+.ql-snow .ql-icon-picker .ql-picker-options {
+  padding: 4px 0px;
+}
+.ql-snow .ql-icon-picker .ql-picker-item {
+  height: 24px;
+  width: 24px;
+  padding: 2px 4px;
+}
+.ql-snow .ql-color-picker .ql-picker-options {
+  padding: 3px 5px;
+  width: 152px;
+}
+.ql-snow .ql-color-picker .ql-picker-item {
+  border: 1px solid transparent;
+  float: left;
+  height: 16px;
+  margin: 2px;
+  padding: 0px;
+  width: 16px;
+}
+.ql-snow .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) svg {
+  position: absolute;
+  margin-top: -9px;
+  right: 0;
+  top: 50%;
+  width: 18px;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-label]:not([data-label=''])::before,
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-label]:not([data-label=''])::before,
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-label]:not([data-label=''])::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-label]:not([data-label=''])::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-label]:not([data-label=''])::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-label]:not([data-label=''])::before {
+  content: attr(data-label);
+}
+.ql-snow .ql-picker.ql-header {
+  width: 98px;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item::before {
+  content: 'Normal';
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value="1"]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value="1"]::before {
+  content: 'Heading 1';
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value="2"]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value="2"]::before {
+  content: 'Heading 2';
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value="3"]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value="3"]::before {
+  content: 'Heading 3';
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value="4"]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value="4"]::before {
+  content: 'Heading 4';
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value="5"]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value="5"]::before {
+  content: 'Heading 5';
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value="6"]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value="6"]::before {
+  content: 'Heading 6';
+}
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value="1"]::before {
+  font-size: 2em;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value="2"]::before {
+  font-size: 1.5em;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value="3"]::before {
+  font-size: 1.17em;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value="4"]::before {
+  font-size: 1em;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value="5"]::before {
+  font-size: 0.83em;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value="6"]::before {
+  font-size: 0.67em;
+}
+.ql-snow .ql-picker.ql-font {
+  width: 108px;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item::before {
+  content: 'Sans Serif';
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=serif]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=serif]::before {
+  content: 'Serif';
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=monospace]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=monospace]::before {
+  content: 'Monospace';
+}
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=serif]::before {
+  font-family: Georgia, Times New Roman, serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=monospace]::before {
+  font-family: Monaco, Courier New, monospace;
+}
+.ql-snow .ql-picker.ql-size {
+  width: 98px;
+}
+.ql-snow .ql-picker.ql-size .ql-picker-label::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item::before {
+  content: 'Normal';
+}
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=small]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=small]::before {
+  content: 'Small';
+}
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=large]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=large]::before {
+  content: 'Large';
+}
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=huge]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=huge]::before {
+  content: 'Huge';
+}
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=small]::before {
+  font-size: 10px;
+}
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=large]::before {
+  font-size: 18px;
+}
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=huge]::before {
+  font-size: 32px;
+}
+.ql-snow .ql-color-picker.ql-background .ql-picker-item {
+  background-color: #fff;
+}
+.ql-snow .ql-color-picker.ql-color .ql-picker-item {
+  background-color: #000;
+}
+.ql-toolbar.ql-snow {
+  border-bottom: 1px solid #ccc;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  padding: 8px;
+}
+.ql-toolbar.ql-snow .ql-formats {
+  margin-right: 15px;
+}
+.ql-toolbar.ql-snow .ql-picker-label {
+  border: 1px solid transparent;
+}
+.ql-toolbar.ql-snow .ql-picker-options {
+  border: 1px solid transparent;
+  box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
+}
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
+  border-color: #ccc;
+}
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+  border-color: #ccc;
+}
+.ql-toolbar.ql-snow .ql-color-picker .ql-picker-item.ql-selected,
+.ql-toolbar.ql-snow .ql-color-picker .ql-picker-item:hover {
+  border-color: #000;
+}
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+  border-top: 0px;
+}
+.ql-snow .ql-tooltip {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 5px #ddd;
+  color: #444;
+  padding: 5px 12px;
+  white-space: nowrap;
+}
+.ql-snow .ql-tooltip::before {
+  content: "Visit URL:";
+  line-height: 26px;
+  margin-right: 8px;
+}
+.ql-snow .ql-tooltip input[type=text] {
+  display: none;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  height: 26px;
+  margin: 0px;
+  padding: 3px 5px;
+  width: 170px;
+}
+.ql-snow .ql-tooltip a.ql-preview {
+  display: inline-block;
+  max-width: 200px;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+}
+.ql-snow .ql-tooltip a.ql-action::after {
+  border-right: 1px solid #ccc;
+  content: 'Edit';
+  margin-left: 16px;
+  padding-right: 8px;
+}
+.ql-snow .ql-tooltip a.ql-remove::before {
+  content: 'Remove';
+  margin-left: 8px;
+}
+.ql-snow .ql-tooltip a {
+  line-height: 26px;
+}
+.ql-snow .ql-tooltip.ql-editing a.ql-preview,
+.ql-snow .ql-tooltip.ql-editing a.ql-remove {
+  display: none;
+}
+.ql-snow .ql-tooltip.ql-editing input[type=text] {
+  display: inline-block;
+}
+.ql-snow .ql-tooltip.ql-editing a.ql-action::after {
+  border-right: 0px;
+  content: 'Save';
+  padding-right: 0px;
+}
+.ql-snow .ql-tooltip[data-mode=link]::before {
+  content: "Enter link:";
+}
+.ql-snow .ql-tooltip[data-mode=formula]::before {
+  content: "Enter formula:";
+}
+.ql-snow .ql-tooltip[data-mode=video]::before {
+  content: "Enter video:";
+}
+.ql-snow a {
+  color: #06c;
+}
+.ql-container.ql-snow {
+  border: none; /* white box for writing text */
+}
+  .quill-custom {
+  position: relative;
+  }
+  .quill-custom .ql-container {
+  position: static;
+  }
+  .quill-custom .ql-container.ql-snow,
+  .quill-custom .ql-toolbar.ql-snow {
+  border-color: #e7eaf3;
+  }
+  .quill-custom .ql-toolbar.ql-snow {
+  padding: 0.75rem 1.3125rem;
+  border-top-left-radius: 0.3125rem;
+  border-top-right-radius: 0.3125rem;
+  }
+  .quill-custom .ql-container.ql-snow {
+  border-bottom-right-radius: 0.3125rem;
+  border-bottom-left-radius: 0.3125rem;
+  }
+  .quill-custom.ql-toolbar-bottom .ql-toolbar.ql-snow {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0.3125rem;
+  border-bottom-left-radius: 0.3125rem;
+  }
+  .quill-custom.ql-toolbar-bottom .ql-toolbar.ql-snow + .ql-container.ql-snow {
+  border-top-left-radius: 0.3125rem;
+  border-top-right-radius: 0.3125rem;
+  border: 0.0625rem solid #e7eaf3;
+  }
+  .quill-custom .ql-toolbar-list {
+  line-height: normal;
+  margin-bottom: 0;
+  }
+  .quill-custom .ql-formats:first-child {
+  padding-left: 0;
+  }
+  .quill-custom .ql-formats:first-child button {
+  margin-right: 0.5rem;
+  }
+  .quill-custom .ql-formats:first-child button:first-child {
+  margin-left: -0.25rem;
+  }
+  .quill-custom .ql-editor {
+  position: relative;
+  min-height: 10rem;
+  padding: 1.3125rem 1.3125rem;
+  }
+  .quill-custom .ql-editor p {
+  font-size: 1rem;
+  font-family: "Open Sans", sans-serif;
+  color: #1e2022;
+  }
+  .quill-custom .ql-editor-content {
+  min-height: 10rem;
+  }
+  .quill-custom .ql-editor.ql-blank::before {
+  left: 1.3125rem;
+  color: #97a4af;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  }
+  .quill-custom .ql-snow a.btn-primary {
+  color: #fff;
+  }
+  .quill-custom .ql-snow.ql-toolbar .ql-fill {
+  fill: #677788;
+  }
+  .quill-custom .ql-snow.ql-toolbar .ql-stroke {
+  stroke: #677788;
+  }
+  .quill-custom .ql-snow.ql-toolbar button:hover {
+  color: #76e8b8;
+  }
+  .quill-custom .ql-snow .ql-toolbar button,
+  .quill-custom .ql-snow.ql-toolbar button {
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0.25rem 0.25rem;
+  }
+  .quill-custom .ql-snow .ql-tooltip {
+  position: fixed;
+  top: 50% !important;
+  left: 50% !important;
+  z-index: 1;
+  min-width: 20rem;
+  border-width: 0;
+  text-align: center;
+  box-shadow: 0 10px 40px 10px rgba(140, 152, 164, 0.175);
+  padding: 1.5rem 1.5rem;
+  border-radius: 0.3125rem;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  }
+  .quill-custom .ql-snow .ql-tooltip::before {
+  display: block;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  border-bottom: 0.0625rem solid #e7eaf3;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  margin-right: 0;
+  }
+  .quill-custom .ql-snow .ql-tooltip.ql-editing a.ql-preview,
+  .quill-custom .ql-snow .ql-tooltip.ql-editing a.ql-remove {
+  display: none;
+  }
+  .quill-custom .ql-snow .ql-tooltip a.ql-preview,
+  .quill-custom .ql-snow .ql-tooltip.ql-editing input[type="text"] {
+  min-width: 20rem;
+  font-size: 1rem;
+  line-height: normal;
+  border: 0.0625rem solid #e7eaf3;
+  padding: 0.875rem 1.09375rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.3125rem;
+  transition: 0.3s;
+  }
+  .quill-custom .ql-snow .ql-tooltip a.ql-preview {
+  display: block;
+  }
+  .quill-custom .ql-snow .ql-tooltip a.ql-preview:hover {
+  border-color: #76e8b8;
+  }
+  .quill-custom .ql-snow .ql-tooltip.ql-editing input[type="text"] {
+  height: auto;
+  display: block;
+  font-family: "Open Sans", sans-serif;
+  }
+  .quill-custom .ql-snow .ql-tooltip.ql-editing input[type="text"]:focus {
+  border-color: rgba(14, 14, 14, 0.4);
+  box-shadow: 0 0 10px rgba(14, 14, 14, 0.1);
+  }
+  .quill-custom .ql-snow .ql-action {
+  display: inline-block;
+  color: #fff;
+  background-color: #76e8b8;
+  font-size: 0.875rem;
+  line-height: normal;
+  padding: 0.875rem 1.09375rem;
+  border-radius: 0.3125rem;
+  transition: 0.3s;
+  }
+  .quill-custom .ql-snow .ql-action:hover {
+  background-color: #1366ff;
+  }
+  .quill-custom .ql-snow .ql-tooltip a.ql-action::after,
+  .quill-custom .ql-snow .ql-tooltip a.ql-remove::before {
+  padding-right: 0;
+  margin-left: 0;
+  border-right: none;
+  }
+  .quill-custom .ql-snow .ql-tooltip a.ql-remove {
+  border: 0.0625rem solid #e7eaf3;
+  font-size: 0.875rem;
+  padding: 0.875rem 1.09375rem;
+  border-radius: 0.3125rem;
+  margin-left: 0.5rem;
+  transition: 0.3s;
+  }
+  .quill-custom .ql-snow .ql-tooltip a.ql-remove:hover {
+  color: #76e8b8;
+  box-shadow: 0 3px 6px -2px rgba(140, 152, 164, 0.25);
+  }
+</style>
+
+<section id="weggo-forums">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card border-0 bg-dark card-body">
+                    <h3 class="h5">Temas destacados</h3>
+                    <ul id="most-used-in-forum" class="nav flex-row fs-sm">
+                      {% for tag in tags %}
+                      <li class="nav-item mb-1 me-2">
+                        <a href="/tags/{{ tag }}" class="btn btn-outline-secondary btn-sm px-3 my-1 me-2">#{{ tag }}</a>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                      
+                    <script>
+                      $(document).ready(function() {
+                        var forumSlug = '{{ forum.slug }}';
+                        $.get('/api/v1/most-tags/' + forumSlug, function(data) {
+                          var div = $('#most-used-in-forum');
+                          for (var i = 0; i < data.length; i++) {
+                          var a = $('<a class="btn btn-outline-secondary btn-sm px-3 my-1 me-2">').text('#' + data[i]);
+                          a.attr('href', '/tags/' + data[i].toLowerCase());
+                          div.append(a);
+                          }
+                        });
+                      });
+                    </script>
+                </div>
+            </div>
+            <div class="col-md-6 p-3">
+                <div class="card card-body border-0 bg-gradient-primary">
+                    <div class="row">
+                        <div class="parallax col-md-4" style="max-width: 100px;">
+                            <div class="parallax-layer" data-depth="0.1">
+                              <img src="{{url_for('static',filename='img/landing/online-courses/hero/layer01.png')}}" alt="Layer">
+                            </div>
+                            <div class="parallax-layer" data-depth="0.13">
+                              <img src="{{url_for('static',filename='img/landing/online-courses/hero/layer02.png')}}" alt="Layer">
+                            </div>
+                            <div class="parallax-layer zindex-5" data-depth="-0.12">
+                              <img src="{{url_for('static',filename='img/landing/online-courses/hero/layer03.png')}}" alt="Layer">
+                            </div>
+                            <div class="parallax-layer zindex-3" data-depth="0.27">
+                              <img src="{{url_for('static',filename='img/landing/online-courses/hero/layer04.png')}}" alt="Layer">
+                            </div>
+                            <div class="parallax-layer zindex-1" data-depth="-0.18">
+                              <img src="{{url_for('static',filename='img/landing/online-courses/hero/layer05.png')}}" alt="Layer">
+                            </div>
+                            <div class="parallax-layer zindex-1" data-depth="0.1">
+                              <img src="{{url_for('static',filename='img/landing/online-courses/hero/layer06.png')}}" alt="Layer">
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="ms-3">
+                                <h1 class="h5 mb-0">Regístrate y consigue ventajas por participar en discusiones</h1>
+                                <span class="">Te regalamos <a class="text-light" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="¿Qué son los     ?">50 Leafs</a> sólo por registrarte</span>
+                                <div class="d-flex mt-2">
+                                    <button class="btn btn-sm btn-outline-secondary">Ventajas</button>
+                                    <button class="ms-3 btn btn-sm btn-info" href="#register" data-bs-toggle="modal">Unirme a la comunidad</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+      <div class="">
+        <div class="">
+            <div class="d-flex">
+                <h1 class="d-none d-md-block h6 mb-0">{{forum.details.name}}</h1>
+                <div class="ms-auto d-flex mb-3">
+
+                    <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="Temas"><strong class="text-white">{{forum.posts|count}} <i class="bx bx-comment ms-1"></i></strong></span>
+                    <span class="ms-2 ms-md-3" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hilos"><strong class="text-white">{{forum.statistics.threads}} <i class="bx bx-chat ms-1"></i></strong></span>
+                    <span class="ms-2 me-3 ms-md-3 me-md-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Leafs"><strong class="text-white">{{forum.statistics.leafs}} <i class="bx bx-leaf ms-1"></i></strong></span>
+                    {% if wUser['not_login'] %}
+                    <button class="ms-md-5 btn btn-outline-warning py-1 px-3 d-none d-md-block" href="#register" data-bs-toggle="modal"><span>Regístrate para crear</span> <i class="bx bx-user ms-2"></i></button>
+                    <button class="ms-3 btn btn-outline-warning d-md-none px-3 py-1" href="#register" data-bs-toggle="modal">Regístrate <i class="bx bx-user ms-1"></i></button>
+                    {% else %}
+                    <button class="ms-md-5 btn btn-outline-light py-1 px-3 d-none d-md-block disabled"><span>Crear un hilo</span> <i class="bx bx-chat ms-2"></i></button>
+                    <button class="ms-3 btn btn-outline-light d-md-none px-3 py-1 disabled">Hilo <i class="bx bx-chat ms-1"></i></button>
+
+                    <button class="ms-md-4 btn btn-primary py-1 px-3 d-none d-md-block" href="#createPost" data-bs-toggle="modal"><span>Crear un tema</span> <i class="bx bx-comment ms-2"></i></button>
+                    <button class="ms-3 btn btn-primary d-md-none px-3 py-1" href="#createPost" data-bs-toggle="modal">Tema <i class="bx bx-comment ms-1"></i></button>
+                    
+                    <div class="modal fade" id="createPost" tabindex="-1" aria-hidden="true">
+                      <div class="modal-dialog modal-fullscreen p-2 my-0 mx-auto">
+                        <div class="modal-content">
+                          <div class="modal-body px-0 py-2 py-sm-0">
+                            <button class="btn-close position-absolute top-0 end-0 mt-3 me-3" type="button" data-bs-dismiss="modal"></button>
+                            <div class="row mx-0 align-items-center">
+                              <div class="px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
+                                <h2 class="h3 mb-4 mb-sm-5">Crear un tema</h2>
+
+                                <form id="newPost" class="needs-validation" action="{{url_for('auth.forum_post_create', forum=forum.slug)}}" method="POST" enctype="multipart/form-data">
+                                  <div class="row">
+                                    <div class="col col-md-7">
+                                      <div class="mb-4">
+                                        <label class="form-label" for="post-title">Nombre del tema</label>
+                                        <input class="form-control" type="text" name="post_title" placeholder="Escribe un título de no menos de 30 ni más de 80 carácteres" minlength="30" maxlength="80" required>
+                                      </div>
+                                    </div>
+                                    <div class="col col-md-5">
+                                      <div class="mb-4">
+                                        <label class="form-label" for="post-section">Sección</label>
+                                        <select class="form-select" name="post_section" required>
+                                          <option value="">Elige...</option>
+                                          {% for i in categories %}
+                                          <option value="{{i.name}}">{{i.name}}</option>
+                                          {% endfor %}
+                                        </select>                                 
+                                      </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                      <div class="mb-4">
+                                        <label class="form-label" for="post-tags">Tags</label>
+                                        <input list="tagsList" class="form-control" placeholder="Escribe tu tag si no aparece en la lista" name="post_tags" multiple>
+                    
+                                        <datalist id="tagsList">
+                                          {% for i in tags %}
+                                          <option value="{{i.name}}">
+                                          {% endfor %}
+                                        </datalist>                               
+                                      </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                      <div class="mb-4">
+                                        <label class="form-label" for="signup-name">Desactivado..</label>
+                                        <select class="form-select disabled" name="forum_icon" disabled>
+                                          <option value="">Elige...</option>
+                                          <option value="bx bx-lemon">Limón</option>
+                                          <option value="bx bxs-pear">Pera</option>
+                                          <option value="bx bx-water">Agua</option>
+                                          <option>Naranja</option>
+                                          <option>Árbol</option>
+                                          <option value="bx bx-sushi">Sushi</option>
+                                        </select>                              
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="mb-4">
+                                    <label class="form-label" for="signup-email">Desarrollo de la publicación</label>
+                                    <div class="input-group">
+                                      <span class="input-group-text">
+                                        <i class="bx bx-message fs-lg"></i>
+                                      </span>
+        
+                                      <div class="form-control bg-white" style="min-height: 15rem">
+                                        <div id="editor">
+                                          <p class="text-muted">¡Hola usuario!</p>
+                                          <p>Escribe aquí el cuerpo de la publicación. Recuerda <strong>cumplir las condiciones de uso</strong> a la hora de publicar.</p>
+                                          <p><br></p>                                        
+                                        </div>
+
+                                        <textarea name="post_body" style="display:none" id="hiddenArea"></textarea>
+
+                                        <!-- Include the Quill library -->
+                                        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+                                        <!-- Initialize Quill editor -->
+                                        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+                                        <script>
+                                            var toolbarOptions = [
+                                            ['bold', 'italic', 'underline', 'strike', 'image', 'link'],        // toggled buttons
+                                            ['blockquote', 'code-block'],
+
+                                            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+                                            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                                            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+                                            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+                                            [{ 'direction': 'rtl' }],                         // text direction
+
+                                            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+                                            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+                                            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+                                            [{ 'font': [] }],
+                                            [{ 'align': [] }],
+
+                                            ['clean']                                         // remove formatting button
+                                            ];
+
+                                            var quill = new Quill('#editor', {
+                                            modules: {
+                                                toolbar: toolbarOptions
+                                            },
+                                            theme: 'snow'
+                                            });
+                            
+                                            $("#newPost").on("submit",function(){
+                                              $("#hiddenArea").val($(".ql-editor").html());
+                                            })
+                                        </script>
+                                      </div>
+                                    </div>                          
+                                  </div>
+        
+                                  <div class="border my-3"></div>
+        
+                                  <div class="mb-4 row">
+                                    <label class="form-label" for="signup-email">Opciones de moderación</label>
+                                    <div class="col-md">
+                                      <div class="form-check mb-4">
+                                        <input class="form-check-input me-2" type="checkbox" value="closed" name="forum_type" id="check-1">
+                                        <label class="form-check-label" for="agree-to-terms">Inhabilitar comentarios</label>  
+                                      </div>
+                                    </div>
+                                    <div class="col-md">
+                                      <div class="form-check mb-4">
+                                        <input class="form-check-input me-2" type="checkbox" value="restricted" name="forum_type" id="check-2">
+                                        <label class="form-check-label" for="agree-to-terms">Solicitar acceso a la información</label>  
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="d-flex justify-content-center">
+                                    <button class="btn btn-primary rounded-pill btn-lg w-50" type="submit">Crear</button>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Comunidad</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{forum.details.name}}</li>
+              </ol>
+            </nav>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="pt-4 swiper overflow-hidden w-100 ms-n2 ms-md-0 pe-3 pe-sm-4" style="max-height: 34.5rem;" data-swiper-options='{
+              "direction": "vertical",
+              "slidesPerView": "auto",
+              "freeMode": true,
+              "scrollbar": {
+                "el": ".swiper-scrollbar"
+              },
+              "mousewheel": true
+            }'>
+              <div class="swiper-wrapper pe-md-2">
+                <div class="swiper-slide h-auto px-2">
+    
+                  <div class="row row-cols-md-1 row-cols-sm-2 row-cols-1 g-md-4 g-3">
+                    
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    {% for category, message in messages %}
+                    <section id="messages" class="container">
+                      <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+                        {{message}} {{email}}
+                        <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                    </section>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    
+                    <div class="border-white border-bottom m-2">
+                      {% for i in forum.threads or forum.posts|sort(attribute='created', reverse=True) %}
+                      {% if i.pinned %}
+                      <div id="pinned" class="pb-2">
+
+                        <!-- ** Pinned para hilos -->
+                        <!--<li class="m-2">
+                            <div class="card bg-secondary">
+                                <div class="card-header d-flex mb-0 border-0">
+                                    <button class="btn btn-outline-secondary rounded-circle btn-icon me-3 border-0" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tema fijado">
+                                        <i class='bx bx-pin'></i>
+                                    </button>
+
+                                    <div class="d-flex">
+                                        <a href="#usuario1" class="fs-xs d-flex align-items-center justify-content-center bg-warning rounded-circle" style="width: 52px; height: 52px;">
+                                          <img src="{{url_for('static',filename='img/avatars/05.jpg')}}" class="rounded-circle" width="48" alt="Usuario">
+                                        </a>
+                                        <a href="#usuario2" class="fs-xs d-flex align-items-center justify-content-center bg-info rounded-circle ms-n3" style="width: 52px; height: 52px;">
+                                          <img src="{{url_for('static',filename='img/avatars/07.jpg')}}" class="rounded-circle" width="48" alt="Usuario">
+                                        </a>
+                                        <a href="#usuario2" class="fs-xs d-flex align-items-center justify-content-center bg-success rounded-circle ms-n3" style="width: 52px; height: 52px;">
+                                          <img src="{{url_for('static',filename='img/avatars/08.jpg')}}" class="rounded-circle" width="48" alt="Usuario">
+                                        </a>
+                                    </div>                                   
+                                    
+                                    <div class="col ms-3">
+                                        <h2 class="m-0 p-0 h6" style="margin:0;padding:0"><a href="{{url_for('public.forums_post', slug='foro-de-prueba', post_slug='consejos-sur-de-francia-en-agosto')}}">Consejos sur de Francia en agosto</a></h2>
+                                        <div class="d-flex">
+                                            <span class="fs-xs p-0" style="text-decoration: none;">
+                                                <a href="" class="btn btn-sm p-0 ms-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Usuario que ha creado el hilo">5 Participantes</a>
+                                            </span>
+                                            <span class="ms-3 fs-xs p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Fecha de creación">10/05/2023 15:27</span>
+                                            <span class="ms-3 fs-xs p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Comentarios"><strong>27</strong><i class="ms-1 bx bx-message-square-dots fs-base"></i></span>
+                                            <span class="ms-2 fs-xs p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Leafs"><strong>4</strong><i class="ms-1 bx bx-leaf fs-base"></i></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-2">
+                                        <span class="fs-xs mb-0">Fecha:</span>
+                                        <div class="d-flex">
+                                            <span class="fs-xs mt-0">Hace 3 días</span>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <span class="fs-xs mb-0">Último mensaje:</span><br>
+                                        <div class="d-flex">
+                                            <a href="" class="btn btn-sm p-0">De Murcia-Taull, y estancia en Taull unos tres ..</a>
+                                            <a href="/usuarios/ruben-ayuso" class="text-light fs-xs p-0 ms-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Último usuario que ha comentado">Rubén Ayuso</a>
+                                        </div>
+                                    </div>
+                                </div>                      
+                            </div>
+                        </li>-->
+
+                        <li class="m-2 ms-0 me-0">
+                          <div class="card bg-secondary">
+                            <div class="card-body row border-0 pb-0">
+                              <button class="btn btn-outline-secondary rounded-circle btn-icon me-3 border-0" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tema fijado">
+                                  <i class='bx bx-pin'></i>
+                              </button>
+                              <button class="rounded-circle btn btn-light btn-icon me-3" type="button">
+                                  <img src="{{url_for('static',filename='img/avatars/18.jpg')}}" class="d-block rounded-circle" width="40" alt="Usuario">
+                              </button>
+
+
+                              <div class="ms-2 col">
+                                <h2 class="m-0 p-0 h6" style="margin:0;padding:0"><a href="{{url_for('public.forums_post',slug=forum.slug,post_slug=i.slug)}}">{{i.title}}</a></h2>
+                                <div class="d-flex">
+                                    <span class="fs-xs p-0" style="text-decoration: none;">
+                                        <a href="" class="btn btn-sm p-0 ms-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Usuario que ha creado el hilo">{{i.author}}</a>
+                                    </span>
+                                    <span class="ms-3 fs-xs p-0 text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Fecha de creación">{{i.created.strftime('%d/%m/%Y %H:%M')}}</span>
+                                    <span class="ms-3 fs-xs p-0 text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Comentarios"><strong>{{i.comments|count}}</strong><i class="ms-1 bx bx-message-square-dots fs-base"></i></span>
+                                    <span class="ms-2 fs-xs p-0 text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Leafs"><strong>{{i.leafs|count}}</strong><i class="ms-1 bx bx-leaf fs-base"></i></span>
+                                </div>
+                              </div>
+  
+                              {% if 'last_comment' in i %}
+                                <div class="col-2">
+                                  <span class="fs-sm mb-0">Fecha:</span>
+                                  <div class="d-flex">
+                                      <span class="fs-xs text-light mt-0">
+                                        Hace
+  
+                                        {% set time = now-i.last_comment.created %}
+                      
+                                        {{ str(((now-i.last_comment.created).seconds/60)|round)[0:1]+' minutos' if time.days == 0 and 10 > (time.seconds)/60 > 0}}
+                                        {{ str(((now-i.last_comment.created).seconds/60)|round)[0:2]+' minutos' if time.days == 0 and 60 > (time.seconds)/60 >= 10}}
+                                        {{ '1 hora y '+str(((now-i.last_comment.created).seconds/60)-60|round)[0:1]+' minutos' if time.days == 0 and 70 > (time.seconds)/60 > 60}}
+                                        {{ '1 hora y '+str(((now-i.last_comment.created).seconds/60)-60|round)[0:2]+' minutos' if time.days == 0 and 120 > (time.seconds)/60 >= 70}}
+                                        {{ str(((now-i.last_comment.created).seconds/3600)|round)[0]+' horas' if time.days == 0 and 720 > (time.seconds)/60 > 120}}
+                                        {{ str(((now-i.last_comment.created).seconds/3600)|round)[0:2]+' horas' if time.days == 0 and (time.seconds)/60 > 720}}
+                                        
+                                        {{ '1 día' if 2 > time.days > 0 }}
+                                        {{ str(time.days)+' días' if time.days > 1 }}                  
+                                      </span>
+                                  </div>
+                                </div>
+                                <div class="col">
+                                    <span class="fs-sm">Último mensaje:</span><br>
+                                    <div class="d-flex pb-2">
+                                      <a href="{{url_for('public.forums_post',slug=forum.slug,post_slug=i.slug)}}#{{i.last_comment.comment}}" class="btn btn-sm pt-0 ps-0" data-scroll>{{i.last_comment.comment[:40]}} ..</a>
+                                      <a href="" class="text-light fs-xs pt-0 ms-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Último usuario que ha comentado">{{i.last_comment.author}}</a>
+                                    </div>
+                                </div>
+                              {% else %}
+                              <div class="col-2">
+                                <span class="fs-sm mb-0">Fecha:</span>
+                                <div class="d-flex">
+                                    <span class="fs-xs text-light mt-0">
+                                      Hace
+  
+                                      {% set time = now-i.created %}
+                    
+                                      {{ str(((now-i.created).seconds/60)|round)[0:1]+' minutos' if time.days == 0 and 10 > (time.seconds)/60 > 0}}
+                                      {{ str(((now-i.created).seconds/60)|round)[0:2]+' minutos' if time.days == 0 and 60 > (time.seconds)/60 >= 10}}
+                                      {{ '1 hora y '+str(((now-i.created).seconds/60)-60|round)[0:1]+' minutos' if time.days == 0 and 70 > (time.seconds)/60 > 60}}
+                                      {{ '1 hora y '+str(((now-i.created).seconds/60)-60|round)[0:2]+' minutos' if time.days == 0 and 120 > (time.seconds)/60 >= 70}}
+                                      {{ str(((now-i.created).seconds/3600)|round)[0]+' horas' if time.days == 0 and 720 > (time.seconds)/60 > 120}}
+                                      {{ str(((now-i.created).seconds/3600)|round)[0:2]+' horas' if time.days == 0 and (time.seconds)/60 > 720}}
+                                      
+                                      {{ '1 día' if 2 > time.days > 0 }}
+                                      {{ str(time.days)+' días' if time.days > 1 }}                  
+                                    </span>
+                                </div>
+                              </div>
+                              <div class="col">
+                                <span class="fs-sm">Último mensaje:</span><br>
+                                <div class="d-flex">
+                                  <p class="fs-xs text-light">Aún no tiene ningún comentario</p>
+                                </div>
+                              {% endif %}
+                              </div>       
+                            </div>               
+                          </div>
+                        </li>
+                      </div>
+                      {% endif %}
+                    {% endfor %}
+                    </div>
+
+                    {% for i in forum.threads or forum.posts|sort(attribute='created', reverse=True) %}
+                      {% if not i.pinned %}
+                      <li class="m-2">
+                        <div class="card bg-secondary border-0">
+                        <div class="card-body row pb-0 border-0">
+                            {% if wUser.not_login or wUser.access.type == 'user' %}
+                            <button class="rounded-circle btn btn-danger btn-icon" type="button">
+                              <img src="{{url_for('static',filename='img/avatars/anonymous.png')}}" class="d-block rounded-circle" width="40" alt="Usuario">
+                            </button>
+                            {% else %}
+                            <div class="d-flex col-2">
+                              <form action="{{url_for('auth.forum_posts_pin', forum=forum.slug, post=i.slug)}}" class="me-3" method="POST">
+                                <button class="btn btn-outline-success rounded-circle btn-icon border-0" type="submit" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Fijar tema">
+                                  <i class='bx bx-pin'></i>
+                                </button>
+                              </form>
+                              <button class="rounded-circle btn btn-danger btn-icon" type="button">
+                                <img src="{{url_for('static',filename='img/avatars/anonymous.png')}}" class="d-block rounded-circle" width="40" alt="Usuario">
+                              </button>
+                            </div>
+                            {% endif %}
+                            
+                            <div class="ms-2 col">
+                                <h2 class="m-0 p-0 h6" style="margin:0;padding:0"><a href="{{url_for('public.forums_post',slug=forum.slug,post_slug=i.slug)}}">{{i.title}}</a></h2>
+                                <div class="d-flex">
+                                    <span class="fs-xs p-0" style="text-decoration: none;">
+                                        <a href="" class="btn btn-sm p-0 ms-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Usuario que ha creado el hilo">{{i.author}}</a>
+                                    </span>
+                                    <span class="ms-3 fs-xs p-0 text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Fecha de creación">
+                                      {% set now = now %}
+                                      {% set date = i.created %}
+                                      {% set delta = now - date %}
+                                      {% set days = delta.days %}
+                                      {% if days == 0 %}
+                                        {% set day = 'Hoy' %}
+                                      {% elif days == 1 %}
+                                        {% set day = 'Ayer' %}
+                                      {% elif days == 2 %}
+                                        {% set day = 'Antes de ayer' %}
+                                      {% else %}
+                                        {% set day = date.strftime('%A') %}
+                                      {% endif %}
+                                      {% set time = date.strftime('%H:%M horas') %}
+                                      {{ day }}, a las {{ time }}                                                                                                             
+                                    </span>
+                                    <span class="ms-3 fs-xs p-0 text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Comentarios"><strong>{{i.comments|count}}</strong><i class="ms-1 bx bx-message-square-dots fs-base"></i></span>
+                                    <span class="ms-2 fs-xs p-0 text-light" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Leafs"><strong>{{i.leafs|count}}</strong><i class="ms-1 bx bx-leaf fs-base"></i></span>
+                                </div>
+                            </div>
+
+                            {% if 'last_comment' in i %}
+                              <div class="col-2">
+                                <span class="fs-sm mb-0">Fecha:</span>
+                                <div class="d-flex">
+                                    <span class="fs-xs text-light mt-0">
+                                      Hace
+
+                                      {% set time = now-i.last_comment.created %}
+                    
+                                      {{ str(((now-i.last_comment.created).seconds/60)|round)[0:1]+' minutos' if time.days == 0 and 10 > (time.seconds)/60 > 0}}
+                                      {{ str(((now-i.last_comment.created).seconds/60)|round)[0:2]+' minutos' if time.days == 0 and 60 > (time.seconds)/60 >= 10}}
+                                      {{ '1 hora y '+str(((now-i.last_comment.created).seconds/60)-60|round)[0:1]+' minutos' if time.days == 0 and 70 > (time.seconds)/60 > 60}}
+                                      {{ '1 hora y '+str(((now-i.last_comment.created).seconds/60)-60|round)[0:2]+' minutos' if time.days == 0 and 120 > (time.seconds)/60 >= 70}}
+                                      {{ str(((now-i.last_comment.created).seconds/3600)|round)[0]+' horas' if time.days == 0 and 720 > (time.seconds)/60 > 120}}
+                                      {{ str(((now-i.last_comment.created).seconds/3600)|round)[0:2]+' horas' if time.days == 0 and (time.seconds)/60 > 720}}
+                                      
+                                      {{ '1 día' if 2 > time.days > 0 }}
+                                      {{ str(time.days)+' días' if time.days > 1 }}                  
+                                    </span>
+                                </div>
+                              </div>
+                              <div class="col">
+                                  <span class="fs-sm">Último mensaje:</span><br>
+                                  <div class="d-flex pb-2">
+                                    <a href="{{url_for('public.forums_post',slug=forum.slug,post_slug=i.slug)}}#{{i.last_comment.comment}}" class="btn btn-sm pt-0 ps-0" data-scroll>{{i.last_comment.comment[:40]}} ..</a>
+                                    <a href="" class="text-light fs-xs pt-0 ms-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Último usuario que ha comentado">{{i.last_comment.author}}</a>
+                                  </div>
+                              </div>
+                            {% else %}
+                            <div class="col-2">
+                              <span class="fs-sm mb-0">Fecha:</span>
+                              <div class="d-flex">
+                                  <span class="fs-xs text-light mt-0">
+                                    Hace
+
+                                    {% set time = now-i.created %}
+                  
+                                    {{ str(((now-i.created).seconds/60)|round)[0:1]+' minutos' if time.days == 0 and 10 > (time.seconds)/60 > 0}}
+                                    {{ str(((now-i.created).seconds/60)|round)[0:2]+' minutos' if time.days == 0 and 60 > (time.seconds)/60 >= 10}}
+                                    {{ '1 hora y '+str(((now-i.created).seconds/60)-60|round)[0:1]+' minutos' if time.days == 0 and 70 > (time.seconds)/60 > 60}}
+                                    {{ '1 hora y '+str(((now-i.created).seconds/60)-60|round)[0:2]+' minutos' if time.days == 0 and 120 > (time.seconds)/60 >= 70}}
+                                    {{ str(((now-i.created).seconds/3600)|round)[0]+' horas' if time.days == 0 and 720 > (time.seconds)/60 > 120}}
+                                    {{ str(((now-i.created).seconds/3600)|round)[0:2]+' horas' if time.days == 0 and (time.seconds)/60 > 720}}
+                                    
+                                    {{ '1 día' if 2 > time.days > 0 }}
+                                    {{ str(time.days)+' días' if time.days > 1 }}                  
+                                  </span>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <span class="fs-sm">Último mensaje:</span><br>
+                              <div class="d-flex">
+                                <p class="fs-xs text-light">Aún no tiene ningún comentario</p>
+                              </div>
+                            {% endif %}
+                        </div>                      
+                        </div>
+                      </li>
+                      {% endif %}
+                    {% else %}
+                    <li class="m-2">
+                      <div class="card bg-secondary border-0">
+                      <div class="card-header row mb-0 border-0">
+
+                          <div class="col">
+                              <h2 class="m-0 p-0 h4" style="margin:0;padding:0">¡Vaya! Parece que este foro aún no tiene ningún tema creado..</h2>
+                          </div>
+                      </div>                      
+                      </div>
+                    </li>
+                    {% endfor %}
+
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-scrollbar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+{% if request.args.get('showCreatePost') %}
+<script>
+  $(window).on('load',function(){
+      $('#createPost').modal('show');
+  });
+</script>
+{% endif %}
+
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block newsletter %}
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'bases/weggo_v1_base.html' %}
+
+{% block content %}
+<main id="content" role="main">
+    <div class="slice slice-sm bg-section-secondary">
+        <div class=container>
+            <div class="row justify-content-center">
+                <div class=col-lg-12>
+                    <div class="row mt-4">
+                        <div class=col-lg-12>
+                            <div class=mb-5>
+                                <div class="d-flex align-items-center mb-4">
+                                    <div class=d-flex>
+                                        <div class=pr-3><span class="h5 mb-0"><i data-feather=users></i></span></div>
+                                        <div class="">
+                                            <h3 class=" mb-0">Seguridad del perfil</h3>
+                                            <p class="text-muted mb-0">Cambiar contraseña del perfil</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <form action="{{url_for('auth.profile_password')}}" method="POST">
+                                        <div class="row form-group">
+                                        <label for="newPassword" class="col-sm-3 col-form-label input-label">Nueva contraseña</label>
+                                        <div class="col-sm-9">
+                                            <div class="mb-2">
+                                            <input type="password" class="js-pwstrength form-control" name="password" id="newPassword" placeholder="Introduce tu nueva contraseña" aria-label="Introduce tu nueva contraseña"
+                                            data-hs-pwstrength-options='{
+                                                "ui": {
+                                                "container": "#changePasswordForm",
+                                                "viewports": {
+                                                    "progress": "#passwordStrengthProgress",
+                                                    "verdict": "#passwordStrengthVerdict"
+                                                }
+                                                }
+                                            }' required>
+                                            <p id="passwordStrengthVerdict" class="form-text"></p>
+                                            <div id="passwordStrengthProgress" class="mb-3"></div>
+
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                        <div class="row form-group">
+                                        <label for="confirmNewPassword" class="col-sm-3 col-form-label input-label">Confirmar nueva contraseña</label>
+
+                                        <div class="col-sm-9">
+                                            <input type="password" class="form-control mb-2" name="password2" id="confirmNewPassword" placeholder="Vuelve a introducir tu nueva contraseña" aria-label="Vuelve a introducir tu nueva contraseña" required>
+                                            
+                                            <h5 clas="mt-2">Recomendaciones:</h5>
+
+                                            <p class="card-text font-size-1">Teniendo en cuenta las siguientes recomendaciones será difícil que adivinen tu contraseña</p>
+
+                                            <ul class="font-size-1">
+                                            <li>Mínimo 8 caracteres de longitud - mientras más, mejor</li>
+                                            <li>Al menos un carácter en minúsculas</li>
+                                            <li>Al menos un carácter en mayúsculas</li>
+                                            <li>Al menos un número, símbolo o carácter de espacio en blanco</li>
+                                            </ul>
+                                        </div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-primary btn-pill">Actualizar contraseña</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

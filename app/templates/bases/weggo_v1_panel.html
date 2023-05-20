@@ -1,0 +1,217 @@
+<!-- -| 
+  
+  * WEGGO is a registered trademark in Spain as Plataforma Weggo Espana, S.L
+  * Any disclosure of this code violates intellectual property laws.
+  * By Ruben Ayuso. 
+  
+|- -->
+
+<!doctype html>
+<html lang="es">
+<head>
+
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="generator" content="Comunidad de Weggo">
+
+    <!-- SEO Meta Tags-->
+    <meta name="description" content="Comunidad de Weggo &amp; Comunícate con otros usuarios del sector camper">
+    <meta name="keywords" content="camping, autocaravanas, caravanas, campers, community, comunidad, marketplace, city guide, travel, viajes, aire libre, actividades, apps">
+    <meta name="author" content="Ruben Ayuso">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="{{ url_for('static', filename='favicon.ico') }}">
+    
+    <title>{% block title %} {{title}} {% endblock %}</title>
+
+    <link rel="stylesheet" media="screen" href="{{url_for('static', filename='css/weggo-base.css')}}">
+
+    <!-- Vendor Styles-->
+    <link rel="stylesheet" media="screen" href="{{url_for('static', filename='vendor/boxicons/css/boxicons.min.css')}}"/>
+    <link rel="stylesheet" media="screen" href="{{url_for('static', filename='vendor/swiper/swiper-bundle.min.css')}}"/>
+
+    <!-- Theme mode -->
+    <script>
+      let mode = window.localStorage.getItem('mode'),
+          root = document.getElementsByTagName('html')[0];
+      if (mode !== null && mode === 'light') {
+        root.classList.add('light-mode');
+      } else {
+        root.classList.remove('light-mode');
+      }
+    </script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-945WMGCSK8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-945WMGCSK8');
+  </script>
+	<!-- Icon fonts -->
+  <script async src="https://kit.fontawesome.com/f8eb6664fa.js" crossorigin="anonymous"></script>
+
+</head>
+
+{% block body %}
+<body>
+{% endblock %}
+
+  {% block header %}
+  <header class="header navbar navbar-expand-lg bg-light navbar-sticky">
+    <div class="container px-3">
+      <div class="tilt-3d position-relative ratio ratio-4x3 pe-3 me-5" data-tilt data-tilt-glare data-tilt-max-glare="0.4" style="max-width: 120px;">
+        <a href="/" class="navbar-brand">
+          <img src="../../static/svg/logos/logo-black.svg" width="120" alt="Weggo">
+        </a>
+        <span class="navbar-brand d-none d-md-block" style="font-size:12px;margin-top:45px">Panel de moderación</span> 
+      </div>
+
+      <div id="navbarNav" class="ms-5 offcanvas offcanvas-end">
+        <div class="offcanvas-header border-bottom">
+          <h5 class="offcanvas-title">Menu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Foros</a>
+              <div class="dropdown-menu p-0">
+                <div class="d-lg-flex">
+                  <div class="mega-dropdown-column d-flex justify-content-center align-items-center rounded-3 rounded-end-0 px-0" style="margin: -1px; background-color: #f3f6ff;">
+                    <img src="assets/img/landings.jpg" alt="Landings">
+                  </div>
+                  <div class="mega-dropdown-column pt-lg-3 pb-lg-4">
+                    <ul class="list-unstyled mb-0">
+                      <li><a href="index.html" class="dropdown-item">Template Intro Page</a></li>
+                      <li><a href="landing-mobile-app-showcase-v1.html" class="dropdown-item">Mobile App Showcase v.1</a></li>
+                      <li><a href="landing-mobile-app-showcase-v2.html" class="dropdown-item">Mobile App Showcase v.2</a></li>
+                      <li><a href="landing-product.html" class="dropdown-item d-flex align-items-center">Product Landing</a></li>
+                      <li><a href="landing-startup.html" class="dropdown-item d-flex align-items-center">Startup</a></li>
+                      <li><a href="landing-saas-v1.html" class="dropdown-item">SaaS v.1</a></li>
+                      <li><a href="landing-saas-v2.html" class="dropdown-item">SaaS v.2</a></li>
+                      <li><a href="landing-saas-v3.html" class="dropdown-item">SaaS v.3</a></li>
+                      <li><a href="landing-saas-v4.html" class="dropdown-item">SaaS v.4<span class="badge bg-success ms-2">New</span></a></li>
+                    </ul>
+                  </div>
+                  <div class="mega-dropdown-column pt-lg-3 pb-lg-4" style="--si-mega-dropdown-column-width: 16rem;">
+                    <ul class="list-unstyled mb-0">
+                      <li><a href="landing-financial.html" class="dropdown-item">Financial Consulting</a></li>
+                      <li><a href="landing-online-courses.html" class="dropdown-item">Online Courses</a></li>
+                      <li><a href="landing-medical.html" class="dropdown-item">Medical</a></li>
+                      <li><a href="landing-software-dev-agency-v1.html" class="dropdown-item">Software Dev Agency v.1</a></li>
+                      <li><a href="landing-software-dev-agency-v2.html" class="dropdown-item">Software Dev Agency v.2<span class="badge bg-success ms-2">New</span></a></li>
+                      <li><a href="landing-software-dev-agency-v3.html" class="dropdown-item">Software Dev Agency v.3<span class="badge bg-success ms-2">New</span></a></li>
+                      <li><a href="landing-conference.html" class="dropdown-item">Conference</a></li>
+                      <li><a href="landing-digital-agency.html" class="dropdown-item">Digital Agency</a></li>
+                      <li><a href="landing-blog.html" class="dropdown-item">Blog Homepage</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a href="components/typography.html" class="nav-link">Grupos</a>
+            </li>
+            <li class="nav-item">
+              <a href="docs/getting-started.html" class="nav-link">Club de socios <span class="ms-1 badge bg-success shadow-success">¡Únete!</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="offcanvas-header border-top">
+          <a href="#connect" title="Conéctate para disfrutar de las ventajas" data-bs-toggle="modal" class="btn btn-primary w-100" target="_blank" rel="noopener">
+            <i class="fas fa-user-circle me-2"></i>Conectarme
+          </a>
+        </div>      
+      </div>
+
+      <button type="button" class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      {% if wUser['not_login'] %}
+      <a class="btn btn-xs btn-link text-light rounded-pill d-none d-lg-block order-lg-3" href="#connect" title="Conéctate para disfrutar de las ventajas" data-bs-toggle="modal" style="border: none;font-size:14px;"><i class="fas fa-user-circle me-2"></i>Conectarme</a>
+      {% else %}
+      <div class="dropdown d-none d-lg-block order-lg-3 my-n2 me-3">
+        <span class="d-flex align-items-center text-center">Bienvenido,<a class="ms-2" href="{{url_for('public.profile')}}"><h2 class="h5 mb-0">{{wUser.username}}</h2></a></span>
+        <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+          <div class="d-flex align-items-start border-bottom border-light px-3 py-1 mb-2" style="width: 16rem;"><img class="rounded-circle" src="{{url_for('static', filename='img/avatars/anonymous.png')}}" width="48" alt="Perfil de {{wUser.username}}">
+            <div class="ps-2">
+              <h6 class="fs-base text-light mb-0">{{wUser.username}} 
+                {% if 'access' in wUser %}  
+                {% if wUser.access.type == 'moderator' %}
+                <span class="ms-1 badge bg-faded-danger text-danger" style="font-size: 10px;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Moderador nivel {{wUser.access.range}}">Moderador {% for n in range(wUser.access.range) %}<i class="bx bxs-star"></i> {% endfor %}</span>
+                {% elif wUser.access.type == 'administrator' %}
+                <span class="ms-1 badge bg-faded-primary text-primary" style="font-size: 10px;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Administrador nivel {{wUser.access.range}}">Administrador {% for n in range(wUser.access.range) %}<i class="bx bxs-star"></i> {% endfor %}</span>
+                {% endif %}
+                {% endif %}
+              </h6>
+              <div class="fs-xs">{{wUser.email}}</div>
+            </div>
+          </div>
+          <a class="dropdown-item" href="{{url_for('public.profile')}}"><i class="fi-settings me-2"></i>Ajustes de perfil</a><a class="dropdown-item" href="job-board-account-my-resumes.html"><i class="fi-file me-2"></i>Mis reservas</a><a class="dropdown-item" href="job-board-account-saved-jobs.html"><i class="fi-heart me-2"></i>Ofertas guardadas</a><a class="dropdown-item" href="job-board-account-notifications.html"><i class="fi-bell me-2"></i>Notificaciones</a>
+          <div class="dropdown-divider"></div><a class="dropdown-item" href="{{url_for('auth.logout')}}"><i class="fi-logout me-2"></i>Desconectar</a>
+          {% if 'access' in wUser %}{% if wUser.access.type == 'admin' %}<div class="dropdown-divider"></div><a class="dropdown-item bg-white text-primary" href="{{url_for('panel.index')}}"><i class="fi-logout me-2"></i>Panel de administración</a>{% endif %}{% endif %}
+        </div>
+      </div>   
+      {% endif %}
+
+    </div>
+  </header>
+  {% endblock %}
+
+  <main id="content" role="main" class="{{ '' if header_landing else 'py-md-3' }}">
+
+    {% if messages %}
+    <!-- Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    <div class="main content container mt-2">
+      {% for category, message in messages %}
+      <div class="alert alert-{{category}} alert-dismissible fade show small" role="alert" style="font-size:14px;">
+        {{message}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <svg aria-hidden="true" class="mb-0" width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M11.5,9.5l5-5c0.2-0.2,0.2-0.6-0.1-0.9l-1-1c-0.3-0.3-0.7-0.3-0.9-0.1l-5,5l-5-5C4.3,2.3,3.9,2.4,3.6,2.6l-1,1 C2.4,3.9,2.3,4.3,2.5,4.5l5,5l-5,5c-0.2,0.2-0.2,0.6,0.1,0.9l1,1c0.3,0.3,0.7,0.3,0.9,0.1l5-5l5,5c0.2,0.2,0.6,0.2,0.9-0.1l1-1 c0.3-0.3,0.3-0.7,0.1-0.9L11.5,9.5z"/>
+          </svg>
+        </button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endwith %}
+    <!-- End Messages -->
+    {% endif %}
+    
+    {% block content %}
+    {% endblock %}
+
+    <!-- Back to top button-->
+    <a class="btn-scroll-top" href="#top" data-scroll><span class="btn-scroll-top-tooltip text-light fs-sm me-2">Subir</span><i class="bx bx-chevron-up"></i></a>
+  </main>
+
+  {% block footer %}
+  <footer class="">
+    <div class="py-2">
+      <div class="text-center fs-sm">&copy; Comunidad de <strong>Campers</strong>. Creado por <a href='https://linkedin.com/in/ruben-ayuso' class='d-inline-block nav-link p-0' target='_blank' rel='noopener'>Rubén Ayuso</a></div>
+    </div>
+  </footer>
+  {% endblock %}
+
+  <script src="{{url_for('static',filename='vendor/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{url_for('static',filename='vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js')}}"></script>
+  <script src="{{url_for('static',filename='vendor/jarallax/dist/jarallax.min.js')}}"></script>
+  <script src="{{url_for('static',filename='vendor/rellax/rellax.min.js')}}"></script>
+  <script src="{{url_for('static',filename='vendor/parallax-js/dist/parallax.min.js')}}"></script>
+  <script src="{{url_for('static',filename='vendor/vanilla-tilt/dist/vanilla-tilt.min.js')}}"></script>
+  <script src="{{url_for('static',filename='vendor/swiper/swiper-bundle.min.js')}}"></script>
+
+  {% block scripts %}
+  {% endblock %}
+
+  <!-- Main theme script-->
+  <script src="{{url_for('static',filename='js/theme.min.js')}}"></script>
+</body>
+</html>

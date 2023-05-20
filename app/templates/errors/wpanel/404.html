@@ -1,0 +1,24 @@
+{% extends 'bases/weggo_v1_wpanel_base.j2' %}
+
+{% block main %}
+ <!-- Page Content -->
+ <div class="container d-flex flex-column">
+  <div class="row align-items-center justify-content-center no-gutters min-vh-100">
+
+   <!-- img -->
+   <div class="offset-lg-1 col-lg-4 col-md-12 col-4">
+    <img src="{{ url_for('static', filename='svg/404-error-img.svg') }}" alt="" class="w-100" />
+   </div>
+
+   <!-- Docs -->
+   <div class="offset-lg-1 col-lg-6 col-md-12 col-12 text-center text-lg-left">
+    <h1 class="display-1 mb-3">¡Ups!</h1>
+    <h3>Lo sentimos, no encontramos la página que buscas</h3>
+    <p class="mb-4 small">Error Code: 404 not found.</p>
+   </div>
+
+
+  </div>
+ </div>
+ <!-- End Page Content -->
+ {% endblock %}

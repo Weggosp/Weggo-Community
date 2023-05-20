@@ -1,0 +1,21 @@
+{% extends 'bases/weggo_v1_base.html' %}
+
+
+{% block content %}
+<main id="content" role="main" class="m-5">
+    <!-- Content -->
+    <div class="container text-center">
+      <div class="mb-3 m-5">
+        <img class="img-fluid" src="{{url_for('static',filename='svg/illustrations/sorry.svg')}}" alt="Image Description" style="width: 20rem;">
+      </div>
+
+      <div class="mb-4">
+        <h2 class="h3 mb-0">{{error_title}}.</h2>
+        <p class="fs-4">Si piensa que el error se debe a nosotros, porfavor <a class="link" href="mailto:info@weggo.es">contáctenos</a>.</p>
+      </div>
+
+      <a class="btn btn-pill btn-primary" href="/">Volver a la web</a>
+    </div>
+    <!-- End Content -->
+  </main>
+{% endblock %}

@@ -1,0 +1,112 @@
+<!-- -| 
+  
+  * WEGGO is a registered trademark in Spain as Plataforma Weggo Espana, S.L
+  * Any disclosure of this code violates intellectual property laws.
+  * By Ruben Ayuso. 
+  
+|- -->
+
+<!-- * -| Marked as important for SEO |- -->
+<!-- URL -| Change to dynamic url |- -->
+
+
+{% extends 'bases/weggo_v1_base.html' %}
+
+<head>
+  <!-- Meta tags -->
+  <meta name="description" content=""> <!-- * -->
+  <meta name="keywords" content=""> <!-- * -->
+
+  {% block title %} Política de términos &amp; Condiciones | Weggo España {% endblock %}
+</head>
+
+<body>
+
+  <!-- Ocultamos el header del colaborador -->
+  {% block header %}
+  {% endblock %}
+
+  {% block content %}
+<div class="bg-img-hero">
+  <div class="container space-top-3 space-top-lg-4 space-bottom-2 position-relative z-index-2">
+    <div class="w-md-80 w-lg-60 text-center mx-md-auto">
+      <h1>Términos &amp; Condiciones</h1>
+      <p class="mr-2">Fecha de la última actualización:</p><p>25 de Septiembre de 2021</p>
+    </div>
+  </div>
+</div>
+<!-- Terms Content Section -->
+<div class="container">
+  <div class="row pb-6">
+      <div id="intro" class="space-bottom-1">
+        <!-- Title -->
+        <div class="mb-3">
+          <h2 class="h3">Bienvenido a Weggo</h2>
+        </div>
+        <!-- End Title -->
+
+        <p>Gracias por utilizar Weggo España. Los servicios ofrecidos están gestionados por Plataforma Weggo España, S.L, localizado físicamente en la dirección postal Calle Américo Vespucio, 13 Edificio S-3 Planta baja, 41092 Sevilla, España.</p>
+        <p>Nuestros servicios varían en función de las diferentes categorías, por lo que en ocasiones se pueden aplicar términos o requisitos (incluido la edad) diferentes. Los términos adicionales se aplicarán en los servicios más relevantes, y dichos términos tendrán que ser aceptados en caso de de utilizar los servicios demandados. </p>
+        <p>Para utilizar nuestros servicios, tienes que estar de acuerdo con nuestras condiciones. Por favor, lee detenidamente cada uno de los puntos.</p>
+      </div>
+
+      <div id="services" class="space-bottom-1">
+        <div class="mb-3">
+          <h3>1. Utilización de nuestros servicios</h3>
+        </div>
+        <p>Debe seguir todas las políticas que se le pongan a su disposición dentro de la plataforma.</p>
+        <p>No haga un mal uso de nuestros Servicios. Por ejemplo, no interfiera con nuestros Servicios ni intente acceder a ellos utilizando un método que no sea la interfaz y las instrucciones que le proporcionamos. Puede usar nuestros Servicios según lo permita la ley, incluidas las leyes y regulaciones de control de exportación y reexportación aplicables. Podemos suspender o dejar de brindarle nuestros Servicios si no cumple con nuestros términos o políticas o si estamos investigando una sospecha de conducta indebida.</p>
+        <p>El uso de nuestros Servicios no le otorga la propiedad de ningún derecho de propiedad intelectual sobre nuestros Servicios o el contenido al que accede. No puede utilizar el contenido de nuestros Servicios a menos que obtenga el permiso de su propietario o esté permitido por la ley. Estos términos no le otorgan el derecho a utilizar ninguna marca o logotipo utilizado en nuestros Servicios. No elimine, oculte ni modifique ningún aviso legal que se muestre en nuestros Servicios o junto con ellos.</p>
+
+        <div id="personal-data" class="mb-3">
+          <h4>A. Datos personales que recopilamos sobre usted.</h4>
+        </div>
+        <p>Los datos personales son cualquier información que se relacione con una persona identificada o identificable. Los Datos Personales que nos proporcione directamente a través de nuestra plataforma serán evidentes a partir del contexto en el que proporcione los datos. En particular:</p>
+
+        <ul>
+          <li class="pb-2">Cuando se registra para una cuenta de usuario, recopilamos su nombre completo, dirección de correo electrónico y credenciales de inicio de sesión de la cuenta.</li>
+          <li class="pb-2">Cuando se registra para una cuenta de colaborador, recopilamos su nombre completo, nombre de la empresa, CIF o NIF, datos de contacto de la empresa y particular, y credenciales de inicio de sesión de la cuenta.</li>
+          <li class="pb-2">Cuando completa nuestro formulario en línea para ponerse en contacto con nuestro equipo de ventas, recopilamos su nombre completo, correo electrónico laboral, país y cualquier otra cosa que nos diga sobre su proyecto, necesidades y cronograma.</li>
+          <li class="pb-2">Cuando utiliza la función "Recordarme" en el pago de los servicios, recopilamos su dirección de correo electrónico, titular de la tarjeta, número de tarjeta de pago, código CVV, y fecha de vencimiento.</li>
+        </ul>
+
+        <p>Cuando responde a los correos electrónicos o encuestas de Weggo, recopilamos su dirección de correo electrónico, nombre y cualquier otra información que elija incluir en el cuerpo de su correo electrónico o respuestas. Si se comunica con nosotros por teléfono, recopilaremos el número de teléfono que utiliza para llamar a la empresa. Si se comunica con nosotros por teléfono como usuario de Weggo, podemos recopilar información adicional para verificar su identidad.</p>
+
+        <div id="information" class="mb-3">
+          <h4>B. Información que recopilamos automáticamente en nuestros Sitios.</h4>
+        </div>
+        <p>También podemos recopilar información sobre sus actividades en línea en sitios web y dispositivos conectados a lo largo del tiempo y en sitios web, dispositivos, aplicaciones y otras funciones y servicios en línea de terceros. Usamos Google Analytics en nuestros Sitios para ayudarnos a analizar el uso de nuestro sitio y diagnosticar problemas técnicos.</p>
+        <p>Para obtener más información sobre las cookies que pueden ser servidas a través de nuestra plataforma y cómo puede controlar nuestro uso de cookies y análisis de terceros, consulte nuestra <a href="{{ url_for('public.cookies') }}">Política de cookies</a>.</p>
+      </div>
+
+      <div id="privacy" class="space-bottom-1">
+        <!-- Title -->
+        <div class="mb-3">
+          <h3>2. Protección de la privacidad y los derechos de autor</h3>
+        </div>
+        <!-- End Title -->
+        <p>Las políticas de privacidad de Weggo explican cómo tratamos sus datos personales y protegemos su privacidad cuando utiliza nuestros Servicios. Al utilizar nuestros Servicios, acepta que Weggo España pueda utilizar dichos datos de acuerdo con nuestras políticas de privacidad.</p>
+        <p>Respondemos a las notificaciones de presuntas infracciones de derechos de autor y cancelamos las cuentas de los infractores reincidentes de acuerdo con el proceso establecido en la Ley de la Propiedad Intelectual regulada por el artículo 428 del Código Civil y el Real Decreto Legislativo 1/1996, de 12 de abril.</p>
+        <p>Proporcionamos información para ayudar a los titulares de derechos de autor a administrar su propiedad intelectual en línea. Si cree que alguien está infringiendo sus derechos de autor y desea notificarnos, puede encontrar información sobre cómo enviar notificaciones y la política de Weggo sobre cómo responder a las notificaciones en nuestro <a href="{{ url_for('public.support') }}">Centro de ayuda</a>.</p>
+      </div>
+
+      <div id="yourContent">
+        <!-- Title -->
+        <div class="mb-3">
+          <h3>3. Tu contenido en nuestros servicios</h3>
+        </div>
+        <!-- End Title -->
+
+        <p>Algunos de nuestros Servicios le permiten cargar, enviar, almacenar, enviar o recibir contenido. Usted conserva la propiedad de cualquier derecho de propiedad intelectual que tenga sobre ese contenido. En resumen, lo que te pertenece sigue siendo tuyo.</p>
+        <p>Cuando carga, envía, almacena o recibe contenido a través de nuestros Servicios, le otorga a Weggo España (y a aquellos con quienes trabajamos) una licencia mundial para usar, alojar, almacenar, reproducir, modificar y crear trabajos derivados (como los que resultan de traducciones, adaptaciones u otros cambios que hacemos para que su contenido funcione mejor con nuestros Servicios), comunicar, publicar, realizar públicamente, exhibir públicamente y distribuir dicho contenido. Los derechos que otorga en esta licencia tienen el propósito limitado de operar, promover y mejorar nuestros Servicios, y desarrollar otros nuevos. Esta licencia continúa incluso si deja de usar nuestros Servicios (por ejemplo, para una lista de empresas que ha agregado a Weggo Maps o Weggo Itineraries). Algunos Servicios pueden ofrecerle formas de acceder y eliminar contenido que se ha proporcionado a ese Servicio. Además, en algunos de nuestros Servicios, existen términos o configuraciones que limitan el alcance de nuestro uso del contenido enviado en esos Servicios. Asegúrese de tener los derechos necesarios para otorgarnos esta licencia para cualquier contenido que envíe a nuestros Servicios.</p>
+      </div>
+
+      <!-- Sticky Block End Point -->
+      <div id="stickyBlockEndPoint"></div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+</body>

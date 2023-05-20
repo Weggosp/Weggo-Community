@@ -1,0 +1,80 @@
+{% extends 'bases/weggo_v1_base.html' %}
+
+<head>
+
+  <!-- Meta tags -->
+  <meta name="description" content=""> <!-- * -->
+  <meta name="keywords" content=""> <!-- * -->
+
+  {% block title %} Soporte | Weggo España {% endblock %}
+
+</head>
+
+<body>
+  
+  {% block content %}
+
+  <!-- Hero Section -->
+  <div class="container pt-5 pb-10">
+    <div class="z-index-2">
+      <div class="text-center mx-md-auto mb-5 mb-md-9">
+        <h1>¿Te ayudamos?</h1>
+        <p>Elige la opción más acorde a lo que buscas</p>
+      </div>
+
+      <div class="row pb-5">
+
+        <div class="col-md-4">
+          <div class="card text-center h-100 transition-3d-hover" href="#">
+            <div class="card-body p-lg-5">
+              <figure class="max-w-8rem w-100 mx-auto mb-4">
+                <img class="img-fluid" src="{{ url_for('static', filename='svg/icons/icon-1.svg') }}" width="100px" alt="SVG">
+              </figure>
+              <h3 class="h4">Trabaja con nosotros</h3>
+              <p class="text-body mb-0">¿Crees que puedes dar lo mejor de ti? <br>Echa un vistazo a nuestas ofertas.</p>
+            </div>
+            <div class="card-footer font-weight-bold py-3 px-lg-5">
+              <a class="body-text-link" href="{{ url_for('public.index') }}">Ver ofertas de trabajo<i class="fas fa-angle-right fa-sm ml-1"></i></a>
+              <span class="badge badge-dark">Próximamente</span> 
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card text-center h-100 transition-3d-hover" href="#">
+            <div class="card-body p-lg-5">
+              <figure class="max-w-8rem w-100 mx-auto mb-4">
+                <img class="img-fluid" src="{{ url_for('static', filename='svg/icons/icon-2.svg') }}" width="100px" alt="SVG">
+              </figure>
+              <h3 class="h4">FAQ</h3>
+              <p class="text-body mb-0">Preguntas más frecuentes de los usuarios de la web.</p>
+            </div>
+            <div class="card-footer font-weight-bold py-3 px-lg-5">
+              <a class="body-text-link" href="{{ url_for('public.support_faq') }}">Visitar FAQ<i class="fas fa-angle-right fa-sm ml-1"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card text-center h-100 transition-3d-hover" href="#">
+            <div class="card-body p-lg-5">
+              <figure class="max-w-8rem w-100 mx-auto mb-4">
+                <img class="img-fluid" src="{{ url_for('static', filename='svg/icons/icon-4.svg') }}" width="100px" alt="SVG">
+              </figure>
+              <h3 class="h4">Contáctanos</h3>
+              <p class="text-body mb-0">¿No encuentras la respuesta que buscas? contáctanos.</p>
+            </div>
+            <div class="card-footer font-weight-bold py-3 px-lg-5">
+              <a class="body-text-link" href="mailto:info@weggo.es">Enviar correo electrónico<i class="fas fa-angle-right fa-sm ml-1"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- End Hero Section -->
+
+  {% endblock %}
+
+</body>

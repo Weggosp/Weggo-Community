@@ -1,0 +1,158 @@
+{% extends 'bases/weggo_v1_base.html' %}
+
+{% block header_pages %}
+{% endblock %}
+
+{% block content %}
+<!-- Page custom styles -->
+<style>
+
+  /* Spin animation */
+  @-webkit-keyframes hero-spin {
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes hero-spin {
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  .hero-animation-spin {
+    -webkit-animation: hero-spin 35s linear infinite;
+    animation: hero-spin 35s linear infinite;
+  }
+
+  /* Fade animation */
+  @-webkit-keyframes hero-fade {
+    0%, 100% { opacity: 0 }
+    50% { opacity: 1 }
+  }
+  @keyframes hero-fade {
+    0%, 100% { opacity: 0 }
+    50% { opacity: 1 }
+  }
+  .hero-animation-fade {
+    -webkit-animation: hero-fade 4s ease-in infinite;
+    animation: hero-fade 4s ease-in infinite;
+  }
+  .hero-animation-delay-1,
+  .hero-animation-delay-2,
+  .hero-animation-delay-3 {
+    opacity: 0;
+  }
+  .hero-animation-delay-1 { animation-delay: .75s; }
+  .hero-animation-delay-2 { animation-delay: 1.5s; }
+  .hero-animation-delay-3 { animation-delay: 2s; }
+</style>
+
+<!-- Hero -->
+<section class="position-relative d-flex align-items-center min-vh-100 overflow-hidden jarallax pt-xl-3" data-jarallax data-speed="0.4">
+
+  <!-- Parallax img -->
+  <div class="jarallax-img opacity-80" style="background-image: url(../../static/img/bgs/night-bg.jpg);"></div>
+
+  <!-- Overlay bg -->
+  <span class="position-absolute top-0 start-0 w-100 h-100 zindex-1"></span>
+
+  <!-- Overlay content -->
+  <div class="container position-relative pb-5 zindex-5">
+
+    <!-- Featured article -->
+    <div class="row mb-xxl-5 py-md-4 py-lg-5">
+      <div class="col-lg-6 col-md-7 pt-3 mt-4 mt-md-4 pt-md-0 pb-3 pb-md-0 mb-4 mb-md-5">
+        <div class="pt-3 mt-5 mt-md-1 mb-3 fs-lg text-light">
+          <img src="../../static/svg/flame.svg" width="24" alt="status icon" class="mt-n1 me-1">
+          <strong class="fs-sm">Trending</strong>
+        </div>
+        <h1 class="display-5 pb-md-3">Comunidad de campistas en España</h1>
+        <div class="d-flex flex-wrap mb-md-5 mb-4 pb-md-2 text-white">
+          <div class="border-end border-light h-100 mb-2 pe-3 me-3 d-flex">
+            <span class="badge bg-faded-light fs-base">Camping</span>
+            <span class="badge bg-faded-light fs-base d-none d-md-block me-1 ms-1">Autocaravanas</span>
+            <span class="badge bg-faded-light fs-base d-none d-md-block">Rutas</span>
+          </div>
+          <div class="d-flex align-items-center mb-2 text-nowrap">
+            <div class="d-flex align-items-center me-3 opacity-70">
+              <i class="fas fa-users fs-lg me-2"></i>
+              <span class="fs-sm">{{users|length}}</span>
+            </div>
+            <div class="d-flex align-items-center me-3 opacity-70">
+              <i class="fas fa-leaf fs-lg me-2"></i>
+              <span class="fs-sm">{{leafs|length}}</span>
+            </div>
+
+          </div>
+        </div>
+        <form action="" method="POST">
+          <button type="submit" class="btn btn-lg btn-primary">
+            Entrar a la comunidad
+            <i class="bx bx-right-arrow-alt ms-2 me-n1 lead"></i>
+          </button>
+        </form>
+
+      </div>
+      
+      
+      <!-- Articles slider -->
+      <div class="col-lg-4 offset-lg-2 col-md-5 mt-4">
+
+        <div class="swiper overflow-hidden w-100 ms-n2 ms-md-0 pe-3 pe-sm-4" style="max-height: 405px;" data-swiper-options='{
+          "direction": "vertical",
+          "slidesPerView": "auto",
+          "freeMode": true,
+          "scrollbar": {
+            "el": ".swiper-scrollbar"
+          },
+          "mousewheel": true
+        }'>
+          <div class="swiper-wrapper pe-md-2">
+            <div class="swiper-slide h-auto px-2">
+
+              <div class="row row-cols-md-1 row-cols-sm-2 row-cols-1 g-md-4 g-3">
+
+                {% for i in news %}
+                <div class="col">
+                  <article class="card h-100 border-0 shadow-sm card-hover-primary">
+                    <div class="card-body pb-0">
+                      <div class="d-flex align-items-center justify-content-between mb-3">
+                        <a href="#" class="badge fs-sm text-nav bg-white text-decoration-none position-relative zindex-2">{{i.section}}</a>
+                        <span class="fs-sm badge bg-success">¡!</span>
+                      </div>
+                      <h3 class="h5 mb-0">
+                        <a href="{{url_for('public.news_single', slug=i.slug)}}" class="stretched-link">{{i.title}}</a>
+                      </h3>
+                      <lead>{{i.shortDescription}}</lead>
+                    </div>
+                    <div class="card-footer d-flex align-items-center py-4 text-muted border-top-0">
+                      <div class="d-flex align-items-center me-3">
+                        <i class="bx bx-like fs-lg me-1"></i>
+                        <span class="fs-sm">{{i.likes|count}}</span>
+                      </div>
+                      <div class="d-flex align-items-center me-3">
+                        <i class="bx bx-comment fs-lg me-1"></i>
+                        <span class="fs-sm">{{i.comments|count}}</span>
+                      </div>
+                      <div class="d-flex align-items-center">
+                        <i class="bx bx-share-alt fs-lg me-1"></i>
+                        <span class="fs-sm">{{i.shares}}</span>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <div class="swiper-scrollbar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

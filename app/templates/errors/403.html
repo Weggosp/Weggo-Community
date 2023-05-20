@@ -1,0 +1,23 @@
+{% extends 'bases/weggo_v1_base.html' %}
+
+{% block body %}
+ <!-- Page Content -->
+ <div class="container d-flex flex-column">
+  <div class="row align-items-center justify-content-center no-gutters min-vh-100">
+
+   <!-- Docs -->
+   <div class="offset-lg-1 col-lg-4 col-md-12 col-12 text-center text-lg-left">
+    <h1 class="display-1 mb-3">¡Intruso!</h1>
+    <h3>No tienes permisos para acceder a esta página. Por favor, vuelve al inicio</h3>
+    <p class="mb-4 small">Error Code: 403 
+      You do not have authorization.</p>
+    <a href="{{ url_for('public.index') }}" class="btn btn-primary rounded-pill p-2 pl-4 pr-4">Volver a la web</a>
+   </div>
+
+   <!-- img -->
+   <div class="offset-lg-1 col-lg-6 col-md-12 col-12">
+    <img src="{{ url_for('static', filename='images/404-error-img.svg') }}" alt="" class="w-100" />
+   </div>
+  </div>
+ </div>
+{% endblock %}

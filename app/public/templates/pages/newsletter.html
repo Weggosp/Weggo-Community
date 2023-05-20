@@ -1,0 +1,29 @@
+{% extends 'bases/weggo_v1_base.html' %}
+
+<head>
+  
+  <!-- Meta tags -->
+  <meta name="description" content=""> <!-- * -->
+  <meta name="keywords" content=""> <!-- * -->
+
+</head>
+
+<body>
+  {% block content %}
+  <main id="content" role="main">
+    <!-- Hero Section -->
+    <div class="gradient-y-sm-primary position-relative z-index-2 overflow-hidden">
+      <div class="container space-top-3 space-bottom-3 position-relative">
+        <!-- Title -->
+        {% if message %}
+        <div class="w-md-80 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">    
+          <h1 class="display-5 mb-3">{{ message }}</h1>
+          <p class="lead-4">{{ submessage }} <br></p>
+        </div>
+        {% endif %}
+        <!-- End Title -->
+  </main>
+  {% endblock %}
+</body>
+
+</html>

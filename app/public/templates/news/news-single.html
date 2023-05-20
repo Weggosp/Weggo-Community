@@ -1,0 +1,251 @@
+{% extends 'bases/weggo_v1_base.html' %}
+
+{% block metadatos %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Weggo App utiliza tecnología avanzada para ofrecer información actualizada y contrastada. ★ Compara cientos de ofertas ✓ Bajos precios ✓ Rápido y fácil ✓ Pagos seguros.">
+<meta name="keywords" content="Camper, viajes, campings, autocaravanas, caravanas, camperizado, tutoriales, informacion, alquiler, furgoneta, vacaciones, España">
+<meta name="author" content="Ruben Ayuso">
+<meta name="generator" content="Weggo Application 1.0.21">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+{% endblock %}
+
+{% block content %}
+<!-- MESSAGES -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<section id="messages" class="container">
+  <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+    {{message}} {{email}}
+    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</section>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="container">
+    <!-- Breadcrumb-->
+    <nav class="mb-3 pt-md-3" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+        {% if request.path != '/' %}
+        {%- for breadcrumb in breadcrumbs -%}
+        <li class="breadcrumb-item active" aria-current="page"><a class="text-dark" href="{{ breadcrumb.url }}">{{ breadcrumb.text }}</a></li>
+        {%- endfor -%}
+        {% endif %}      
+        </ol>
+    </nav>
+
+      <!-- Post title + Meta  -->
+      <section class="container mt-4 pt-lg-2 pb-3">
+        <h1 class="pb-3" style="max-width: 970px;">{{new.title}}</h1>
+        <div class="d-flex flex-md-row flex-column align-items-md-center justify-content-md-between mb-3">
+          <div class="d-flex align-items-center flex-wrap text-muted mb-md-0 mb-4">
+            <div class="fs-xs border-end pe-3 me-3 mb-2">
+              <span class="badge bg-faded-primary text-primary fs-base">{{new.section}}</span>
+            </div>
+            <div class="fs-sm border-end pe-3 me-3 mb-2">
+              Hace
+  
+              {% set time = now-new.created %}
+    
+              {{ str(((now-new.created).seconds/60)|round)[0:1]+' minutos' if time.days == 0 and 10 > (time.seconds)/60 > 0}}
+              {{ str(((now-new.created).seconds/60)|round)[0:2]+' minutos' if time.days == 0 and 60 > (time.seconds)/60 >= 10}}
+              {{ '1 hora y '+str(((now-new.created).seconds/60)-60|round)[0:1]+' minutos' if time.days == 0 and 70 > (time.seconds)/60 > 60}}
+              {{ '1 hora y '+str(((now-new.created).seconds/60)-60|round)[0:2]+' minutos' if time.days == 0 and 120 > (time.seconds)/60 >= 70}}
+              {{ str(((now-new.created).seconds/3600)|round)[0]+' horas' if time.days == 0 and 720 > (time.seconds)/60 > 120}}
+              {{ str(((now-new.created).seconds/3600)|round)[0:2]+' horas' if time.days == 0 and (time.seconds)/60 > 720}}
+              
+              {{ '1 día' if 2 > time.days > 0 }}
+              {{ str(time.days)+' días' if time.days > 1 }}
+            
+            </div>
+            <div class="d-flex mb-2">
+              <div class="d-flex align-items-center me-3">
+                <i class="bx bx-like fs-base me-1"></i>
+                <span class="fs-sm">{{new.likes|count}}</span>
+              </div>
+              <div class="d-flex align-items-center me-3">
+                <a class="nav-link-muted" href="#comments" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Leer comentarios" data-scroll>
+                  <i class="bx bx-comment fs-base me-1"></i>
+                  <span class="fs-sm">{{new.comments|count}}</span>
+                </a>
+              </div>
+              <div class="d-flex align-items-center">
+                <i class="bx bx-share-alt fs-base me-1"></i>
+                <span class="fs-sm">{{new.shares}}</span>
+              </div>
+              <div class="border-start ps-3 ms-3 d-flex align-items-center">
+                <span class="fs-sm">{{new.readTime}} min de lectura</span>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex align-items-center position-relative ps-md-3 pe-lg-5 mb-2">
+            {% if new.author.avatar %}
+            <img src="assets/img/avatar/39.jpg" class="rounded-circle" width="60" alt="Avatar">
+            {% else %}
+            <img src="{{url_for('static',filename='img/avatars/anonymous.png')}}" class="rounded-circle" width="60" alt="Avatar">
+            {% endif %}
+
+            <div class="ps-3">
+              <h6 class="mb-1">Publicado por</h6>
+              <a href="#" class="fw-semibold stretched-link">{{new.author.fullname}}</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Post image (parallax) -->
+      <div class="jarallax mb-lg-5 mb-4" data-jarallax data-speed="0.35" style="height: 36.45vw; min-height: 300px;">
+        <div class="jarallax-img" style="background-image: url(https://europe-weggo-bucket.s3.eu-west-3.amazonaws.com/weggo.es/images/news/{{new.thumbnail}});"></div>
+      </div>
+
+    <div class="row">
+      <div class="col-lg-2 col-md-1 mb-md-0 mb-4 mt-md-n5">
+
+      </div>
+      <div class="col-lg-8 col-md-10 mt-4">
+        <p class="lead">
+          {{new.shortDescription}}
+        </p>
+
+        <!-- Post content-->
+        <div class="m-0 p-0">{{new.description|safe}}</div>
+
+        <h6>Compartir este artículo</h6>
+        <div class="d-flex mb-4">
+          <div class="">
+            <a target="_blank" class="btn btn-icon btn-secondary btn-linkedin me-2 mb-2">
+              <i class="bx bxl-linkedin"></i>
+            </a>
+            <a target="_blank" class="btn btn-icon btn-secondary btn-facebook me-2 mb-2" data-href="https://www.facebook.com/sharer.php?u={url}" id="js-XFUniqueId6" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fweggo.es%2Fnews%2F{{new.slug}}%2F">
+              <i class="bx bxl-facebook" aria-hidden="true"></i>
+            </a>
+            <a target="_blank" class="btn btn-icon btn-secondary btn-twitter me-2 mb-2" data-href="https://twitter.com/intent/tweet?url={url}&amp;text={title}" id="js-XFUniqueId7" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fweggo.es%2Fnews%2F{{new.slug}}%2F&amp;text={{new.title}}">
+              <i class="bx bxl-twitter"></i>
+            </a>
+            <a href="#" class="btn btn-icon btn-secondary btn-instagram me-2 mb-2">
+              <i class="bx bxl-instagram"></i>
+            </a>
+            <a href="#" class="btn btn-icon btn-secondary btn-whatsapp me-2 mb-2">
+              <i class="bx bxl-whatsapp"></i>
+            </a>
+            <a href="#" class="btn btn-icon btn-secondary btn-reddit me-2 mb-2">
+              <i class="bx bxl-reddit"></i>
+            </a>
+          </div>
+          {% if wUser.username in new.likes %}
+          <form action="{{url_for('auth.new_unlike', slug=new.slug, user=wUser.username)}}" class="ms-auto" method="POST">
+            <button type="submit" class="btn btn-lg btn-light">
+              <i class="bx bx-like me-2 lead text-primary"></i>
+              <span class="text-primary">Me gusta</span>
+            </button>
+          </form>
+          {% else %}
+          <form action="{{url_for('auth.new_like', slug=new.slug, user=wUser.username)}}" class="ms-auto" method="POST">
+            <button type="submit" class="btn btn-lg btn-outline-secondary">
+              <i class="bx bx-like me-2 lead"></i>
+              Me gusta
+              <span class="badge bg-primary shadow-primary mt-n1 ms-3">+{{1}}</span>
+            </button>
+          </form>
+          {% endif%}
+        </div>
+
+        <!-- Tags -->
+        <hr class="mb-4">
+        <div class="d-flex flex-sm-row flex-column pt-2 pb-4">
+          <h6 class="mt-sm-1 mb-sm-2 mb-3 me-3 text-nowrap">Etiquetas:</h6>
+          <div>
+            {% for i in new.tags %}
+            <a href="#" class="btn btn-sm btn-outline-secondary me-2 mb-2">#{{i}}</a>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="mb-4 mb-md-5" id="comments">
+          <h3 class="mb-4 pb-2">{{new.comments|count}} comentarios</h3>
+          {% for i in new.comments %}
+          <div class="border-top pt-4 mb-4">
+            <p>{{i.body}}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center pe-2">
+                {% if i.avatar != 'anonymous' %}
+                <img class="rounded-circle me-1" src="{{i.avatar}}" width="48" alt="{{i.fullname}}">
+                {% else %}
+                <img class="rounded-circle me-1" src="{{url_for('static',filename='img/avatars/anonymous.png')}}" width="48" alt="{{i.fullname}}">
+                {% endif %}
+                <div class="ps-2">
+                  <h6 class="fs-base mb-0">{{i.fullname}}</h6>
+                  <span class="text-muted fs-sm">
+                    Hace
+  
+                    {% set time = now-i.created %}
+          
+                    {{ str(((now-i.created).seconds/60)|round)[0:1]+' minutos' if time.days == 0 and 10 > (time.seconds)/60 > 0}}
+                    {{ str(((now-i.created).seconds/60)|round)[0:2]+' minutos' if time.days == 0 and 60 > (time.seconds)/60 >= 10}}
+                    {{ '1 hora y '+str(((now-i.created).seconds/60)-60|round)[0:1]+' minutos' if time.days == 0 and 70 > (time.seconds)/60 > 60}}
+                    {{ '1 hora y '+str(((now-i.created).seconds/60)-60|round)[0:2]+' minutos' if time.days == 0 and 120 > (time.seconds)/60 >= 70}}
+                    {{ str(((now-i.created).seconds/3600)|round)[0]+' horas' if time.days == 0 and 720 > (time.seconds)/60 > 120}}
+                    {{ str(((now-i.created).seconds/3600)|round)[0:2]+' horas' if time.days == 0 and (time.seconds)/60 > 720}}
+                    
+                    {{ '1 día' if 2 > time.days > 0 }}
+                    {{ str(time.days)+' días' if time.days > 1 }}
+                  
+                  </span>
+                </div>
+              </div>
+              <!--<button class="btn btn-link btn-sm" type="button"><i class="fi-reply fs-lg me-2"></i><span class="fw-normal">Responder</span></button>-->
+            </div>
+            {% for b in i.replies %}
+            <div class="border-start border-4 ps-4 ms-4 mt-4">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+              <div class="d-flex align-items-center pe-2"><img class="rounded-circle me-1" src="img/avatars/06.jpg" width="48" alt="Kristin Watsons">
+                <div class="ps-2">
+                  <h6 class="fs-base mb-0">Kristin Watsons<span class="badge bg-info rounded-pill fs-xs ms-2">Author</span></h6><span class="text-muted fs-sm">2 days ago</span>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <!-- Comment form-->
+    <div class="card py-md-4 py-3 shadow-sm">
+      <div class="card-body col-lg-8 col-md-10 mx-auto px-md-0 px-4">
+        <h3 class="mb-4 pb-sm-2">Deja tu comentario</h3>
+        <form action="{{url_for('auth.new_comment', slug=new.slug)}}" class="needs-validation row gy-md-4 gy-3" method="POST" novalidate>
+          <div class="col-sm-6">
+            <label class="form-label" for="comment-name">Nombre y apellidos</label>
+            {% if 'information' in wUser and wUser.information.fullname %}
+            <input class="form-control form-control-lg" type="text" id="comment-name" name="fullname" value="{{wUser.information.fullname}}" placeholder="Escribe aquí tu nombre" readonly>
+            {% else %}
+            <input class="form-control form-control-lg" type="text" id="comment-name" name="fullname" placeholder="Escribe aquí tu nombre" required>
+            {% endif %}
+            <div class="invalid-feedback">Nombre no válido</div>
+          </div>
+          <div class="col-sm-6">
+            <label class="form-label" for="comment-email">Correo electrónico</label>
+            <input class="form-control form-control-lg" type="email" id="comment-email" name="email" value="{{ wUser.email if wUser['email'] else '' }}" placeholder="Escribe aquí tu email" required>
+            <div class="invalid-feedback">Por favor introduce una dirección válida.</div>
+          </div>
+          <div class="col-12">
+            <label class="form-label" for="comment-text">Comentario</label>
+            <textarea class="form-control form-control-lg" id="comment-text" rows="4" name="comment" placeholder="Escribe aquí algo" required></textarea>
+            <div class="invalid-feedback">Por favor escribe tu comentario.</div>
+          </div>
+          <div class="col-12 py-2">
+            <button class="btn btn-lg btn-primary" type="submit">Enviar comentario</button>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block cta %}
+{% endblock %}

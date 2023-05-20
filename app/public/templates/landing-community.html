@@ -1,0 +1,584 @@
+{% extends 'bases/weggo_v1_base.html' %}
+
+{% block css %}
+{% endblock %}
+
+{% block content %}
+
+<!-- MESSAGES -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<section id="messages" class="container">
+  <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+    {{message}} {{email}}
+    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</section>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+{% if news %}
+<section id="weggo-news">
+  <div class="container mb-0">
+    <div class="col-12 mb-3">
+      <div class="d-sm-flex justify-content-between">
+        <h4>Novedades</h4>
+        <a class="btn text-light" href="{{url_for('public.news')}}">Ver todas las novedades</a>
+      </div>
+    </div>
+  </div>
+  <div class="pt-0 position-relative px-xl-5">
+
+    <button type="button" id="prev-news" class="btn btn-prev btn-icon btn-sm position-absolute top-50 start-0 translate-middle-y d-none d-xl-inline-flex">
+      <i class="bx bx-chevron-left"></i>
+    </button>
+    <button type="button" id="next-news" class="btn btn-next btn-icon btn-sm position-absolute top-50 end-0 translate-middle-y d-none d-xl-inline-flex">
+      <i class="bx bx-chevron-right"></i>
+    </button>
+  
+    <div class="px-xl-2">
+      <div class="swiper mx-n2" data-swiper-options='{
+        "slidesPerView": 1,
+        "loop": true,
+        "pagination": {
+          "el": ".swiper-pagination",
+          "clickable": true
+        },
+        "navigation": {
+          "prevEl": "#prev-news",
+          "nextEl": "#next-news"
+        },
+        "breakpoints": {
+          "500": {
+            "slidesPerView": 2
+          },
+          "1000": {
+            "slidesPerView": 3
+          }
+        }
+      }'>
+        <div class="swiper-wrapper">
+          {% for i in news %}
+          <div class="swiper-slide h-auto pb-3">
+            <article class="card h-100 border-0 shadow-sm mx-2">
+              <!--<div class="position-relative">
+                <a href="#" class="position-absolute top-0 start-0 w-100 h-100" aria-label="Leer después"></a>
+                <a href="#" class="btn btn-icon btn-light bg-white border-white btn-sm rounded-circle position-absolute top-0 end-0 zindex-5 me-3 mt-3" data-bs-toggle="tooltip" data-bs-placement="left" title="Leer después">
+                  <i class="bx bx-bookmark"></i>
+                </a>
+              </div>-->
+              <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <a href="#" class="badge fs-sm text-nav bg-primary text-decoration-none">{{i.section}}</a>
+                </div>
+                <span class="fs-sm text-muted">
+                  Hace
+
+                  {% set time = now-i.created %}
+
+                  {{ str(((now-i.created).seconds/60)|round)[0:1]+' minutos' if time.days == 0 and 10 > (time.seconds)/60 > 0}}
+                  {{ str(((now-i.created).seconds/60)|round)[0:2]+' minutos' if time.days == 0 and 60 > (time.seconds)/60 >= 10}}
+                  {{ '1 hora y '+str(((now-i.created).seconds/60)-60|round)[0:1]+' minutos' if time.days == 0 and 70 > (time.seconds)/60 > 60}}
+                  {{ '1 hora y '+str(((now-i.created).seconds/60)-60|round)[0:2]+' minutos' if time.days == 0 and 120 > (time.seconds)/60 >= 70}}
+                  {{ str(((now-i.created).seconds/3600)|round)[0]+' horas' if time.days == 0 and 720 > (time.seconds)/60 > 120}}
+                  {{ str(((now-i.created).seconds/3600)|round)[0:2]+' horas' if time.days == 0 and (time.seconds)/60 > 720}}
+                  
+                  {{ '1 día' if 2 > time.days > 0 }}
+                  {{ str(time.days)+' días' if time.days > 1 }}
+
+                </span>
+
+                <h3 class="h5 mb-0">
+                  <a href="{{url_for('public.news_single', slug=i.slug)}}">{{i.title[0:70]}} ..</a>
+                </h3>
+              </div>
+            </article>
+          </div>
+          {% endfor %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<style>
+  .poem {
+  overflow: scroll;
+  scrollbar-color: red orange;
+  scrollbar-width: thin;
+}
+</style>
+
+<section id="weggo-forums">
+  <div class="container py-3">
+    <!--<div class="d-flex">
+      <a class="ms-auto m-2 fs-lg nav-link" href="">Ver todos los foros</a>
+    </div>-->
+    <div class="card h-100">
+      <div class="row">
+        
+        <div class="col-md-9">
+          {% if 'access' in wUser %}
+          {% if wUser.access.type == 'moderator' and wUser.access.range > 2 or wUser.access.type == 'administrator' %}
+          <div class="container d-flex m-3">
+            <button class="btn btn-sm btn-danger me-md-3 fs-6" href="#createForum" data-bs-toggle="modal"><i class="bx fs-5 bx-folder-plus me-2"></i>Crear foro</button>
+            <div class="modal fade" id="createForum" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-lg modal-dialog-centered p-2 my-0 mx-auto" style="max-width: 950px;">
+                <div class="modal-content">
+                  <div class="modal-body px-0 py-2 py-sm-0">
+                    <button class="btn-close position-absolute top-0 end-0 mt-3 me-3" type="button" data-bs-dismiss="modal"></button>
+                    <div class="row mx-0 align-items-center">
+                      <div class="col-md-4 border-end-md p-4 p-sm-5">
+                        <h2 class="h3 mb-4 mb-sm-5">Creación de foro</h2>
+                        <div class="card">
+                          <div class="card-body">
+                            <h3 class="h6">¡Hola Moderador!</h3> 
+                            <span>Gracias por contribuir con la comunidad. <br>Tu colaboración ayuda a mantener la plataforma en condiciones óptimas para ofrecer soporte a nuestros usuarios.</span>
+                          </div>
+                        </div><!--<img class="d-block mx-auto" src="{{url_for('static',filename='svg/signin-modal/signup.svg')}}" width="344" alt="Illustration">-->
+                      </div>
+                      <div class="col-md-8 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
+                        <form class="needs-validation" action="{{url_for('auth.forum_create')}}" method="POST" novalidate>
+                          <div class="row">
+                            <div class="col col-md-7">
+                              <div class="mb-4">
+                                <label class="form-label" for="signup-name">Nombre del foro</label>
+                                <input class="form-control" type="text" name="forum_name" id="signup-name" placeholder="Foro de prueba" required>
+                              </div>
+                            </div>
+                            <div class="col col-md-5">
+                              <div class="mb-4">
+                                <label class="form-label" for="signup-name">Categoría</label>
+                                <select class="form-select" name="forum_category" required>
+                                  <option value="">Elige...</option>
+                                  {% for i in categories %}
+                                  <option value="{{i.name}}">{{i.name}}</option>
+                                  {% endfor %}
+                                </select>                                 
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                              <div class="mb-4">
+                                <label class="form-label" for="signup-name">Color</label>
+                                <select class="form-select" name="forum_color" required>
+                                  <option value="">Elige...</option>
+                                  <option value="primary">Morado</option>
+                                  <option value="warning">Amarillo</option>
+                                  <option value="success">Verde</option>
+                                  <option value="danger">Rojo</option>
+                                  <option value="info">Azul</option>
+                                  <option value="light">Blanco</option>
+                                </select>                              
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                              <div class="mb-4">
+                                <label class="form-label" for="signup-name">Icono</label>
+                                <select class="form-select" name="forum_icon" required=>
+                                  <option value="">Elige...</option>
+                                  <option value="bx bx-lemon">Limón</option>
+                                  <option value="bx bxs-pear">Pera</option>
+                                  <option value="bx bx-water">Agua</option>
+                                  <option>Naranja</option>
+                                  <option>Árbol</option>
+                                  <option value="bx bx-sushi">Sushi</option>
+                                </select>                              
+                              </div>
+                            </div>
+                          </div>
+         
+                          <div class="mb-4">
+                            <label class="form-label" for="signup-email">Descripción del foro</label>
+                            <div class="input-group">
+                              <span class="input-group-text">
+                                <i class="bx bx-message fs-lg"></i>
+                              </span>
+                              <textarea class="form-control" name="forum_description" placeholder="Escribe aquí tu mensaje..." rows="3" required=></textarea>
+                            </div>                          
+                          </div>
+
+                          <div class="border my-3"></div>
+
+                          <div class="mb-4 row">
+                            <label class="form-label" for="signup-email">Opciones de moderación</label>
+                            <div class="col-md-3">
+                              <div class="form-check mb-4">
+                                <input class="form-check-input me-2" type="radio" value="closed" name="forum_type" id="radio-1">
+                                <label class="form-check-label" for="agree-to-terms">Foro cerrado</label>  
+                              </div>
+                            </div>
+                            <div class="col-md-5">
+                              <div class="form-check mb-4">
+                                <input class="form-check-input me-2" type="radio" value="restricted" name="forum_type" id="radio-2">
+                                <label class="form-check-label" for="agree-to-terms">Foro con acceso restringido</label>  
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-check mb-4">
+                                <input class="form-check-input me-2" type="radio" value="opened" name="forum_type" id="radio-3">
+                                <label class="form-check-label" for="agree-to-terms">Foro abierto</label>  
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="border my-3"></div>
+
+                          <div class="form-check mb-4">
+                            <input class="form-check-input me-2" type="checkbox" id="agree-to-terms" required>
+                            <label class="form-check-label" for="agree-to-terms">Acepto las <a href='{{url_for("public.terms")}}' target="_blank">Condiciones de uso</a> y <a href='{{url_for("public.privacy")}}' target="_blank">Términos de colaboración</a> de la plataforma</label>
+                          </div>
+                          <button class="btn btn-primary rounded-pill btn-lg w-100" type="submit">Crear</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-sm btn-info me-md-3 fs-6" href="#createCategory" data-bs-toggle="modal"><i class="bx fs-5 bx-category me-2"></i>Crear categoría</button>
+            <div class="modal fade" id="createCategory" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-md modal-dialog-centered p-2 my-0 mx-auto" style="max-width: 500px;">
+                <div class="modal-content">
+                  <div class="modal-body px-0 py-2 py-sm-0">
+                    <button class="btn-close position-absolute top-0 end-0 mt-3 me-3" type="button" data-bs-dismiss="modal"></button>
+                    <div class="row mx-0 align-items-center">
+                      <div class="col-md-12 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
+                        <form class="needs-validation" action="{{url_for('auth.category_create')}}" method="POST" novalidate>
+                          <div class="row">
+                            <h2 class="h3 mb-4 mb-sm-5">Crear categoría</h2>
+
+                            <div class="mb-4">
+                              <label class="form-label" for="signup-name">Nombre de la categoría</label>
+                              <input class="form-control" type="text" name="category_name" id="signup-name" placeholder="Autocaravanas" required>
+                            </div>              
+                            <div class="mb-4">
+                              <label class="form-label" for="signup-name">Color de la categoría</label>
+                              <select class="form-select" name="category_color" required>
+                                <option value="">Elige...</option>
+                                <option value="primary">Morado</option>
+                                <option value="warning">Amarillo</option>
+                                <option value="success">Verde</option>
+                                <option value="danger">Rojo</option>
+                                <option value="info">Azul</option>
+                                <option value="light">Blanco</option>
+                              </select>                               
+                            </div>              
+                          </div>
+                          <button class="btn btn-primary rounded-pill btn-lg w-100" type="submit">Crear</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <a class="ms-auto btn btn-sm btn-light fs-6" href="{{url_for('panel.news_create')}}"><i class="bx fs-5 bx-news me-2"></i>Crear noticia</a>
+          </div>
+          {% endif %}
+          {% endif %}
+
+          <div class="card border-0 bg-dark card-body m-3">
+            <h3 class="h5">Categorías</h3>
+            <ul class="nav flex-row fs-sm">
+              <li class="nav-item mb-1 me-2">
+                <a href="#" class="nav-link py-1 px-0">Todas <span class="fw-normal opacity-60 ms-1">({{categories|count}})</span></a>
+              </li>
+              {% for i in categories %}
+              <li class="nav-item mb-1 me-2">
+                <a href="#" class="nav-link py-1 px-0">{{i.name}} <span class="fw-normal opacity-60 ms-1">({{i.forums|count}})</span></a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="pt-4 swiper overflow-hidden w-100 ms-n2 ms-md-0 pe-3 pe-sm-4" style="max-height: 44rem;" data-swiper-options='{
+            "direction": "vertical",
+            "slidesPerView": "auto",
+            "freeMode": true,
+            "scrollbar": {
+              "el": ".swiper-scrollbar"
+            },
+            "mousewheel": true
+          }'>
+            <div class="swiper-wrapper pe-md-2">
+              <div class="swiper-slide h-auto px-2">
+  
+                <div class="row row-cols-md-1 row-cols-sm-2 row-cols-1 g-md-4 g-3">
+  
+                  <!-- Item -->
+                  {% for i in forums %}
+                  <li class="m-2">
+                  <div class="card bg-secondary border-0">
+                    <div class="card-header row mb-0">
+                      {% if 'access' in wUser %}
+                      {% if wUser.access.type == 'moderator' and wUser.access.range > 1 or wUser.access.type == 'administrator'  %}
+                      <div class="d-xl-inline-flex mb-2">
+                        {% if i.show == 0 %}
+                        {% else %}
+                        <form id="weggo-up-forum" class="me-2" action="{{url_for('auth.forum_up')}}" method="POST">
+                          <input name="forum_up_slug" value="{{i.slug}}" style="display:none" />
+                          <input name="forum_up_show" value="{{i.show}}" style="display:none" />
+                          <button class="btn btn-light btn-xs px-1 py-1 fs-xs" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Subir foro"><i class="fas fa-arrow-up"></i></button>
+                        </form>
+                        {% endif %}
+                        <form id="weggo-down-forum" action="{{url_for('auth.forum_down')}}" method="POST">
+                          <input name="forum_down_slug" value="{{i.slug}}" style="display:none" />
+                          <input name="forum_down_show" value="{{i.show}}" style="display:none" />
+                          <button class="btn btn-light btn-xs px-1 py-1 fs-xs" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Bajar foro"><i class="fas fa-arrow-down"></i></button>
+                          <span class="ms-1 text-muted">Posición: {{i.show}}</span>
+                        </form>
+                      </div>
+                      {% endif %}
+                      {% endif %}
+
+                      <button class="btn btn-{{i.details.color}} btn-icon" type="button">
+                        <i class="{{i.details.icon}}"></i>
+                      </button>
+                      <div class="col">
+                          <h2 class="m-0 p-0 h6" style="margin:0;padding:0"><a href="{{url_for('public.forums', slug=i.slug)}}">{{i.details.name}}</a></h2>
+                          <span class="fs-xs p-0" style="text-decoration: none;">{{i.details.description}}</span>
+                      </div>
+                      <div class="col-2 text-light">
+                        <i class="bx bx-chat fs-base me-1"></i>+<i class="bx bx-comment fs-base ms-1"></i><br>
+                        <span class="fs-sm h5">{{(i.threads|count) + (i.posts|count)}}</span>
+                      </div>
+                      <div class="col-2 text-light">
+                        <i class="bx bx-leaf fs-base me-2"></i>Leafs<br>
+                        <span class="fs-sm h5">{{i.statistics.leafs}}</span>
+                      </div>
+                    </div>
+                    <div class="card-body p-0 pb-2 row">
+                      <!-- ULTIMAS DOS INTERACCIONES ** VER SI ES HILERA O COMENTARIO -->
+                      <!--<div class="col-md-6">
+                        <a href="{{url_for('public.forums_post', slug=i.slug, post_slug='consejos-sur-de-francia-en-agosto')}}" class="btn pb-0"><i class="bx bx-conversation me-1"></i>(Hilera) Consejos sur de Francia en agosto <small class="ms-2 text-muted">Hoy a las 17:45</small> </a>
+                      </div>-->
+                      
+                      {% for n in range(1) %}
+                        {% for b in (i.posts|sort(attribute='created', reverse=True))[0:2] %}
+                        <div class="col-md-6">
+                          <a href="{{url_for('public.forums_post', slug=i.slug, post_slug=b.slug)}}" class="btn pb-0"><i class="bx bx-comment me-1"></i>{{b.title[0:30]}}..
+                            <small class="ms-2 text-muted">
+                              {% set now = now %}
+                              {% set date = b.created %}
+                              {% set delta = now - date %}
+                              {% set days = delta.days %}
+                              {% if days == 0 %}
+                                {% set day = 'Hoy' %}
+                              {% elif days == 1 %}
+                                {% set day = 'Ayer' %}
+                              {% elif days == 2 %}
+                                {% set day = 'Antes de ayer' %}
+                              {% else %}
+                                {% set day = date.strftime('%A') %}
+                              {% endif %}
+                              {% set time = date.strftime('%H:%M horas') %}
+                              {{ day }}, a las {{ time }}     
+                            </small>
+                        </a>
+                        </div>     
+                        {% else %}
+                        <div class="col-md-12">
+                          <a href="{{url_for('public.forums', slug=i.slug, showCreatePost=True)}}" class="bg-gradient-primary btn m-2 nav-link fs-sm py-2">Crea la primera publicación<i class="bx bx-message-alt-add ms-2"></i></a>
+                        </div>     
+                        {% endfor %}
+                      {% endfor %}           
+                    </div>
+                    
+                  </div>
+                  </li>
+                  {% else %}
+                  <div class="container m-4">
+                    <div class="alert alert-secondary" role="alert">
+                      No existe todavía ningún foro
+                    </div>                  
+                  </div>
+                  {% endfor %}
+
+                </div>
+              </div>
+            </div>
+            <div class="swiper-scrollbar"></div>
+          </div>
+          {% if forums|count > 5 %}
+          <div class="bg-gradient-secondary shadow-md" style="height:20px;background-image: url(../../../static/img/landing/digital-agency/contact-bg.png);">
+            <div class="col-sm-12 ">
+              <div class="card-body text-center align-items-center">
+                  <strong>Desliza para ver más contenido <i class="ms-2 fas fa-arrow-down"></i></strong>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="col col-md-3">
+          <!-- Popular / recent posts widget -->
+          <div class="m-2 card card-body border-0 position-relative">
+            <span class="position-absolute top-0 start-0 w-100 h-100 bg-gradient-primary opacity-10 rounded-3"></span>
+            <div class="position-relative zindex-2">
+              <h3 class="h5">Más útil</h3>
+
+              <div id="most-useful-section">
+                <ul class="list-unstyled mb-0"></ul>
+              </div>
+
+              <script>
+                $(document).ready(function() {
+                  $(document).ajaxStart(function() {
+                    $('#loading').show();
+                  });
+
+                  $.get('/api/v1/most-useful', function(data) {
+                    var ul = $('#most-useful-section ul');
+                    for (var i = 0; i < data.length; i++) {
+                      
+                      /* PROCESAMOS LA FECHA */
+                      var fecha = new Date(data[i].created);
+                      var dia = fecha.getDate();
+                      var mes = fecha.getMonth() + 1;
+                      var anio = fecha.getFullYear();
+                      var hora = fecha.getHours();
+                      var minutos = fecha.getMinutes();
+
+                      var hoy = new Date();
+                      var hoyDia = hoy.getDate();
+                      var hoyMes = hoy.getMonth() + 1;
+                      var hoyAnio = hoy.getFullYear();
+
+                      var ayer = new Date();
+                      ayer.setDate(ayer.getDate() - 1);
+                      var ayerDia = ayer.getDate();
+                      var ayerMes = ayer.getMonth() + 1;
+                      var ayerAnio = ayer.getFullYear();
+
+                      var antesDeAyer = new Date();
+                      antesDeAyer.setDate(antesDeAyer.getDate() - 2);
+                      var antesDeAyerDia = antesDeAyer.getDate();
+                      var antesDeAyerMes = antesDeAyer.getMonth() + 1;
+                      var antesDeAyerAnio = antesDeAyer.getFullYear();
+
+                      /* PROCESAMOS EL FORMULARIO */
+                      var li = $('<li class="border-bottom pb-3 mb-3">');
+                      var h4 = $('<h4 class="h6 mb-2">');
+                      var a = $('<a>').text(data[i].title + '..');
+                      h4.append(a);
+                      a.attr('href', '/' + data[i].forum_slug + '/' + data[i].post_slug );
+                      
+                      var div1 = $('<div>').addClass('d-flex align-items-center');
+                        
+                        /* AÑADIMOS LA FECHA PROCESADA */
+                        if (dia == hoyDia && mes == hoyMes && anio == hoyAnio) {
+                          var div2 = $('<div>').addClass('fs-xs border-end pe-3 me-3').text('Hoy, a las ' + hora + ':' + minutos + ' horas');
+                        } else if (dia == ayerDia && mes == ayerMes && anio == ayerAnio) {
+                          var div2 = $('<div>').addClass('fs-xs border-end pe-3 me-3').text('Ayer, a las ' + hora + ':' + minutos + ' horas');
+                        } else if (dia == antesDeAyerDia && mes == antesDeAyerMes && anio == antesDeAyerAnio) {
+                          var div2 = $('<div>').addClass('fs-xs border-end pe-3 me-3').text('Antes de ayer, a las ' + hora + ':' + minutos + ' horas');
+                        } else {
+                          var div2 = $('<div>').addClass('fs-xs border-end pe-3 me-3').text(dia + '/' + mes + '/' + anio + ', a las ' + hora + ':' + minutos + ' horas');
+                        }
+                      
+                        var div3 = $('<div>').addClass('d-flex align-items-center me-3');
+                          var i1 = $('<i>').addClass('bx bx-comment fs-base me-1');
+                          var span1 = $('<span>').addClass('fs-xs').text(data[i].comments);
+                          div3.append(i1);
+                          div3.append(span1);
+
+                        var div4 = $('<div>').addClass('d-flex align-items-center me-3');
+                          var i2 = $('<i>').addClass('bx bx-leaf fs-base me-1');
+                          var span2 = $('<span>').addClass('fs-xs').text(data[i].leafs);
+                          div4.append(i2);
+                          div4.append(span2);
+
+                        div1.append(div2);
+                        div1.append(div3);
+                        div1.append(div4);
+                        
+                      div2.append(data[i].value);
+                      ul.append(li);
+                      li.append(h4);
+                      li.append(div1);
+
+                      // ** CUIDADO. Alterar el orden de insertado cambiará visualmente la plantilla
+                    }
+                  });
+                });
+                </script>
+            </div>
+          </div>
+
+          <div class="m-2 card card-body border-0">
+            <h3 class="h5">Más seguido</h3>
+            <div id="most-followed-section" class="d-flex flex-wrap">
+              {% for tag in tags %}
+                <a href="/tags/{{ tag }}" class="btn btn-outline-secondary btn-sm px-3 my-1 me-2">#{{ tag }}</a>
+              {% endfor %}
+            </div>
+
+            <script>
+              $(document).ready(function() {
+                $.get('/api/v1/most-followed', function(data) {
+                  var div = $('#most-followed-section');
+                  for (var i = 0; i < data.length; i++) {
+                    var a = $('<a class="btn btn-outline-secondary btn-sm px-3 my-1 me-2">').text('#' + data[i]);
+                    a.attr('href', '/tags/' + data[i].toLowerCase());
+                    div.append(a);
+                  }
+                });
+              });
+            </script>
+
+          </div>
+
+          <div class="m-2 card card-body border-0 bg-gradient-primary">
+            <h3 class="h5 mb-0">Soluciones digitales</h3>
+            <span class="mb-3">Para empresas del sector</span>
+            <div class="d-flex flex-wrap">
+              <a href="https://solutions.weggo.es/for-campings" class="btn btn-warning btn-sm px-3 my-1 me-2" target="_blank"><strong>Campings</strong></a>
+              <a href="#" class="btn btn-secondary btn-sm px-3 my-1 me-2">Vehículos</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+<script>
+let deferredPrompt;
+
+document.addEventListener('DOMContentLoaded', () => {
+  const buttonInstall = document.querySelector('#appInstall');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Guarda el evento para usarlo después
+    deferredPrompt = e;
+  });
+
+  buttonInstall.addEventListener('click', async () => {
+    // Esconde la información promotora de la instalación
+    hideInstallPromotion();
+
+    // Muestra el mensaje de instalación
+    deferredPrompt.prompt();
+
+    // Espera a que el usuario responda al mensaje
+    const { outcome } = await deferredPrompt.userChoice;
+
+    // Como ya usamos el mensaje, no lo podemos usar de nuevo, este es descartado
+    deferredPrompt = null;
+
+    // Agrega un alert para verificar que el código se está ejecutando correctamente
+    console.log('El botón se ha pulsado');
+  });
+});
+
+</script>
