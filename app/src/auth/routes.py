@@ -183,7 +183,6 @@ class News:
     
 
 class Forums:
-
     
     class Post:
 
@@ -192,7 +191,7 @@ class Forums:
         def forum_post_create(forum):
             items = {
                 'title': request.form.get('post_title'),
-                'section': request.form.get('post_section'),
+                'category': request.form.get('post_category'),
                 'tags': request.form.get('post_tags').split(','),
                 'body': request.form.get('post_body'),
             }
@@ -212,7 +211,23 @@ class Forums:
             Functions.Users.Posts.Comments.create(items)
             flash('Comentario creado con éxito','success')
             return redirect(url_for('public.forums_post', slug=forum, post_slug=post))
-    
+        
+        class Actions:
+
+            @auth_wg.route('/<string:forum>/<string:post>/giveLeaf', methods=['POST'])
+            def forum_post_give_leaf(forum,post):
+                items={
+                    'from': wUser['username'],
+                    'to': request.form.get('author_username'),
+                    'forum': forum,
+                    'post': post
+                }
+
+                Functions.Users.Posts.Actions.give_leaf(items)
+                flash('Leaf dado con éxito','success')
+
+                return redirect(url_for('public.forums_post', slug=forum, post_slug=post))
+
 class Administration:
 
     class News:

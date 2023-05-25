@@ -1,13 +1,14 @@
 {% extends 'bases/weggo_v1_base.html' %}
 
-{% block metadatos %}
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Weggo App utiliza tecnología avanzada para ofrecer información actualizada y contrastada. ★ Compara cientos de ofertas ✓ Bajos precios ✓ Rápido y fácil ✓ Pagos seguros.">
-<meta name="keywords" content="Camper, viajes, campings, autocaravanas, caravanas, camperizado, tutoriales, informacion, alquiler, furgoneta, vacaciones, España">
-<meta name="author" content="Ruben Ayuso">
-<meta name="generator" content="Weggo Application 1.0.21">
+{% block extra_metadatos %}
+<meta name="keywords" content="weggo,comunidad,campings,autoracanas,{% for i in new.hashtags %}{{i}}{% endfor %}">
+<meta name="author" content="{{new.author.fullname}}">
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+<meta property='og:title' content={{title}}/>
+<meta property='og:image' content='https://europe-weggo-bucket.s3.eu-west-3.amazonaws.com/weggo.es/images/news/{{new.thumbnail}}'/>
+<meta property='og:description' content='Weggo España | {{new.description|safe}}'/>
+<meta property='og:url' content='https://weggo.es/news/{{new.slug}}'/>
 {% endblock %}
 
 {% block content %}
@@ -25,7 +26,7 @@
 {% endif %}
 {% endwith %}
 
-<div class="container">
+<div class="container pb-5">
     <!-- Breadcrumb-->
     <nav class="mb-3 pt-md-3" aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -38,8 +39,8 @@
     </nav>
 
       <!-- Post title + Meta  -->
-      <section class="container mt-4 pt-lg-2 pb-3">
-        <h1 class="pb-3" style="max-width: 970px;">{{new.title}}</h1>
+      <section class="pb-3">
+        <h1 class="mb-md-0" style="max-width: 970px;">{{new.title}}</h1>
         <div class="d-flex flex-md-row flex-column align-items-md-center justify-content-md-between mb-3">
           <div class="d-flex align-items-center flex-wrap text-muted mb-md-0 mb-4">
             <div class="fs-xs border-end pe-3 me-3 mb-2">
@@ -72,26 +73,14 @@
                   <span class="fs-sm">{{new.comments|count}}</span>
                 </a>
               </div>
-              <div class="d-flex align-items-center">
-                <i class="bx bx-share-alt fs-base me-1"></i>
-                <span class="fs-sm">{{new.shares}}</span>
-              </div>
               <div class="border-start ps-3 ms-3 d-flex align-items-center">
                 <span class="fs-sm">{{new.readTime}} min de lectura</span>
               </div>
             </div>
           </div>
-          <div class="d-flex align-items-center position-relative ps-md-3 pe-lg-5 mb-2">
-            {% if new.author.avatar %}
-            <img src="assets/img/avatar/39.jpg" class="rounded-circle" width="60" alt="Avatar">
-            {% else %}
-            <img src="{{url_for('static',filename='img/avatars/anonymous.png')}}" class="rounded-circle" width="60" alt="Avatar">
-            {% endif %}
-
-            <div class="ps-3">
-              <h6 class="mb-1">Publicado por</h6>
-              <a href="#" class="fw-semibold stretched-link">{{new.author.fullname}}</a>
-            </div>
+          <div class="d-flex">
+            <h3 class="h6 mb-1 me-2 text-muted">Publicado por</h3>
+            <a href="#" class="fw-semibold">{{new.author.fullname}}</a>
           </div>
         </div>
       </section>
@@ -117,23 +106,23 @@
         <h6>Compartir este artículo</h6>
         <div class="d-flex mb-4">
           <div class="">
-            <a target="_blank" class="btn btn-icon btn-secondary btn-linkedin me-2 mb-2">
-              <i class="bx bxl-linkedin"></i>
-            </a>
             <a target="_blank" class="btn btn-icon btn-secondary btn-facebook me-2 mb-2" data-href="https://www.facebook.com/sharer.php?u={url}" id="js-XFUniqueId6" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fweggo.es%2Fnews%2F{{new.slug}}%2F">
               <i class="bx bxl-facebook" aria-hidden="true"></i>
             </a>
             <a target="_blank" class="btn btn-icon btn-secondary btn-twitter me-2 mb-2" data-href="https://twitter.com/intent/tweet?url={url}&amp;text={title}" id="js-XFUniqueId7" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fweggo.es%2Fnews%2F{{new.slug}}%2F&amp;text={{new.title}}">
               <i class="bx bxl-twitter"></i>
             </a>
-            <a href="#" class="btn btn-icon btn-secondary btn-instagram me-2 mb-2">
-              <i class="bx bxl-instagram"></i>
+            <a data-href="https://api.whatsapp.com/send?text={title}&nbsp;{url}" href="https://api.whatsapp.com/send?text=Weggo, la comunidad camper&nbsp;https%3A%2F%2Fweggo.es%2F" class="btn btn-icon btn-secondary btn-whatsapp me-2 mb-2">
+              <i class="bx bxl-whatsapp" aria-hidden="True"></i>
             </a>
-            <a href="#" class="btn btn-icon btn-secondary btn-whatsapp me-2 mb-2">
-              <i class="bx bxl-whatsapp"></i>
-            </a>
-            <a href="#" class="btn btn-icon btn-secondary btn-reddit me-2 mb-2">
+            <a data-href="https://reddit.com/submit?url={url}&title={title}" href="https://reddit.com/submit?url=https%3A%2F%2Fweggo.es%2Fnews%2F{{new.slug}}&title={{new.title}}" class="btn btn-icon btn-secondary btn-reddit me-2 mb-2">
               <i class="bx bxl-reddit"></i>
+            </a>
+            <a data-href="https://pinterest.com/pin/create/bookmarklet/?url={url}&description={title}&media={image}" href="https://pinterest.com/pin/create/bookmarklet/?url=https%3A%2F%2Fweggo.es%2Fnews%2F{{new.slug}}&description=Weggo&media=" class="btn btn-icon btn-secondary btn-pinterest me-2 mb-2">
+              <i class="bx bxl-pinterest"></i>
+            </a>
+            <a data-href="https://www.tumblr.com/widgets/share/tool?canonicalUrl={url}&title={title}" href="https://www.tumblr.com/widgets/share/tool?canonicalUrl=https%3A%2F%2Fweggo.es%2Fnews%2F{{new.slug}}&title=Weggo" class="btn btn-icon btn-secondary btn-tumblr me-2 mb-2">
+              <i class="bx bxl-tumblr"></i>
             </a>
           </div>
           {% if wUser.username in new.likes %}

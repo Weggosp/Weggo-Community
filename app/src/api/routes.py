@@ -40,24 +40,7 @@ def login():
     except Exception as e:
         return (e)
 
-from flask_dance.contrib.google import google
-@api_wg.route('/login-google', methods=['GET', 'POST'])
-def login_google():
-    if not google.authorized:
-        return redirect(url_for("google.login"))
-    resp = google.get("/oauth2/v2/userinfo")
-    assert resp.ok, resp.text
-    email = resp.json()["email"]
-    # Aquí puedes registrar al usuario en tu base de datos
-    return "You are {email} on Google".format(email=email)
 
-from flask_dance.consumer import oauth_authorized
-from app import google_print
-
-@oauth_authorized.connect_via(google_print)
-def google_logged_in(blueprint, token):
-    next_url = request.args.get("next") or url_for("public.index")
-    return redirect(next_url)
 
 @api_wg.route('/register/user', methods=['GET', 'POST'])
 @anonymous_required
@@ -66,8 +49,10 @@ def register():
     form = UserSignup()
     if request.method == 'POST':
         email=str(form.email.data).lower()
-        if ws.db.users.find_one({'email': email}) is not None:
-            flash(f'El email {email} ya está siendo utilizado','warning')
+        username=str(form.username.data).lower()
+
+        if ws.db.users.find_one({'$or': [{'email': email}, {'username': form.username.data}]}) is not None:
+            flash(f'El email {email} o nombre de usuario {username} ya está siendo utilizado','warning')
             return redirect(url_for('auth.register'))
         else:
             hash_password = bcrypt.hashpw(str(form.password.data).encode('utf-8'), bcrypt.gensalt())
@@ -83,7 +68,7 @@ def register():
                 'password': hash_password,
                 'username': form.username.data,
             }
-            print(items)
+            
             # Calling the function to insert the information
             # Creating the user and relational documents
             from app.src.auth.models import Models

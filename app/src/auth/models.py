@@ -119,7 +119,11 @@ class Models:
                     'verified': False
                 },
                 'saves': [],
-                'statistics': [],
+                'statistics': {
+                    'posts': 0,
+                    'leafs': 50,
+                    'comments': 0
+                },
                 'reports': [],
                 'access': {
                     'type': "user",
@@ -191,12 +195,18 @@ class Models:
         class Posts:
 
             def create(forum,items,slug,username):
+                ws.db.categories.update_one({'name': items['category']}, {'$push': {
+                    'posts': {
+                        'name': slug,
+                    }
+                }})
+
                 ws.db.forums.update_one({'slug': forum},{'$push': {
                     'posts': {
                         'author': username,
                         'title': items['title'],
                         'slug': slug,
-                        'section': items['section'],
+                        'category': items['category'],
                         'tags': items['tags'],
                         'body': items['body'],
                         'leafs': [],
@@ -206,6 +216,12 @@ class Models:
                         'created': datetime.now()
                     }
                 }})
+
+                ws.db.users.update_one({'username': username}, {'$inc': {
+                    'statistics.posts': 1,
+                    'statistics.leafs': 10
+                }})
+
                 return 200
 
             def find():
@@ -247,8 +263,32 @@ class Models:
                             'created': datetime.now()
                         }
                     }})
+
+                    ws.db.users.update_one({'username': items['username']}, {'$inc': {
+                        'statistics.comments': 1
+                    }})
+
                     return 200
 
+            class Actions:
+                
+                def give_leaf(items):
+                    print(items)
+                    ## DECREMENTA
+                    ws.db.users.update_one({'username': items['from']}, {'$inc': {
+                        'statistics.leafs': -1
+                    }})
+
+                    ## INCREMENTA
+                    ws.db.forums.update_one({'slug': items['forum'], 'posts.slug': items['post']}, {'$push': {
+                        'posts.$.leafs': items['from']
+                    }})
+
+                    ws.db.users.update_one({'username': items['to']}, {'$inc': {
+                        'statistics.leafs': 1
+                    }})
+
+                    return 200 
 
         class Newsletter:
             ## THIS FUNCTIONS IS ONLY TO ANONYMOUS USERS
@@ -297,15 +337,9 @@ class Models:
         class Forum:
 
             def create(slug,items):
-                ws.db.categories.update_one({'name': items['category']}, {'$push': {
-                    'forums': {
-                        'name': items['name'],
-                    }
-                }})
                 id = functions.last_forum()
                 if ws.db.forums.insert_one({
                     'slug': slug,
-                    'category': items['category'],
                     'details': {
                         'name': items['name'],
                         'description': items['description'],

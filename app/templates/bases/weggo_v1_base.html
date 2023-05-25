@@ -10,203 +10,204 @@
 <html lang="es">
 <head>
 
-    <!-- Meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="generator" content="Comunidad de Weggo">
-    <meta name="description" content="Únete a nuestra comunidad y descubre los mejores lugares para acampar, comparte tus experiencias y conoce a otros amantes de la vida al aire libre. ¡Viaja con nosotros!🚐🏕️">
-    <meta name="keywords" content="camping, glamping, autocaravanas, caravanas, campers, comunidad camper, viajes en familia, rutas, travel, viajes, aire libre, naturaleza, aventura, acampada, descanso, confort, libertad, paisajes">    
-    <meta name="author" content="Ruben Ayuso">
+  <!-- Meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="generator" content="Comunidad de Weggo">
+  <meta name="description" content="Únete a nuestra comunidad y descubre los mejores lugares para acampar, comparte tus experiencias y conoce a otros amantes de la vida al aire libre. ¡Viaja con nosotros!🚐🏕️">
+  
+  {% block extra_metadatos %}
+  <meta name="keywords" content="camping, glamping, autocaravanas, caravanas, campers, comunidad camper, viajes en familia, rutas, travel, viajes, aire libre, naturaleza, aventura, acampada, descanso, confort, libertad, paisajes">    
+  <meta name="author" content="Ruben Ayuso">
+  {% endblock %}
 
-    <!-- APP configurations -->
-    <meta name="theme-color" content="black" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="white" media="(prefers-color-scheme: light)" />
-    <link rel="manifest" href="/site.webmanifest">
+  <!-- APP configurations -->
+  <meta name="theme-color" content="black" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="white" media="(prefers-color-scheme: light)" />
+  <link rel="manifest" href="/static/site.webmanifest">
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.weggo.es/">
-    <meta property="og:title" content="Comunidad de campers">
-    <meta property="og:description" content="Únete a nuestra comunidad y descubre los mejores lugares para acampar, comparte tus experiencias y conoce a otros amantes de la vida al aire libre. ¡Viaja con nosotros!🚐🏕️">
-    <meta property="og:image" content="https://weggo.es/static/svg/logos/logo-black.svg">
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.weggo.es/">
+  <meta property="og:title" content="Comunidad de campers">
+  <meta property="og:description" content="Únete a nuestra comunidad y descubre los mejores lugares para acampar, comparte tus experiencias y conoce a otros amantes de la vida al aire libre. ¡Viaja con nosotros!🚐🏕️">
+  <meta property="og:image" content="https://weggo.es/static/svg/logos/logo-black.svg">
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://www.weggo.es/">
-    <meta property="twitter:title" content="Comunidad de campers">
-    <meta property="twitter:description" content="Únete a nuestra comunidad y descubre los mejores lugares para acampar, comparte tus experiencias y conoce a otros amantes de la vida al aire libre. ¡Viaja con nosotros!🚐🏕️">
-    <meta property="twitter:image" content="https://weggo.es/static/svg/logos/logo-black.svg">
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://www.weggo.es/">
+  <meta property="twitter:title" content="Comunidad de campers">
+  <meta property="twitter:description" content="Únete a nuestra comunidad y descubre los mejores lugares para acampar, comparte tus experiencias y conoce a otros amantes de la vida al aire libre. ¡Viaja con nosotros!🚐🏕️">
+  <meta property="twitter:image" content="https://weggo.es/static/svg/logos/logo-black.svg">
 
-    <!-- Etiqueta link para favicon -->
-    <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="{{ url_for('static', filename='favicons/favicon.ico') }}">
-    <link rel="shortcut icon" type="image/x-icon" sizes="64x64" href="{{ url_for('static', filename='favicons/favicon-64.ico') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicons/icon-32') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicons/icon-16') }}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', filename='favicons/apple-touch-icon-144') }}">
-    <link rel="apple-touch-icon" sizes="192x192" href="{{ url_for('static', filename='favicons/apple-touch-icon-192') }}">
+  <!-- Etiqueta link para favicon -->
+  <link rel="shortcut icon" type="image/x-icon" sizes="32x32" href="{{ url_for('static', filename='favicons/favicon.ico') }}">
+  <link rel="shortcut icon" type="image/x-icon" sizes="64x64" href="{{ url_for('static', filename='favicons/favicon-64.ico') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicons/icon-32') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicons/icon-16') }}">
+  <link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', filename='favicons/apple-touch-icon-144') }}">
+  <link rel="apple-touch-icon" sizes="192x192" href="{{ url_for('static', filename='favicons/apple-touch-icon-192') }}">
 
-    <title>{% block title %} {{title}} {% endblock %}</title>
+  <title>{% block title %} {{title}} {% endblock %}</title>
 
-    <link rel="stylesheet" media="screen" href="{{url_for('static', filename='css/weggo-base.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/weggo-base.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='vendor/boxicons/css/boxicons.min.css')}}"/>
 
-    <!-- Vendor Styles-->
-    <link rel="stylesheet" media="screen" href="{{url_for('static', filename='vendor/boxicons/css/boxicons.min.css')}}"/>
-    <link rel="stylesheet" media="screen" href="{{url_for('static', filename='vendor/swiper/swiper-bundle.min.css')}}"/>
-    
-    <!-- jQuery-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  {% block css %}
+  {% endblock %}
 
-    <!-- Page loading styles -->
-    <style>
-      @media all and (display-mode: fullscreen) {
-        body {
-          background-color: #000;
-        }
+
+  <!-- Page loading styles -->
+  <style>
+    @media all and (display-mode: fullscreen) {
+      body {
+        background-color: #000;
       }
+    }
 
-      .page-loading {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        -webkit-transition: all .4s .2s ease-in-out;
-        transition: all .4s .2s ease-in-out;
-        background-color: #fff;
-        opacity: 0;
-        visibility: hidden;
-        z-index: 9999;
+    .page-loading {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-transition: all .4s .2s ease-in-out;
+      transition: all .4s .2s ease-in-out;
+      background-color: #fff;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 9999;
+    }
+    .dark-mode .page-loading {
+      background-color: #0b0f19;
+    }
+    .page-loading.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .page-loading-inner {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      -webkit-transition: opacity .2s ease-in-out;
+      transition: opacity .2s ease-in-out;
+      opacity: 0;
+    }
+    .page-loading.active > .page-loading-inner {
+      opacity: 1;
+    }
+    .page-loading-inner > span {
+      display: block;
+      font-size: 1rem;
+      font-weight: normal;
+      color: #9397ad;
+    }
+    .dark-mode .page-loading-inner > span {
+      color: #fff;
+      opacity: .6;
+    }
+    .page-spinner {
+      display: inline-block;
+      width: 2.75rem;
+      height: 2.75rem;
+      margin-bottom: .75rem;
+      vertical-align: text-bottom;
+      border: .15em solid #b4b7c9;
+      border-right-color: transparent;
+      border-radius: 50%;
+      -webkit-animation: spinner .75s linear infinite;
+      animation: spinner .75s linear infinite;
+    }
+    .dark-mode .page-spinner {
+      border-color: rgba(255,255,255,.4);
+      border-right-color: transparent;
+    }
+    @-webkit-keyframes spinner {
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
       }
-      .dark-mode .page-loading {
-        background-color: #0b0f19;
+    }
+    @keyframes spinner {
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
       }
-      .page-loading.active {
-        opacity: 1;
-        visibility: visible;
-      }
-      .page-loading-inner {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%);
-        -webkit-transition: opacity .2s ease-in-out;
-        transition: opacity .2s ease-in-out;
-        opacity: 0;
-      }
-      .page-loading.active > .page-loading-inner {
-        opacity: 1;
-      }
-      .page-loading-inner > span {
-        display: block;
-        font-size: 1rem;
-        font-weight: normal;
-        color: #9397ad;
-      }
-      .dark-mode .page-loading-inner > span {
-        color: #fff;
-        opacity: .6;
-      }
-      .page-spinner {
-        display: inline-block;
-        width: 2.75rem;
-        height: 2.75rem;
-        margin-bottom: .75rem;
-        vertical-align: text-bottom;
-        border: .15em solid #b4b7c9;
-        border-right-color: transparent;
-        border-radius: 50%;
-        -webkit-animation: spinner .75s linear infinite;
-        animation: spinner .75s linear infinite;
-      }
-      .dark-mode .page-spinner {
-        border-color: rgba(255,255,255,.4);
-        border-right-color: transparent;
-      }
-      @-webkit-keyframes spinner {
-        100% {
-          -webkit-transform: rotate(360deg);
-          transform: rotate(360deg);
-        }
-      }
-      @keyframes spinner {
-        100% {
-          -webkit-transform: rotate(360deg);
-          transform: rotate(360deg);
-        }
-      }
-    </style>
+    }
+  </style>
 
-    <!-- Theme mode -->
-    <script>
-      let mode = window.localStorage.getItem('mode'),
-          root = document.getElementsByTagName('html')[0];
-      if (mode !== null && mode === 'light') {
-        root.classList.add('light-mode');
-      } else {
-        root.classList.remove('light-mode');
+  <!-- Theme mode -->
+  <script>
+    let mode = window.localStorage.getItem('mode'),
+        root = document.getElementsByTagName('html')[0];
+    if (mode !== null && mode === 'light') {
+      root.classList.add('light-mode');
+    } else {
+      root.classList.remove('light-mode');
+    }
+  </script>
+
+  <!-- Page loading scripts -->
+  <script>
+    (function () {
+      window.onload = function () {
+        const preloader = document.querySelector('.page-loading');
+        preloader.classList.remove('active');
+        setTimeout(function () {
+          preloader.remove();
+        }, 1000);
+      };
+    })();
+
+    // INSTALACIÓN DE LA PWA 
+    // Inicializa deferredPrompt para su uso más tarde.
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Previene a la mini barra de información que aparezca en smartphones
+      e.preventDefault();
+      // Guarda el evento para que se dispare más tarde
+      deferredPrompt = e;
+      // Actualizar la IU para notificarle al usuario que se puede instalar tu PWA
+      showInstallPromotion();
+      // De manera opcional, envía el evento de analíticos para saber si se mostró la promoción a a instalación del PWA
+      console.log(`'beforeinstallprompt' event was fired.`);
+    });
+
+    window.addEventListener('appinstalled', () => {
+      // Esconder la promoción de instalación de la PWA
+      hideInstallPromotion();
+      // Limpiar el defferedPrompt para que pueda ser eliminado por el recolector de basura
+      deferredPrompt = null;
+      // De manera opcional, enviar el evento de analíticos para indicar una instalación exitosa
+      console.log('PWA was installed');
+    });
+
+    function getPWADisplayMode() {
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+      if (document.referrer.startsWith('android-app://')) {
+        return 'twa';
+      } else if (navigator.standalone || isStandalone) {
+        return 'standalone';
       }
-    </script>
+      return 'browser';
+    }
 
-    <!-- Page loading scripts -->
-    <script>
-      (function () {
-        window.onload = function () {
-          const preloader = document.querySelector('.page-loading');
-          preloader.classList.remove('active');
-          setTimeout(function () {
-            preloader.remove();
-          }, 1000);
-        };
-      })();
-
-      // INSTALACIÓN DE LA PWA 
-      // Inicializa deferredPrompt para su uso más tarde.
-      let deferredPrompt;
-
-      window.addEventListener('beforeinstallprompt', (e) => {
-        // Previene a la mini barra de información que aparezca en smartphones
-        e.preventDefault();
-        // Guarda el evento para que se dispare más tarde
-        deferredPrompt = e;
-        // Actualizar la IU para notificarle al usuario que se puede instalar tu PWA
-        showInstallPromotion();
-        // De manera opcional, envía el evento de analíticos para saber si se mostró la promoción a a instalación del PWA
-        console.log(`'beforeinstallprompt' event was fired.`);
-      });
-
-      window.addEventListener('appinstalled', () => {
-        // Esconder la promoción de instalación de la PWA
-        hideInstallPromotion();
-        // Limpiar el defferedPrompt para que pueda ser eliminado por el recolector de basura
-        deferredPrompt = null;
-        // De manera opcional, enviar el evento de analíticos para indicar una instalación exitosa
-        console.log('PWA was installed');
-      });
-
-      function getPWADisplayMode() {
-        const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-        if (document.referrer.startsWith('android-app://')) {
-          return 'twa';
-        } else if (navigator.standalone || isStandalone) {
-          return 'standalone';
-        }
-        return 'browser';
+    window.matchMedia('(display-mode: standalone)').addEventListener('change', (evt) => {
+      let displayMode = 'browser';
+      if (evt.matches) {
+        displayMode = 'standalone';
       }
-
-      window.matchMedia('(display-mode: standalone)').addEventListener('change', (evt) => {
-        let displayMode = 'browser';
-        if (evt.matches) {
-          displayMode = 'standalone';
-        }
-        // Log display mode change to analytics
-        console.log('DISPLAY_MODE_CHANGED', displayMode);
-      });
-    </script>
+      // Log display mode change to analytics
+      console.log('DISPLAY_MODE_CHANGED', displayMode);
+    });
+  </script>
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-945WMGCSK8"></script>
@@ -223,7 +224,7 @@
 </head>
 
 {% block body %}
-<body class="dark-mode">
+<body class="dark-mode container">
 {% endblock %}
 
   <!-- Page loading spinner -->
@@ -235,7 +236,7 @@
 
   {% block header %}
   <!-- Sign In Modal-->
-  <div class="modal fade" id="connect" tabindex="-1" aria-hidden="true">
+  <div class="modal fade" id="connect" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered p-2 my-0 mx-auto" style="max-width: 950px;">
       <div class="modal-content">
         <div class="modal-body px-0 py-2 py-sm-0">
@@ -245,7 +246,7 @@
               <h2 class="h3 mb-4 mb-sm-5">Conéctate a la<br>comunidad de cámpers.</h2><img class="d-none d-md-block mx-auto" src="{{url_for('static',filename='svg/signin-modal/signin.svg')}}" width="344" alt="Illustration">
               <div class="mt-4 mt-sm-5">¿No tienes cuenta? <a href="#register" data-bs-toggle="modal" data-bs-dismiss="modal">Regístrate aquí</a></div>
             </div>
-            <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5"><a class="btn btn-outline-danger rounded-pill w-100 mb-3 disabled" href="{{url_for('api.login_google')}}"><i class="fi-google fs-lg me-1"></i>Conectarme con Google <span class="ms-2 badge bg-warning fs-xs">¡Próximamente!</span></a>
+            <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5">
               <div class="d-flex align-items-center py-3 mb-3">
                 <hr class="w-100">
                 <div class="px-3"></div>
@@ -276,7 +277,7 @@
     </div>
   </div>
   <!-- Sign Up Modal-->
-  <div class="modal fade" id="register" tabindex="-1" aria-hidden="true">
+  <div class="modal fade" id="register" tabindex="-1" >
     <div class="modal-dialog modal-lg modal-dialog-centered p-2 my-0 mx-auto" style="max-width: 950px;">
       <div class="modal-content">
         <div class="modal-body px-0 py-2 py-sm-0">
@@ -287,7 +288,8 @@
               <img class="d-none d-md-block mx-auto" src="{{url_for('static',filename='svg/signin-modal/signup.svg')}}" width="344" alt="Illustration">
               <div class="mt-sm-4 pt-md-3">¿Ya tienes una cuenta? <a href="#connect" data-bs-toggle="modal" data-bs-dismiss="modal">conéctate</a></div>
             </div>
-            <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5"><a class="btn btn-outline-danger rounded-pill w-100 mb-3 disabled" href="{{url_for('api.login_google')}}"><i class="fi-google fs-lg me-1"></i>Registrarme con Google <span class="ms-2 badge bg-warning fs-xs">¡Próximamente!</span></a>
+            <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
+
               <div class="d-flex align-items-center py-3 mb-3">
                 <hr class="w-100">
                 <div class="px-3">o</div>
@@ -628,7 +630,6 @@
   <script src="{{url_for('static',filename='vendor/rellax/rellax.min.js')}}"></script>
   <script src="{{url_for('static',filename='vendor/parallax-js/dist/parallax.min.js')}}"></script>
   <script src="{{url_for('static',filename='vendor/vanilla-tilt/dist/vanilla-tilt.min.js')}}"></script>
-  <script src="{{url_for('static',filename='vendor/swiper/swiper-bundle.min.js')}}"></script>
 
   {% block scripts %}
   {% endblock %}

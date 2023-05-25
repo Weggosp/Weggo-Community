@@ -1,4 +1,4 @@
-from flask import render_template,flash,request,session,redirect,url_for,abort
+from flask import render_template,flash,request,session,redirect,url_for,abort,send_from_directory
 from flask_breadcrumbs import register_breadcrumb, default_breadcrumb_root
 from app.src.auth.decorators import page_deactivated
 from werkzeug.urls import url_parse
@@ -44,45 +44,22 @@ default_breadcrumb_root(public_wg, '.')
 @public_wg.route("/", methods=['GET','POST'])
 @register_breadcrumb(public_wg, '.', 'Comunidad')
 def index():
-    news = []
-    news2 = []
-
-    for i in ws.db.news.find().limit(9).sort("likes",-1):
-        news.append({
-            'title': i['title'],
-            'slug': i['slug'],
-            'section': i['section'],
-            'shortDescription': i['shortDescription'],
-            'likes': i['likes'],
-            'comments': i['comments'],
-            'shares': i['shares']
-        })
-
-    for i in ws.db.news.find().limit(9).sort("created",-1):
-        news2.append({
-            'title': i['title'],
-            'slug': i['slug'],
-            'section': i['section'],
-            'slug': i['slug'],
-            'created': i['created']
-        })
-
     if 'community_index' in session:
-        forums = []
-        for i in ws.db.forums.find().sort("show", 1):
-            forums.append(i)
-
-        categories = []
-        for i in ws.db.categories.find():
-            categories.append(i)
-
-        return render_template('landing-community.html',
-        title="Comunidad de Weggo",   
-        returned='community',
-        now=datetime.now(),str=str,
-        forums=forums,categories=categories,news=news2,
-        favorite_set_cookie_off=True)
+        return redirect(url_for('public.community'))
     else:
+        news = []
+
+        for i in ws.db.news.find().limit(9).sort("likes",-1):
+            news.append({
+                'title': i['title'],
+                'slug': i['slug'],
+                'section': i['section'],
+                'shortDescription': i['shortDescription'],
+                'likes': i['likes'],
+                'comments': i['comments'],
+                'shares': i['shares']
+            })
+
         users = []
         leafs = []
         for i in ws.db.users.find():
@@ -90,13 +67,32 @@ def index():
         for i in ws.db.leafs.find():
             leafs.append(1)
 
-        if request.method == 'POST':
-            session['community_index']=True
-            return redirect(url_for("public.index"))
         return render_template('landing.html',
         title="Weggo España",
         header_landing=True,
         users=users,leafs=leafs,news=news)
+
+
+@public_wg.route("/comunidad")
+@public_wg.route("/comunidad/", methods=['GET','POST'])
+@register_breadcrumb(public_wg, '.community', 'Comunidad')
+def community():
+    session['community_index']=True
+
+    forums = []
+    for i in ws.db.forums.find().sort("show", 1):
+        forums.append(i)
+
+    categories = []
+    for i in ws.db.categories.find():
+        categories.append(i)
+
+    return render_template('landing-community.html',
+    title="Comunidad de Weggo",   
+    returned='community',
+    now=datetime.now(),str=str,ws=ws,
+    forums=forums,categories=categories,
+    favorite_set_cookie_off=True)
 
 class Sections:
 
@@ -288,21 +284,7 @@ class Pages:
 
 
     class Footer:
-
-
-        @public_wg.route("/help")
-        @register_breadcrumb(public_wg, '.support', 'Soporte')
-        def support():
-            return render_template("pages/support.html")
-    
-    
-        @public_wg.route("/tickets")
-        @register_breadcrumb(public_wg, '.tickets', 'Incidencias')
-        @page_deactivated
-        def support_ticket():
-            return render_template("pages/support.html")
  
-
         @public_wg.route("/faq")
         @register_breadcrumb(public_wg, '.faq', 'FAQ')
         def support_faq():
@@ -326,6 +308,9 @@ class Pages:
         def terms():
             return render_template("pages/policy-terms.html")
 
+@app.route('/robots.txt')
+def static_from_root():
+    return send_from_directory(app.static_folder, request.path[1:])
 
 @app.route("/sitemap.xml")
 def xml_sitemap():
@@ -343,21 +328,29 @@ def xml_sitemap():
     # Static routes with static content
     static_urls = list()
     for rule in app.url_map.iter_rules():
-        url = {
-            "loc": f"{host_base}{str(rule)}"
-        }
-        static_urls.append(url)
+        if not any(str(rule).startswith(x) for x in ['/api/', '/a/', '/w/', '/static/', '/dropzone/', '/panel/','/upload/']):
+            url = {
+                "loc": f"{host_base}{str(rule)}"
+            }
+            static_urls.append(url)
 
     # Dynamic routes with dynamic content
     dynamic_urls = list()
-    offers = ws.db.offers.find({'status': 'active'})
-    for offer in offers:
+    forums = ws.db.forums.find()
+    for forum in forums:
         url = {
-            "title": f"{offer['information']['name']}",
-            "loc": f"{host_base}/offers/{offer['information']['name']}/",
-            "lastmod": offer['created'].strftime("%Y-%m-%dT%H:%M:%SZ")
+            "title": f"{forum['details']['name']}",
+            "loc": f"{host_base}/{forum['slug']}/",
+            "lastmod": forum['created'].strftime("%Y-%m-%dT%H:%M:%SZ")
             }
         dynamic_urls.append(url)
+        for post in forum['posts']:
+            url = {
+                "title": f"{post['title']}",
+                "loc": f"{host_base}/{forum['slug']}/{post['slug']}/",
+                "lastmod": post['created'].strftime("%Y-%m-%dT%H:%M:%SZ")
+                }
+            dynamic_urls.append(url)
 
     xml_sitemap = render_template("/sitemap.xml", static_urls=static_urls, dynamic_urls=dynamic_urls, host_base=host_base) # dynamic_urls=dynamic_urls
     response = make_response(xml_sitemap)

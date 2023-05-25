@@ -3,6 +3,10 @@
 {% block header_pages %}
 {% endblock %}
 
+{% block body %}
+<body class="dark-mode">
+{% endblock %}
+
 {% block content %}
 <!-- Page custom styles -->
 <style>
@@ -52,7 +56,7 @@
 <section class="position-relative d-flex align-items-center min-vh-100 overflow-hidden jarallax pt-xl-3" data-jarallax data-speed="0.4">
 
   <!-- Parallax img -->
-  <div class="jarallax-img opacity-80" style="background-image: url(../../static/img/bgs/night-bg.jpg);"></div>
+  <div class="jarallax-img opacity-80" style="background-image: url(../../static/img/bgs/night-bg.webp);"></div>
 
   <!-- Overlay bg -->
   <span class="position-absolute top-0 start-0 w-100 h-100 zindex-1"></span>
@@ -64,7 +68,7 @@
     <div class="row mb-xxl-5 py-md-4 py-lg-5">
       <div class="col-lg-6 col-md-7 pt-3 mt-4 mt-md-4 pt-md-0 pb-3 pb-md-0 mb-4 mb-md-5">
         <div class="pt-3 mt-5 mt-md-1 mb-3 fs-lg text-light">
-          <img src="../../static/svg/flame.svg" width="24" alt="status icon" class="mt-n1 me-1">
+          <img src="../../static/svg/flame.svg" width="24" height="24" alt="status icon" class="mt-n1 me-1">
           <strong class="fs-sm">Trending</strong>
         </div>
         <h1 class="display-5 pb-md-3">Comunidad de campistas en España</h1>
@@ -86,13 +90,10 @@
 
           </div>
         </div>
-        <form action="" method="POST">
-          <button type="submit" class="btn btn-lg btn-primary">
-            Entrar a la comunidad
-            <i class="bx bx-right-arrow-alt ms-2 me-n1 lead"></i>
-          </button>
-        </form>
-
+        <a href="{{url_for('public.community')}}" type="submit" class="btn btn-lg btn-primary">
+          Entrar a la comunidad
+          <i class="bx bx-right-arrow-alt ms-2 me-n1 lead"></i>
+        </a>
       </div>
       
       
@@ -122,9 +123,8 @@
                         <span class="fs-sm badge bg-success">¡!</span>
                       </div>
                       <h3 class="h5 mb-0">
-                        <a href="{{url_for('public.news_single', slug=i.slug)}}" class="stretched-link">{{i.title}}</a>
+                        <a href="{{url_for('public.news_single', slug=i.slug)}}" class="stretched-link">{{i.title[0:45]}}..</a>
                       </h3>
-                      <lead>{{i.shortDescription}}</lead>
                     </div>
                     <div class="card-footer d-flex align-items-center py-4 text-muted border-top-0">
                       <div class="d-flex align-items-center me-3">
@@ -134,10 +134,6 @@
                       <div class="d-flex align-items-center me-3">
                         <i class="bx bx-comment fs-lg me-1"></i>
                         <span class="fs-sm">{{i.comments|count}}</span>
-                      </div>
-                      <div class="d-flex align-items-center">
-                        <i class="bx bx-share-alt fs-lg me-1"></i>
-                        <span class="fs-sm">{{i.shares}}</span>
                       </div>
                     </div>
                   </article>

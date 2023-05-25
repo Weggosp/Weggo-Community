@@ -32,8 +32,8 @@
     ],
     "start_url": "./",
     "id": "Weggo Beta",
-    "scope": "./",
+    "scope": "https://weggo.es/",
     "display": "fullscreen",
-    "theme_color": "#000",
-    "background_color": "#000"
- }
+    "theme_color": "black",
+    "background_color": "black"
+}

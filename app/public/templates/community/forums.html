@@ -6,6 +6,7 @@
 <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
 {% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='vendor/swiper/swiper-bundle.min.css')}}"/>
 {% endblock %}
 
 {% block content %}
@@ -1236,8 +1237,8 @@
                                     </div>
                                     <div class="col col-md-5">
                                       <div class="mb-4">
-                                        <label class="form-label" for="post-section">Sección</label>
-                                        <select class="form-select" name="post_section" required>
+                                        <label class="form-label" for="post-category">Categoría</label>
+                                        <select class="form-select" name="post_category" required>
                                           <option value="">Elige...</option>
                                           {% for i in categories %}
                                           <option value="{{i.name}}">{{i.name}}</option>
@@ -1456,7 +1457,11 @@
                             <div class="card-body row border-0 pb-0">
                               <button class="btn btn-outline-secondary rounded-circle btn-icon me-3 border-0 d-none d-md-block" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tema fijado"><i class='bx bx-pin'></i></button>
                               <button class="rounded-circle btn btn-light btn-icon me-3 d-none d-md-block" type="button">
-                                  <img src="{{url_for('static',filename='img/avatars/18.jpg')}}" class="d-block rounded-circle" width="40" alt="Usuario">
+                                {% if i.author_avatar %}
+                                <img src="{{url_for('static',filename='img/avatars/18.jpg')}}" class="d-block rounded-circle" width="40" alt="Usuario">
+                                {% else %}
+                                <img src="{{url_for('static',filename='img/avatars/anonymous.png')}}" class="d-block rounded-circle" width="40" alt="Usuario">
+                                {% endif %}
                               </button>
 
                               <div class="ms-md-2 col d-none d-md-block">
@@ -1587,7 +1592,11 @@
                           <div class="card bg-secondary">
                             <div class="card-body row border-0 pb-0">
                               <button class="rounded-circle btn btn-light btn-icon me-3 d-none d-md-block" type="button">
-                                  <img src="{{url_for('static',filename='img/avatars/18.jpg')}}" class="d-block rounded-circle" width="40" alt="Usuario">
+                                {% if i.author_avatar %}
+                                <img src="{{url_for('static',filename='img/avatars/18.jpg')}}" class="d-block rounded-circle" width="40" alt="Usuario">
+                                {% else %}
+                                <img src="{{url_for('static',filename='img/avatars/anonymous.png')}}" class="d-block rounded-circle" width="40" alt="Usuario">
+                                {% endif %}                              
                               </button>
   
                               <div class="ms-md-2 col d-none d-md-block">
@@ -1744,6 +1753,8 @@
 {% endblock %}
 
 {% block scripts %}
+<script src="{{url_for('static',filename='vendor/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{url_for('static',filename='vendor/swiper/swiper-bundle.min.js')}}"></script>
 {% endblock %}
 
 {% block newsletter %}

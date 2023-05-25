@@ -1,139 +1,111 @@
 {% extends 'bases/weggo_v1_base.html' %}
 
-{% block header %}
-{% endblock %}
+  {% block navbar %}
+  {% endblock %}
 
-{% block navbar %}
-{% endblock %}
-
-{% block main %}
-      <main id="content" role="main" class="">
-        <div class="position-fixed top-0 right-0 left-0 bg-img-hero" style="height: 32rem; background-color: #111212">
-          <!-- SVG Bottom Shape -->
-          <figure class="position-absolute right-0 bottom-0 left-0" style="border:none">
-            <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1921 273">
-              <polygon fill="#fff" points="0,273 1921,273 1921,0 "/>
-            </svg>
-          </figure>
-          <!-- End SVG Bottom Shape -->
-        </div>
-
-        <!-- Content -->
-        <div class="container py-5">
-          <a class="d-flex justify-content-center mb-5" href="{{url_for('public.index')}}">
-            <img class="z-index-2" src="{{url_for('static', filename='svg/logos/logo-white.svg')}}" alt="Image Description" style="width: 10rem;">
-          </a>
-
-          <div class="row justify-content-center">
-            <div class="col-md-5 col-lg-5">
-              <!-- Card -->
-              <div class="card card-lg mb-5">
-                <div class="card-body">
-                  <div class="container-fluid">
-                    <div class="row no-gutters">
-                      <div class="col-md-12">
-                    
-                        {% with messages = get_flashed_messages(with_categories=true) %}
-                        {% if messages %}
-                        {% for category, message in messages %}
-                        <section id="messages" class="container">
-                          <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
-                            {{message}} {{email}}
-                            <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                          </div>
-                        </section>
-                        {% endfor %}
-                        {% endif %}
-                        {% endwith %}
-                        <!-- Form -->
-                        <div class="w-100">
-                            <!-- Form -->
-                            <form action="{{url_for('api.login')}}" method="post" class="needs-validation" novalidate>
-
-                            <!-- Title -->
-                            <div class="mb-5 mb-md-7">
-                                <h1 class="h2">Bienvenido de nuevo</h1>
-                                <p>Conéctate a tu cuenta para continuar.</p>
-                            </div>
-                            <!-- End Title -->
-                            
-                            <!-- Form Group -->
-                            <div class="mb-4">
-                              <label class="form-label mb-2" for="signin-email">Correo electrónico o usuario</label>
-                              <input class="form-control" type="text" name="email_or_username" id="signin-email" placeholder="john.doe@example.com / johndoe_0" required>
-                            </div>
-                            <!-- End Form Group -->
-                
-                            <!-- Form Group -->
-                            <div class="mb-4">
-                              <div class="d-flex align-items-center justify-content-between mb-2">
-                                <label class="form-label mb-0" for="signin-password">Contraseña</label><a class="fs-xs" href="{{url_for('auth.recover')}}">Recuperar contraseña</a>
-                              </div>
-                              <div class="password-toggle">
-                                <input class="form-control" type="password" id="signin-password" name="password" placeholder="************" required>
-                                <label class="password-toggle-btn" aria-label="Show/hide password">
-                                  <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
-                                </label>
-                              </div>
-                            </div>                            <!-- End Form Group -->
-                
-                            <!-- Button -->
-                            <div class="row align-items-center ">
-                                <div class="col-sm-6 m-2 mb-sm-0">
-                                  <span class="font-size-1 text-muted">¿Aún no tienes una cuenta?</span>
-                                  <div class="row d-flex">
-                                    <a class="font-size-1 font-weight-bold" href="{{ url_for('auth.register') }}">Regístrate</a>
-                                  </div>
-                                </div>
-                
-                                <div class="row mt-5 mb-0">
-                                <button type="submit" class="btn btn-sm rounded-pill btn-primary">Continuar</button>
-                                </div>
-                            </div>
-                            <!-- End Button -->
-                            </form>
-                            <!-- End Form -->
-                        </div>
-                        <!-- End Form -->
-                      </div>
-                    </div>
+  {% block header %}
+  <header class="header navbar navbar-light navbar-expand-lg position-absolute navbar-sticky">
+    <div class="container px-3 pt-0">
+      <a href="/" class="navbar-brand pe-3">
+        <img src="{{url_for('static',filename='svg/logos/logo.svg')}}" width="110" alt="Weggo">
+      </a>
+      <div id="navbarNav" class="offcanvas offcanvas-end">
+        <div class="offcanvas-body">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Foros</a>
+              <div class="dropdown-menu">
+                <div class="d-sm-flex pt-lg-3">
+                  {% if wForums[0:9] %}
+                  <div class="mega-dropdown-column pt-lg-3 pb-lg-4">
+                    <ul class="list-unstyled mb-0">
+                      {% for i in wForums %}
+                      <li><a href="{{url_for('public.forums', slug=i.slug)}}" class="dropdown-item">{{i.forum[0:24]}}..</a></li>
+                      {% endfor %}
+                    </ul>
                   </div>
+                  {% elif wForums[9:18] %}
+                  <div class="mega-dropdown-column pt-lg-3 pb-lg-4" style="--si-mega-dropdown-column-width: 16rem;">
+                    <ul class="list-unstyled mb-0">
+                      <li><a href="landing-financial.html" class="dropdown-item">Financial Consulting</a></li>
+                    </ul>
+                  </div>
+                  {% elif wForums[18:27] %}
+                  <div class="mega-dropdown-column pt-lg-3 pb-lg-4" style="--si-mega-dropdown-column-width: 16rem;">
+                    <ul class="list-unstyled mb-0">
+                      <li><a href="landing-financial.html" class="dropdown-item">Financial Consulting</a></li>
+                    </ul>
+                  </div>
+                  {% endif %}
                 </div>
               </div>
-              <!-- End Card -->
+            </li>
+          </ul>
+        </div>   
+      </div>
+    </div>
+  </header>
+  {% endblock %}
+
+  {% block body %}
+  <section class="position-relative h-100 pt-5 pb-4">
+    <div class="container d-flex flex-wrap justify-content-center justify-content-xl-start h-100 pt-5">
+      <div class="w-100 align-self-end pt-1 pt-md-4 pb-4" style="max-width: 526px;">
+        <!-- MESSAGES -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <section id="messages" class="">
+          <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+            {{message}}
+            <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </section>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <h1 class="text-center text-xl-start">¡Bienvenido de nuevo!</h1>
+        <p class="text-center text-xl-start pb-3 mb-3">¿Aún no tienes una cuenta? <a href="{{url_for('auth.register')}}">Regístrate aquí.</a></p>
+        <form id="loginForm" action="{{url_for('api.login')}}" class="needs-validation" method="post" novalidate>
+          <div class="position-relative mb-4">
+            <label for="email" class="form-label fs-base">Nombre de usuario o email</label>
+            <input type="text" id="accessOption" name="email_or_username" class="form-control form-control-lg" required>
+            <div class="invalid-feedback position-absolute start-0 top-100">Introduce un acceso válido</div>
+          </div>
+          <div class="mb-4">
+            <label for="password" class="form-label fs-base">Contraseña</label>
+            <div class="password-toggle">
+              <input type="password" id="password" name="password" class="form-control form-control-lg" required>
+              <label class="password-toggle-btn" aria-label="Show/hide password">
+                <input class="password-toggle-check" type="checkbox">
+                <span class="password-toggle-indicator"></span>
+              </label>
+              <div class="invalid-feedback position-absolute start-0 top-100">Introduce una contraseña válida</div>
             </div>
           </div>
-        </div>
-        <!-- End Content -->
-      </main>
+          <div class="mb-4">
+            <div class="form-check">
+              <input type="checkbox" id="remember" class="form-check-input">
+              <label for="remember" class="form-check-label fs-base">Recordar contraseña</label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary shadow-primary btn-lg w-100">Conectarme</button>
+        </form>
+        <a href="{{url_for('auth.recover')}}" class="btn btn-link btn-lg w-100">He olvidado mi contraseña</a>
 
-      {% block page_js %}
-      <!-- JS Global Compulsory  -->
-      <script src="{{url_for('static',filename='vendor/jquery-validation/dist/jquery.validate.min.js')}}"></script>
-      {% endblock %}
 
-      {% block scripts %}
-      <!-- JS Plugins Init. -->
-      <script>
-        $(document).on('ready', function () {
+      </div>
+      <div class="w-100 align-self-end">
+        <p class="nav d-block fs-xs text-center text-xl-start pb-2 mb-0">
+          2023 &copy; Comunidad de campers. 
+          <a class="nav-link d-inline-block p-0" href="https://weggo.es/" target="_blank" rel="noopener">Weggo España</a>
+        </p>    
+      </div>
+    </div>
+  
+    <div class="position-absolute top-0 end-0 w-50 h-100 bg-position-center bg-repeat-0 bg-size-cover d-none d-xl-block" style="background-image: url(../../../static/img/bgs/night-bg.webp);"></div>
+  </section>
+  {% endblock %}
 
-          // INITIALIZATION OF FORM VALIDATION
-          // =======================================================
-          $('.js-validate').each(function() {
-            $.HSCore.components.HSValidation.init($(this), {
-              rules: {
-                confirmPassword: {
-                  equalTo: '#signupPassword'
-                }
-              }
-            });
-          });
-        });
-
-        if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) document.write('<script src="{{url_for("static",filename="vendor/babel-polyfill/polyfill.min.js")}}"><\/script>');
-      </script>
-      {% endblock %}
-{% endblock %}
-
-{% block footer %}
-{% endblock %}
+  {% block footer %}
+  {% endblock %}

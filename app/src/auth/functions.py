@@ -109,6 +109,12 @@ class Functions:
 
                     return 200
 
+            class Actions:
+
+                def give_leaf(items):
+                    Models.Users.Posts.Actions.give_leaf(items)
+
+                    return 200
     class News:
 
         class Comments:

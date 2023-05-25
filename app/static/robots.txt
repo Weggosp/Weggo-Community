@@ -1,6 +1,11 @@
 user-agent: *
 disallow: /node_modules/
 
+User-agent: Googlebot
+Disallow: /api/
+Disallow: /w/
+Disallow: /a/
+
 user-agent: magicsearchbot
 disallow: /ts/
 
